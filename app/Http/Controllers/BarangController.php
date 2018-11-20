@@ -50,7 +50,6 @@ class BarangController extends RestController
             'kategori' => 'required',
             'harga' => 'required',
             'stock'=> 'required',
-            'image_name' => 'required',
             'deskripsi' => 'required',
         ]);
 
@@ -63,6 +62,9 @@ class BarangController extends RestController
                 $name=time().$file->getClientOriginalName();
                 $file->move(public_path().'/images/', $name);
                 $barangs->image_name=$name;
+            }
+            else{
+                $barangs->image_name='';
             }
 
             $barangs->namabarang=$request->get('namabarang');

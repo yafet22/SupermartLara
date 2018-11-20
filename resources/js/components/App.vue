@@ -1,40 +1,42 @@
 <template>
     <div>
-        <header-index></header-index>
-        <router-view></router-view>
-        <footer-index></footer-index>
+        <header-admin v-if="user.role =='admin'"></header-admin>
+        <header-login v-else-if="user.role =='user'" v-bind:data="user" ></header-login>
+        <header-index v-else></header-index>
+        <router-view :key="$route.fullPath"></router-view>
+        <footer-admin v-if="user.role =='admin'"></footer-admin>
+        <footer-login v-else-if="user.role =='user'"></footer-login>
+        <footer-index v-else></footer-index>
     </div>
 </template>
 
 <script>
-import HeaderIndex from './index/HeaderIndex.vue';
-import HeaderLogin from './afterlogin/HeaderLogin.vue';
-import FooterIndex from './index/FooterIndex.vue';
+import HeaderLogin from './afterlogin/HeaderLogin.vue'
 import FooterLogin from './afterlogin/FooterLogin.vue'
-import ContentIndex from './index/ContentIndex.vue';
-import { mapGetters,mapState } from 'vuex'
+import HeaderIndex from './index/HeaderIndex.vue';
+import FooterIndex from './index/FooterIndex.vue';
+import HeaderAdmin from './admin/HeaderAdmin.vue';
+import FooterAdmin from './admin/FooterAdmin.vue';
+import {mapActions, mapState} from 'vuex'
+
 export default {
-    data() {
-      return {
-          
-      }
-    },
     methods: {
       
     },
     components: {
       HeaderIndex,
       FooterIndex,
-      ContentIndex,
       HeaderLogin,
       FooterLogin,
+      HeaderAdmin,
+      FooterAdmin,
     },
-    computed: {
+     computed:{
         ...mapState({
-            role : state => state.data.role
-        })
-    }
-    
+            user : state => state.LoggedUser.data
+        }),
+    },
+
     
 }
 </script>

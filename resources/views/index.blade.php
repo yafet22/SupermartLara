@@ -5,24 +5,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>SuperMart</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="img/icon-tab.png" rel="shortcut icon">
-    <script src="assets/jquery.js"></script>
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="assets/popper.js"></script>
-    <script src="assets/bootstrap.js"></script>
-    <script src="assets/mdb.js"></script>
+    <link href="{{ asset('img/icon-tab.png') }}" rel="shortcut icon">
+    <script src="{{ asset('assets/jquery.js') }}"></script>
+    <script src="{{ asset('js/jquery.min.js') }}"></script>
+    <!-- <script src="js/jquery.min.js"></script> -->
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <!-- <script src="js/bootstrap.min.js"></script> -->
+    <script src="{{ asset('assets/popper.js') }}"></script>
+    <!-- <script src="assets/popper.js"></script> -->
+    <script src="{{ asset('assets/bootstrap.js') }}"></script>
+    <!-- <script src="assets/bootstrap.js"></script> -->
+    <script src="{{ asset('assets/mdb.js') }}"></script>
+    <!-- <script src="assets/mdb.js"></script> -->
     
-    <link rel="stylesheet" href="style/style.css">
-    <link rel="stylesheet" href="style/bootstrap.min.css">
-    <link rel="stylesheet" href="style/bootstrap.css">
-    <link rel="stylesheet" href="style/mdb.css">
-    <link rel="stylesheet" href="webfonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ asset('style/style.css') }}">
+    <!-- <link rel="stylesheet" href="style/style.css"> -->
+    <link rel="stylesheet" href="{{ asset('style/bootstrap.min.css') }}">
+    <!-- <link rel="stylesheet" href="style/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="{{ asset('style/bootstrap.css') }}">
+    <!-- <link rel="stylesheet" href="style/bootstrap.css"> -->
+    <link rel="stylesheet" href="{{ asset('style/mdb.css') }}">
+    <!-- <link rel="stylesheet" href="style/mdb.css"> -->
+    <link rel="stylesheet" href="{{ asset('webfonts/font-awesome-4.7.0/css/font-awesome.min.css') }}">
+    <!-- <link rel="stylesheet" href="webfonts/font-awesome-4.7.0/css/font-awesome.min.css"> -->
 </head>
 <body>
     <div id="app">
     </div>
-
     <script src="{{ asset('js/app.js') }}"></script>
 </body>
 <script>

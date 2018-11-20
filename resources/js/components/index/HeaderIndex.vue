@@ -30,7 +30,7 @@
                             <li class="menu">Makanan</li>
                             <div class="menu-content">
                                 <li><a href="#">Makanan Ringan</a></li>
-                                <li><a href="#">Makanan Beku</a></li>
+                                <router-link style="color:black" :to="{name: 'panelbarang',  params: {  kategori: 'MakananBeku' } }"><li><a href="#">Makanan Beku</a></li></router-link>
                                 <li><a href="#">Makanan Pokok</a></li>
                             </div>
                         </div>
@@ -38,9 +38,9 @@
                         <div class="dropdown">
                             <li class="menu">Minuman</li>
                             <div class="menu-content">
-                                <li><a href="#">Minuman Ringan</a></li>
-                                <li><a href="#">Minuman Isotonik</a></li>
-                                <li><a href="#">Minuman Soda</a></li>
+                                <router-link style="color:black" :to="{name: 'panelbarang',  params: {  kategori: 'MinumanRingan' } }"><li><a href="#">Minuman Ringan</a></li></router-link>
+                                <router-link style="color:black" :to="{name: 'panelbarang',  params: {  kategori: 'MinumanIsotonik' } }"><li><a href="#">Minuman Isotonik</a></li></router-link>
+                                <router-link style="color:black" :to="{name: 'panelbarang',  params: {  kategori: 'MinumanSoda' } }"><li><a href="#">Minuman Soda</a></li></router-link>
                             </div>
                         </div>
 

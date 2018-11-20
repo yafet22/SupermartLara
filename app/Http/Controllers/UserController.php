@@ -84,7 +84,7 @@ class UserController extends RestController
                 $users->saldo=0;
                 $users->save();
 
-                // Mail::to($users->email)->send(new UserRegistered($users));
+                Mail::to($users->email)->send(new UserRegistered($users));
 
                 $response = $this->generateItem($users);
 
@@ -210,8 +210,14 @@ class UserController extends RestController
             $users = User::where('email',$request->get('email'))->first();
             if (Hash::check($request->get('password'), $users->password))
             {
-                $response = $this->generateItem($users);
-                return $this->sendResponse($response, 201);
+                if($users->aktif=='Y')
+                {
+                    $response = $this->generateItem($users);
+                    return $this->sendResponse($response, 201);
+                }
+                else{
+                    return response()->json('Akun Anda belum aktif');  
+                }
             }
             else{
                 return response()->json('Wrong Password'); 
@@ -222,5 +228,18 @@ class UserController extends RestController
             return $this->sendIseResponse($e->getMessage());
         }
 
+    }
+
+    public function emailverification($kode)
+    {
+        $users = User::where('kode',$kode)->first();
+
+        if($users)
+        {
+            $users->aktif ='Y';
+            $users->save();
+        }
+
+        return null;
     }
 }

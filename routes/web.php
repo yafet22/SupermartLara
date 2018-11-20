@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Controllers\IndexController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,7 +14,9 @@ use App\Http\Controllers\IndexController;
 Route::get('/','IndexController@index');
 Route::get('/login','IndexController@index');
 Route::get('/register','IndexController@index');
+Route::get('verify/{kode}','UserController@emailverification')->name('verifemail');
 Route::get('/{any}',function(){
     return view('index');
 })->where('any','[\/\w\.-]*');
+
 
