@@ -18,6 +18,8 @@ class UserTransformer extends TransformerAbstract
             'id' => $user->id,
             'username' => $user->username,
             'role' => $user->role,
+            'telp' => $user->telp,
+            'aktif' => $user->aktif,
             'email' => $user->email,
             'session' => $user->session,
             'image_name' => $user->image_name,

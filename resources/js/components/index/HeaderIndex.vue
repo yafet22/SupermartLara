@@ -3,10 +3,10 @@
         <nav class="navbar navbar-expand-lg navbar-dark p-0" style="background-color:#22A7F0">
             <div class="container">
                 <div class="navbar-header">
-                    <router-link  class="navbar-brand" to="/"><img id="logo" src="img/logo-supermarket-supermart.png" alt="logo-imk-supermarket"></router-link>
+                    <router-link  class="navbar-brand" to="/"><img id="logo" src="http://localhost:8000/img/logo-supermarket-supermart.png" alt="logo-imk-supermarket"></router-link>
                 </div>
                 <div class="img-wrapper float-right mt-1">
-                    <img src="img/menu.png" id="menu-icon-phone" alt="icon-menu" style="width: 40px">
+                    <img src="http://localhost:8000/img/menu.png" id="menu-icon-phone" alt="icon-menu" style="width: 40px">
                     </div>
                 <div class="collapse navbar-collapse collapse" id="navbarSupportedContent">
                     <ul class="nav navbar-nav mr-auto">

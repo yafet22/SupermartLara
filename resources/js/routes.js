@@ -6,6 +6,8 @@ import PanelBarang1 from './components/index/PanelBarangOld.vue'
 import Layout from './components/index/LayoutBarang.vue'
 import PanelBarangAdmin from './components/admin/PanelBarangAdmin.vue'
 import LayoutAdmin from './components/admin/LayoutBarangAdmin.vue'
+import DataBarang from './components/admin/DataBarang.vue'
+import DataUser from './components/admin/DataUser.vue'
 
 export const routes = [
     {
@@ -24,30 +26,24 @@ export const routes = [
         component : Register
     },
     {
+        name : 'databarang',
+        path : '/databarang',
+        component : DataBarang
+    },
+    {
+        name : 'datauser',
+        path : '/datauser',
+        component : DataUser
+    },
+    {
         name : 'panelbarang',
         path : '/:kategori',
         component : PanelBarang
     },
     {
-        name : 'panelbarang1',
-        path : '/barang',
-        component : PanelBarang1,
-        children: [
-            {
-                name : 'LayoutBarang',
-                path : '/:kategori',
-                component : Layout,
-            },
-        ]
-    },
-    {
         name : 'panelbarangadmin',
-        path : ':kategori',
+        path : '/admin/:kategori',
         component : PanelBarangAdmin
     },
-    // {
-    //     name : 'Layout',
-    //     path : '/layout',
-    //     component : Layout
-    // },
+
 ]
