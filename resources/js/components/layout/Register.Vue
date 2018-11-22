@@ -69,15 +69,15 @@
 import Auth from '../../auth'
 
 export default {
-    data(){
-        return{
-            username:'',
-            telp:'',
-            email:'',
-            password:'',
-            checkpassword:''
-        }
-    },
+data(){
+    return{
+        username:'',
+        telp:'',
+        email:'',
+        password:'',
+        checkpassword:''
+    }
+},
     mounted() {
         $(document).ready(function(){
         // Prepare the preview for profile picture

@@ -15,19 +15,19 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li id="profiledrop" class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src="#" class="img-display mx-2" style="border-radius:50%;width:35px;height:35px" />
+                                <img v-bind:src="'/image/profile/' + this.$auth.user().image_name" class="img-display mx-2" style="border-radius:50%;width:35px;height:35px" /> ADMIN
                             </a>
                             <div class="dropdown-menu w-100" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="home-admin.php"><img id="shop-chart" src="img/homelogo.png" class="img-display mx-2" style="width:30px;height:30px;" alt="home-logo"><span style="margin-left: 25px;
+                            <a class="dropdown-item" href="home-admin.php"><img id="shop-chart" src="http://localhost:8000/img/homelogo.png" class="img-display mx-2" style="width:30px;height:30px;" alt="home-logo"><span style="margin-left: 25px;
                             font-size: 18px;">Home</span></a>
-                            <a class="dropdown-item" href="profile-admin.php"><img src="img/user-logo.png" class="img-display mx-2" style="width:30px;height:30px;" alt="user-logo"><span style="margin-left: 25px;
+                            <a class="dropdown-item" href="profile-admin.php"><img src="http://localhost:8000/img/user-logo.png" class="img-display mx-2" style="width:30px;height:30px;" alt="user-logo"><span style="margin-left: 25px;
                             font-size: 18px;">Profile</span></a>
                             <router-link class="dropdown-item" to="/databarang" >
-                                <img id="shop-chart" src="img/shoplist.png" class="img-display mx-2" style="width:28px;height:30px;" alt="shop-chart"><span style="margin-left: 4px;
+                                <img id="shop-chart" src="http://localhost:8000/img/shoplist.png" class="img-display mx-2" style="width:28px;height:30px;" alt="shop-chart"><span style="margin-left: 4px;
                                 font-size: 18px;">Admin Panel</span>
                             </router-link>
                             <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="logout-proses.php"><img id="logout-logo" src="img/logoutlogo.png" class="img-display mx-2" style="width:36px;height:30px;" alt="logout-logo"><span style="margin-left: 14px;
+                                <a class="dropdown-item" @click.prevent="$auth.logout()" ><img id="logout-logo" src="http://localhost:8000/img/logoutlogo.png" class="img-display mx-2" style="width:36px;height:30px;" alt="logout-logo"><span style="margin-left: 14px;
                                 font-size: 18px;">Log Out</span></a>
                             </div>
                         </li>
@@ -43,9 +43,9 @@
                         <div class="dropdown">
                             <li class="menu">Makanan</li>
                             <div class="menu-content">
-                                <li><a href="../makanan/makanan-ringan-admin.php">Makanan Ringan</a></li>
-                                <li><a href="../makanan/makanan-beku-admin.php">Makanan Beku</a></li>
-                                <li><a href="../makanan/makanan-pokok-admin.php">Makanan Pokok</a></li>
+                                <router-link style="color:black" :to="{name: 'panelbarangadmin',  params: {  kategori: 'MakananRingan' } }"><li><a href="#">Makanan Ringan</a></li></router-link>
+                                <router-link style="color:black" :to="{name: 'panelbarangadmin',  params: {  kategori: 'MakananBeku' } }"><li><a href="#">Makanan Beku</a></li></router-link>
+                                <router-link style="color:black" :to="{name: 'panelbarangadmin',  params: {  kategori: 'MakananPokok' } }"><li><a href="#">Makanan Pokok</a></li></router-link>
                             </div>
                         </div>
 
@@ -54,44 +54,44 @@
                             <div class="menu-content">
                                 <router-link style="color:black" :to="{name: 'panelbarangadmin',  params: {  kategori: 'MinumanRingan' } }"><li><a href="#">Minuman Ringan</a></li></router-link>
                                 <router-link style="color:black" :to="{name: 'panelbarangadmin',  params: {  kategori: 'MinumanIsotonik' } }"><li><a href="#">Minuman Isotonik</a></li></router-link>
-                                <li><a href="../minuman/minuman-soda-admin.php">Minuman Soda</a></li>
+                                <router-link style="color:black" :to="{name: 'panelbarangadmin',  params: {  kategori: 'MinumanSoda' } }"><li><a href="#">Minuman Soda</a></li></router-link>
                             </div>
                         </div>
 
                         <div class="dropdown">
                             <li class="menu">Kesehatan</li>
                             <div class="menu-content">
-                                <li><a href="../kesehatan/perawatan-diri-admin.php">Perawatan Diri</a></li>
-                                <li><a href="../kesehatan/perawatan-badan-admin.php">Perawatan Badan</a></li>
-                                <li><a href="../kesehatan/perawatan-rambut-admin.php">Perawatan Rambut</a></li>
-                                <li><a href="../kesehatan/perawatan-pria-admin.php">Perawatan Pria</a></li>
-                                <li><a href="../kesehatan/obat-obatan-admin.php">Obat - obatan</a></li>
+                                <router-link style="color:black" :to="{name: 'panelbarangadmin',  params: {  kategori: 'PerawatanDiri' } }"><li><a href="#">Perawatan Diri</a></li></router-link>
+                                <router-link style="color:black" :to="{name: 'panelbarangadmin',  params: {  kategori: 'PerawatanBadan' } }"><li><a href="#">Perawatan Badan</a></li></router-link>
+                                <router-link style="color:black" :to="{name: 'panelbarangadmin',  params: {  kategori: 'PerawatanRambut' } }"><li><a href="#">Perawatan Rambut</a></li></router-link>
+                                <router-link style="color:black" :to="{name: 'panelbarangadmin',  params: {  kategori: 'PerawatanPria' } }"><li><a href="#">Perawatan Pria</a></li></router-link>
+                                <router-link style="color:black" :to="{name: 'panelbarangadmin',  params: {  kategori: 'Obat' } }"><li><a href="#">Obat - obatan</a></li></router-link>
                             </div>
                         </div>
 
                         <div class="dropdown">
                             <li class="menu">Elektronik</li>
                             <div class="menu-content">
-                                <li><a href="../elektronik/televisi-admin.php">Televisi</a></li>
-                                <li><a href="../elektronik/aksesoris-komputer-admin.php">Aksesoris Komputer</a></li>
-                                <li><a href="../elektronik/aksesoris-handphone-admin.php">Aksesoris Handphone</a></li>
+                                <router-link style="color:black" :to="{name: 'panelbarangadmin',  params: {  kategori: 'Televisi' } }"><li><a href="#">Televisi</a></li></router-link>
+                                <router-link style="color:black" :to="{name: 'panelbarangadmin',  params: {  kategori: 'AksesorisKomputer' } }"><li><a href="#">Aksesoris Komputer</a></li></router-link>
+                                <router-link style="color:black" :to="{name: 'panelbarangadmin',  params: {  kategori: 'AksesorisHP' } }"><li><a href="#">Aksesoris Handphone</a></li></router-link>
                             </div>
                         </div>
 
                         <div class="dropdown">
                             <li class="menu">Kebutuhan Rumah Tangga</li>
                             <div class="menu-content">
-                                <li><a href="../kebutuhan rumah tangga/peralatan-kebersihan-admin.php">Peralatan Kebersihan</a></li>
-                                <li><a href="../kebutuhan rumah tangga/peralatan-makan-admin.php">Peralatan Makan</a></li>
-                                <li><a href="../kebutuhan rumah tangga/peralatan-rumah-tangga-admin.php">Peralatan Rumah Tangga</a></li>
+                                <router-link style="color:black" :to="{name: 'panelbarangadmin',  params: {  kategori: 'PeralatanKebersihan' } }"><li><a href="#">Peralatan Kebersihan</a></li></router-link>
+                                <router-link style="color:black" :to="{name: 'panelbarangadmin',  params: {  kategori: 'PeralatanMakan' } }"><li><a href="#">Peralatan Makan</a></li></router-link>
+                                <router-link style="color:black" :to="{name: 'panelbarangadmin',  params: {  kategori: 'PeralatanRT' } }"><li><a href="#">Peralatan Rumah Tangga</a></li></router-link>
                             </div>
                         </div>
 
                         <div class="dropdown">
                             <li class="menu">Fashion</li>
                             <div class="menu-content">
-                                <li><a href="../fashion/fashion-pria-admin.php">Fashion Pria</a></li>
-                                <li><a href="../fashion/fashion-wanita-admin.php">Fashion Wanita</a></li>
+                                <router-link style="color:black" :to="{name: 'panelbarangadmin',  params: {  kategori: 'FashionPria' } }"><li><a href="#">Fashion Pria</a></li></router-link>
+                                <router-link style="color:black" :to="{name: 'panelbarangadmin',  params: {  kategori: 'FashionWanita' } }"><li><a href="#">Fashion Wanita</a></li></router-link>
                             </div>
                         </div>
 
@@ -108,34 +108,34 @@
                     </div>
                     <hr>
                     <div class="menu-content-sidebar">
-                        <li><a href="../../home-admin.php">Home</a></li>
-                        <li><a href="../../profile-admin.php">Profile</a></li>
-                        <li><a href="../../index-admin.php">Admin Panel</a></li>
-                        <li><a href="../../logout-proses.php">Log Out</a></li>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Profile</a></li>
+                        <li><a href="#">Admin Panel</a></li>
+                        <li><a href="#">Log Out</a></li>
                     </div>
                     <hr>
                     <div class="menu-title">
-                        <a href="../makanan/makanan-ringan-admin.php">Makanan</a>
+                        <a href="#">Makanan</a>
                     </div>
                     <hr>
                     <div class="menu-title">
-                        <a href="../minuman/minuman-ringan-admin.php">Minuman</a>
+                        <a href="#">Minuman</a>
                     </div>
                     <hr>
                     <div class="menu-title">
-                        <a href="../kesehatan/perawatan-diri-admin.php">Kesehatan</a>
+                        <a href="#">Kesehatan</a>
                     </div>        
                     <hr>
                     <div class="menu-title">
-                    <a href="../elektronik/televisi-admin.php">Elektronik</a>
+                    <a href="#">Elektronik</a>
                     </div> 
                     <hr>
                     <div class="menu-title">
-                        <a href="../fashion/fashion-pria-admin.php">Fashion</a>
+                        <a href="#">Fashion</a>
                     </div> 
                     <hr> 
                     <div class="menu-title">
-                    <a href="../kebutuhan rumah tangga/peralatan-kebersihan-admin.php">Peralatan Rumah Tangga</a>
+                    <a href="#">Peralatan Rumah Tangga</a>
                     </div>
                     <hr>
                 </div>

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <header-admin v-if="user.role =='admin'"></header-admin>
+        <header-admin v-if="this.$auth.user().role =='admin'"></header-admin>
         <header-login v-else-if="user.role =='user'" v-bind:data="user" ></header-login>
         <header-index v-else></header-index>
         <router-view :key="$route.fullPath"></router-view>

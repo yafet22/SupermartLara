@@ -60,17 +60,36 @@ export default {
         }
     },
     methods : {
-       async login(){
-           try{
-               await Auth.authenticate(this.email,this.password)
-               console.log('Berhasil Login')
-               alert('Login Berhasil')
-               this.$router.push({ name: 'home'})
-           }catch(err){
-               alert('Email/Password Salah')
-               console.log(err)
-           }
-       },
+        async login(){
+            var app = this
+            this.$auth.login({
+                params: {
+                    email: app.email,
+                    password: app.password
+                }, 
+                success: function () 
+                {
+                    alert('Login Berhasil')
+                },
+                error: function () {
+
+                },
+                rememberMe: true,
+                redirect: '/',
+                fetchUser: true,
+            });       
+        },
+    //    async login(){
+    //        try{
+    //            await Auth.authenticate(this.email,this.password)
+    //            console.log('Berhasil Login')
+    //            alert('Login Berhasil')
+    //            this.$router.push({ name: 'home'})
+    //        }catch(err){
+    //            alert('Email/Password Salah')
+    //            console.log(err)
+    //        }
+    //    },
     }
 }
 </script>

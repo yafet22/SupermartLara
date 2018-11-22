@@ -13,10 +13,6 @@ const mutations = {
         state.data.push(data)
     },
 
-    getBarang(){
-
-    },
-
 };
 
 const actions =  {
@@ -33,7 +29,7 @@ const actions =  {
                 reject(err)
             }
 
-            Http.get('/api/barangs',successCallback,errorCallback)
+            Http.get('/barangs',successCallback,errorCallback)
         })
     },
 
@@ -51,7 +47,7 @@ const actions =  {
                 reject(err)
             }
 
-            Http.post('/api/barangs',payload,successCallback,errorCallback)
+            Http.post('barangs',payload,successCallback,errorCallback)
         })
     },
 
@@ -70,7 +66,7 @@ const actions =  {
                 reject(err)
             }
 
-            Http.delete(`/api/barangs/${id}`, successCallback, errorCallback)
+            Http.delete(`barangs/${id}`, successCallback, errorCallback)
         })
     },
 
@@ -96,7 +92,7 @@ const actions =  {
                 reject(err)
             }
 
-            Http.patch(`/api/barangs/${payload.id}`, data, successCallback, errorCallback)
+            Http.patch('/barangs/'+payload.idbarang, data, successCallback, errorCallback)
         })
     },
 

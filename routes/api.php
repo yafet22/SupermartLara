@@ -24,3 +24,15 @@ Route::resource('users','UserController');
 Route::get('kategori/{kategori}','BarangController@findbykategori');
 
 Route::post('login','UserController@login');
+
+Route::post('auth/login', 'AuthController@login');
+
+Route::group(['middleware' => 'jwt.auth'], function(){
+  Route::get('auth/user', 'AuthController@user');
+  Route::post('auth/logout', 'AuthController@logout');
+});
+
+Route::group(['middleware' => 'jwt.refresh'], function(){
+  Route::get('auth/refresh', 'AuthController@refresh');
+});
+

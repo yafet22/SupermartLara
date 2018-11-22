@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/','IndexController@index');
+// Route::get('/','IndexController@index');
 Route::get('/login','IndexController@index');
 Route::get('/register','IndexController@index');
 Route::get('verify/{kode}','UserController@emailverification')->name('verifemail');

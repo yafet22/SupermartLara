@@ -14,7 +14,7 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li id="loginlink" class="nav-item dropdown">
-                            <router-link style="color:white;" to="/login" >Silahkan Login/Register</router-link>
+                            <router-link style="color:white;"  to="/login" >Silahkan Login/Register</router-link>
                         <!-- <p><b> <a href="#" style="color:white;">Silahkan Login/Register</a></b></p> -->
                         </li>
                     </ul>

@@ -75,7 +75,7 @@
                 <div class="col-md-9 order-last mt-2">
                     <div class="row">
                         <div v-for="barang of filtered" v-bind:key="barang['idbarang']" class="card col-md-3 mx-1 p-3">
-                            <img v-bind:src="'/image/' + barang.image_name" class="img-display"/>
+                            <img v-bind:src="'/images/' + barang.image_name" class="img-display"/>
                             <p class="text-center lead">{{ barang.namabarang }}</p>
                             <button type="button"  class="btn btn-primary" data-toggle="modal" v-bind:data-target="'#'+barang.idbarang">Info</button>
                         </div>       

@@ -24,7 +24,7 @@ const actions =  {
                 reject(err)
             }
 
-            Http.get('/api/users',successCallback,errorCallback)
+            Http.get('/users',successCallback,errorCallback)
         })
     },
     

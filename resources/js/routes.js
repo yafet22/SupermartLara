@@ -5,7 +5,6 @@ import PanelBarang from './components/index/PanelBarang.vue'
 import PanelBarang1 from './components/index/PanelBarangOld.vue'
 import Layout from './components/index/LayoutBarang.vue'
 import PanelBarangAdmin from './components/admin/PanelBarangAdmin.vue'
-import LayoutAdmin from './components/admin/LayoutBarangAdmin.vue'
 import DataBarang from './components/admin/DataBarang.vue'
 import DataUser from './components/admin/DataUser.vue'
 
@@ -43,6 +42,9 @@ export const routes = [
     {
         name : 'panelbarangadmin',
         path : '/admin/:kategori',
+        meta: {
+            auth: true
+        },
         component : PanelBarangAdmin
     },
 

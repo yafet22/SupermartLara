@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>SuperMart</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="{{ asset('img/icon-tab.png') }}" rel="shortcut icon">
     <script src="{{ asset('assets/jquery.js') }}"></script>
     <script src="{{ asset('js/jquery.min.js') }}"></script>
