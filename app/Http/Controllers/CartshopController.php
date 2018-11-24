@@ -90,6 +90,20 @@ class CartshopController extends RestController
         }
     }
 
+    public function showbyuser($id)
+    {
+        try {
+            $transaksis=Transaksi::where('iduser',$id)->where('status',0)->get()->first();
+            $cartshops=Cartshop::where('idtransaksi',$transaksis->id)->get();
+            $response = $this->generateCollection($cartshops);
+            return $this->sendResponse($response);
+        } catch (ModelNotFoundException $e) {
+            return $this->sendNotFoundResponse('cart_not_found');
+        } catch (\Exception $e) {
+            return $this->sendIseResponse($e->getMessage());
+        }
+    }
+
     /**
      * Display the specified resource.
      *

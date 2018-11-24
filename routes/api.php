@@ -29,6 +29,7 @@ Route::resource('cartshops','CartshopController');
 
 Route::post('add/{id}/{idbarang}','CartshopController@add');
 Route::get('cart/{id}','CartshopController@showbytransaksi');
+Route::get('usercart/{id}','CartshopController@showbyuser');
 
 Route::post('start/{id}','TransaksiController@beli');
 Route::get('finish/{id}','TransaksiController@finish');

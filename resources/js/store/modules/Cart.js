@@ -49,6 +49,44 @@ const actions =  {
             Http.get('/cart/'+id,successCallback, errorCallback)
         })
     },
+    getCartbyuser(context,id){
+        return new Promise((resolve, reject) => {
+
+            const successCallback = (res) => {
+                console.log(res.data.data)
+                context.commit('setSource',res.data.data)
+                resolve()
+            }
+
+            const errorCallback = err => {
+                reject(err)
+            }
+
+            Http.get('/usercart/'+id,successCallback, errorCallback)
+        })
+    },
+
+    addCart(context, payload){
+        return new Promise((resolve,reject) => {
+
+            const data = {
+                jumlah : payload.jumlah,
+            }
+            const successCallback = (res) => {
+                if(res.status === 201){
+                    context.commit('created',res.data.data)
+                    resolve()
+                }
+            }
+
+            const errorCallback = (err) => {
+
+                reject(err)
+            }
+
+            Http.post('/add/'+payload.id+'/'+payload.idbarang,data,successCallback,errorCallback)
+        })
+    },
     
 };
 

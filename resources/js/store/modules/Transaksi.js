@@ -31,7 +31,25 @@ const actions =  {
 
             Http.get('/transaksis',successCallback,errorCallback)
         })
-    }
+    },
+
+    addTransaksi(context, id){
+        return new Promise((resolve,reject) => {
+            const successCallback = (res) => {
+                if(res.status === 201){
+                    context.commit('created',res.data.data)
+                    resolve()
+                }
+            }
+
+            const errorCallback = (err) => {
+
+                reject(err)
+            }
+
+            Http.post('/start/'+id,successCallback,errorCallback)
+        })
+    },
     
 };
 

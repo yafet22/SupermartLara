@@ -2,6 +2,7 @@ import ContentIndex from './components/index/ContentIndex.vue'
 import Login from './components/layout/Login.vue'
 import Register from './components/layout/Register.vue'
 import TopUp from './components/layout/TopUp.vue'
+import Cart from './components/layout/Cartshop.vue'
 import PanelBarang from './components/index/PanelBarang.vue'
 import PanelBarang1 from './components/index/PanelBarangOld.vue'
 import Layout from './components/index/LayoutBarang.vue'
@@ -21,6 +22,14 @@ export const routes = [
         name : 'topup',
         path : '/topup',
         component : TopUp,
+        meta: {
+            auth: true
+        },
+    },
+    {
+        name : 'cart',
+        path : '/cart',
+        component : Cart,
         meta: {
             auth: true
         },

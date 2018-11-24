@@ -18,6 +18,7 @@ class CartshopTransformer extends TransformerAbstract
             'id' => $cartshop->id,
             'idtransaksi' => $cartshop->idtransaksi,
             'idbarang' => $cartshop->idbarang,
+            'namabarang' => $cartshop->barangs->namabarang,
             'jumlah' => $cartshop->jumlah,
             'totalharga' => $cartshop->totalharga
         ];

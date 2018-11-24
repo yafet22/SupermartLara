@@ -30,8 +30,10 @@
                         <img src="img/topup.png" class="img-display mx-2" style="width:30px;height:30px;" alt="user-logo"><span style="margin-left: 45px;
                         font-size: 18px;">Top-up</span>
                     </router-link>
-                    <a class="dropdown-item" href="../../shopping-list.php"><img id="shop-chart" src="img/shoplist.png" class="img-display mx-2" style="width:28px;height:30px;" alt="shop-chart"><span style="margin-left: 45px;
-                    font-size: 18px;">Shopping List</span></a>
+                    <router-link class="dropdown-item" to="/cart" >
+                        <img id="shop-chart" src="img/shoplist.png" class="img-display mx-2" style="width:28px;height:30px;" alt="shop-chart"><span style="margin-left: 45px;
+                        font-size: 18px;">Shopping List</span>
+                    </router-link>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item"  @click.prevent="$auth.logout()" ><img id="logout-logo" src="img/logoutlogo.png" class="img-display mx-2" style="width:36px;height:30px;" alt="logout-logo"><span style="margin-left: 40px;
                     font-size: 18px;">Log Out</span></a>

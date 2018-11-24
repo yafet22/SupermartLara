@@ -228,7 +228,7 @@
                         <div v-for="barang of filtered" v-bind:key="barang['idbarang']" class="card col-md-3 mx-1 p-3">
                             <img v-bind:src="'/images/' + barang.image_name" class="img-display"/>
                             <p class="text-center lead">{{ barang.namabarang }}</p>
-                            <button type="button"  class="btn btn-primary" data-toggle="modal" v-bind:data-target="'#'+barang.idbarang">Info</button>
+                            <button type="button"  class="btn btn-primary" data-toggle="modal" @click="bindData(barang.idbarang)" v-bind:data-target="'#'+barang.idbarang">Info</button>
                         </div>       
                     </div>
                 </div>
@@ -240,16 +240,16 @@
                 <div class="modal-content">
                     <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLongTitle"></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <button id="close" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
                     <div class="wrapper"><img v-bind:src="'/images/' + barang.image_name" alt="foto-bahan" class="img-info mx-auto d-block"/></div>
                     <div class="info-wrapper"><ul><li><b>Harga</b> : {{ barang.harga }}</li><li><b>Stok</b>  : {{ barang.stock }}</li><li><b>Deskripsi</b>  : {{ barang.deskripsi }}</li> </ul></div>       
                     <div v-if="$auth.user().role =='user'" class="form-group">
-                        <input type="number" min="1" class="form-control" id="jumlah" placeholder="Jumlah beli" name="jumlah" required>
+                        <input type="number" min="1" class="form-control" id="jumlah" placeholder="Jumlah beli" name="jumlah" v-model="jumlah" required>
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                                <button type="submit" value="tambah" name="tambah" class="btn btn-warning" >Masukan chart</button>
+                                <button type="submit" value="tambah" name="tambah" class="btn btn-warning" @click="inputTransaksi" >Masukan chart</button>
                             </div> 
                         </div>
                         
@@ -269,23 +269,31 @@ import {mapActions, mapState} from 'vuex'
 export default {
     data(){
         return{
+            idbarang:0,
             namabarang:'',
             kategori:'',
             harga:0,
             stock:0,
             deskripsi:'',
             image_name:[],
+            jumlah:0
         }
     },
     computed:{
         ...mapState({
-            barang : state => state.DataBarang.data
+            barang : state => state.DataBarang.data,
+            transaksi : state => state.Transaksi.data
         }),
         filtered(){
            let filter = this.barang
            filter = this.barang.filter( b => b.kategori === this.$route.params.kategori)
            return filter
         },
+        filteredTransaksi(){
+            let filter = this.transaksi
+            filter = this.transaksi.filter( b => b.iduser === this.$auth.user().id && b.status == 0 )
+            return filter
+        }
     },
     mounted() {
         $(document).ready( function() {
@@ -327,22 +335,28 @@ export default {
     methods : {
         ...mapActions({
             inputBarang : 'DataBarang/addBarang',
-            get : 'DataBarang/getBarang'
+            get : 'DataBarang/getBarang',
+            getTransaksi : 'Transaksi/getTransaksis',
+            addTransaksi : 'Transaksi/addTransaksi',
+            addCart : 'Cart/addCart'
         }),
 
-        input(){
+        inputTransaksi(){
             const payload = {
-                namabarang : this.namabarang,
-                kategori : this.kategori,
-                harga : this.harga,
-                stock :this.stock,
-                deskripsi : this.deskripsi,
-                image_name :this.image_name,
+                id : this.filteredTransaksi[0].id,
+                idbarang : this.idbarang,
+                jumlah : this.jumlah
             }
 
             try{
-                this.inputBarang(payload)
+                console.log(payload.jumlah)
+                this.addTransaksi(this.$auth.user().id)
+                this.addCart(payload)
                 console.log('success!')
+                document.getElementById("close").click();
+                alert('Barang Masuk ke Cart shop')
+                this.jumlah=''
+                this.get()
             }
             catch(err){
                 console.log(err)
@@ -352,9 +366,13 @@ export default {
        handleFileUpload(){
         this.image_name = this.$refs.file.files;
        },
+       bindData(idbarang){
+           this.idbarang=idbarang
+       }
     },   
     async created(){
-        await this.get()
+        await this.get(),
+        await this.getTransaksi()
     }
 }
 </script>

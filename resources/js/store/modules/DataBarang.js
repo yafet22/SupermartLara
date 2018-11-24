@@ -33,7 +33,7 @@ const actions =  {
         })
     },
 
-    addBarang( context, payload){
+    addBarang(context, payload){
         return new Promise((resolve,reject) => {
             const successCallback = (res) => {
                 if(res.status === 201){
