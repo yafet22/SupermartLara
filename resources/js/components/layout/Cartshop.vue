@@ -36,7 +36,6 @@
                                 <th> </th>
                             </tr>
                             <tr style="text-align:center;" v-for="cart of carts" :key="cart.id">
-                                <td> </td>
                                 <td v-html="cart.id"></td>
                                 <td v-html="cart.namabarang"></td>
                                 <td v-html="cart.jumlah"></td>
@@ -90,7 +89,7 @@ export default {
      
     },   
     async created(){
-        await this.get()
+        await this.get(this.$auth.user().id)
     }
 }
 </script>>

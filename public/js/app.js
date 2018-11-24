@@ -20486,7 +20486,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
-//
 
 
 
@@ -20518,7 +20517,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                     switch (_context.prev = _context.next) {
                         case 0:
                             _context.next = 2;
-                            return this.get();
+                            return this.get(this.$auth.user().id);
 
                         case 2:
                         case 'end':
@@ -20614,8 +20613,6 @@ var render = function() {
                       "tr",
                       { key: cart.id, staticStyle: { "text-align": "center" } },
                       [
-                        _c("td"),
-                        _vm._v(" "),
                         _c("td", { domProps: { innerHTML: _vm._s(cart.id) } }),
                         _vm._v(" "),
                         _c("td", {
