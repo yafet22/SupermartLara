@@ -104,6 +104,31 @@ class CartshopController extends RestController
         }
     }
 
+    public function editcart(Request $request,$id)
+    {
+        $this->validate($request,[
+            'jumlah'  => 'required'
+        ]);
+
+        try {
+            $cartshops=Cartshop::find($id);
+            $cartshops->transaksis->total=$cartshops->transaksis->total - $cartshops->totalharga;
+            $cartshops->jumlah=$cartshops->jumlah + $request->get('jumlah');
+            $cartshops->barangs->stock=$cartshops->barangs->stock - ( $request->get('jumlah') );
+            $cartshops->totalharga =  $cartshops->barangs->harga * $cartshops->jumlah;
+            $cartshops->transaksis->total=$cartshops->transaksis->total + $cartshops->totalharga;
+            $cartshops->save();
+            $cartshops->barangs->save();
+            $cartshops->transaksis->save();
+            $response = $this->generateItem($cartshops);
+            return $this->sendResponse($response);
+        } catch (ModelNotFoundException $e) {
+            return $this->sendNotFoundResponse('cart_not_found');
+        } catch (\Exception $e) {
+            return $this->sendIseResponse($e->getMessage());
+        }
+    }
+
     /**
      * Display the specified resource.
      *

@@ -18935,6 +18935,26 @@ var actions = {
 
             __WEBPACK_IMPORTED_MODULE_0__http__["a" /* default */].post('/add/' + payload.id + '/' + payload.idbarang, data, successCallback, errorCallback);
         });
+    },
+    update: function update(context, payload) {
+        return new Promise(function (resolve, reject) {
+            var data = {
+                jumlah: payload.jumlah
+            };
+
+            var successCallback = function successCallback(res) {
+                if (res.status === 200) {
+                    context.dispatch('getBarang');
+                    resolve();
+                }
+            };
+
+            var errorCallback = function errorCallback(err) {
+                reject(err);
+            };
+
+            __WEBPACK_IMPORTED_MODULE_0__http__["a" /* default */].patch('/editcart/' + payload.id, data, successCallback, errorCallback);
+        });
     }
 };
 
@@ -20525,8 +20545,35 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     mounted: function mounted() {},
 
     methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapActions */])({
-        get: 'Cart/getCartbyuser'
+        get: 'Cart/getCartbyuser',
+        update: 'Cart/update'
     }), {
+        tambahCart: function tambahCart(idcart) {
+            var payload = {
+                id: idcart,
+                jumlah: 1
+            };
+
+            try {
+                this.update(payload);
+                this.get(this.$auth.user().id);
+            } catch (err) {
+                console.log(err);
+            }
+        },
+        kurangCart: function kurangCart(idcart) {
+            var payload = {
+                id: idcart,
+                jumlah: -1
+            };
+
+            try {
+                this.update(payload);
+                this.get(this.$auth.user().id);
+            } catch (err) {
+                console.log(err);
+            }
+        },
         mouseOver: function mouseOver() {
             this.hover = true;
         },
@@ -20682,7 +20729,12 @@ var render = function() {
                             ? _c("i", {
                                 staticClass: "fa fa-plus-square-o fa-lg",
                                 attrs: { "aria-hidden": "true" },
-                                on: { mouseleave: _vm.mouseLeave2 }
+                                on: {
+                                  mouseleave: _vm.mouseLeave2,
+                                  click: function($event) {
+                                    _vm.tambahCart(cart.id)
+                                  }
+                                }
                               })
                             : _c("i", {
                                 staticClass: "fa fa-plus-square fa-lg",
@@ -20696,7 +20748,12 @@ var render = function() {
                             ? _c("i", {
                                 staticClass: "fa fa-minus-square-o fa-lg",
                                 attrs: { "aria-hidden": "true" },
-                                on: { mouseleave: _vm.mouseLeave3 }
+                                on: {
+                                  mouseleave: _vm.mouseLeave3,
+                                  click: function($event) {
+                                    _vm.kurangCart(cart.id)
+                                  }
+                                }
                               })
                             : _c("i", {
                                 staticClass: "fa fa-minus-square fa-lg",

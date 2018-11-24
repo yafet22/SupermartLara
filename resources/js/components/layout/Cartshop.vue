@@ -47,11 +47,11 @@
                                     <i v-else @mouseover="mouseOver" class="fa fa-trash-o fa-lg" aria-hidden="true"></i>
                                 </td>
                                 <td>
-                                    <i v-if="hover2" @mouseleave="mouseLeave2" class="fa fa-plus-square-o fa-lg" aria-hidden="true"></i>
+                                    <i v-if="hover2" @mouseleave="mouseLeave2" @click="tambahCart(cart.id)" class="fa fa-plus-square-o fa-lg" aria-hidden="true"></i>
                                     <i v-else @mouseover="mouseOver2" class="fa fa-plus-square fa-lg" aria-hidden="true"></i>
                                 </td>
                                 <td>
-                                    <i v-if="hover3" @mouseleave="mouseLeave3"  class="fa fa-minus-square-o fa-lg" aria-hidden="true"></i>
+                                    <i v-if="hover3" @mouseleave="mouseLeave3" @click="kurangCart(cart.id)" class="fa fa-minus-square-o fa-lg" aria-hidden="true"></i>
                                     <i v-else @mouseover="mouseOver3" class="fa fa-minus-square fa-lg" aria-hidden="true"></i>
                                 </td>
                             </tr>
@@ -101,24 +101,61 @@ export default {
     },
     methods : {
         ...mapActions({
-            get : 'Cart/getCartbyuser'
+            get : 'Cart/getCartbyuser',
+            update : 'Cart/update'
         }),
-        mouseOver(){
+        tambahCart(idcart)
+        {
+            const payload = {
+                id : idcart,
+                jumlah : 1
+            }
+
+            try{
+                this.update(payload)
+                this.get(this.$auth.user().id)
+            }
+            catch(err){
+                console.log(err)
+            }
+        },
+        kurangCart(idcart)
+        {
+            const payload = {
+                id : idcart,
+                jumlah : -1
+            }
+
+            try{
+                this.update(payload)
+                this.get(this.$auth.user().id)
+            }
+            catch(err){
+                console.log(err)
+            }
+        },
+        mouseOver()
+        {
             this.hover = true;   
         },
-        mouseLeave(){
+        mouseLeave()
+        {
             this.hover = false;   
         },
-        mouseOver2(){
+        mouseOver2()
+        {
             this.hover2 = true;   
         },
-        mouseLeave2(){
+        mouseLeave2()
+        {
             this.hover2 = false;   
         },
-        mouseOver3(){
+        mouseOver3()
+        {
             this.hover3 = true;   
         },
-        mouseLeave3(){
+        mouseLeave3()
+        {
             this.hover3 = false;   
         }
      

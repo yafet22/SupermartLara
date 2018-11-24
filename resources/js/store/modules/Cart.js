@@ -87,6 +87,29 @@ const actions =  {
             Http.post('/add/'+payload.id+'/'+payload.idbarang,data,successCallback,errorCallback)
         })
     },
+
+    update(context, payload){
+        return new Promise((resolve, reject) => {
+            const data = {
+                jumlah : payload.jumlah
+            }
+
+            const successCallback = res => {
+                if(res.status === 200){
+                    context.dispatch('getBarang')
+                    resolve()
+                }
+            }
+
+            const errorCallback = err => {
+                reject(err)
+            }
+
+            Http.patch('/editcart/'+payload.id, data, successCallback, errorCallback)
+        })
+    },
+
+
     
 };
 
