@@ -20486,6 +20486,20 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -20496,7 +20510,10 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             editbank: '',
             edittopup: '',
             fotobukti: '',
-            id: 0
+            id: 0,
+            hover: false,
+            hover2: false,
+            hover3: false
         };
     },
 
@@ -20509,7 +20526,26 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
     methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapActions */])({
         get: 'Cart/getCartbyuser'
-    })),
+    }), {
+        mouseOver: function mouseOver() {
+            this.hover = true;
+        },
+        mouseLeave: function mouseLeave() {
+            this.hover = false;
+        },
+        mouseOver2: function mouseOver2() {
+            this.hover2 = true;
+        },
+        mouseLeave2: function mouseLeave2() {
+            this.hover2 = false;
+        },
+        mouseOver3: function mouseOver3() {
+            this.hover3 = true;
+        },
+        mouseLeave3: function mouseLeave3() {
+            this.hover3 = false;
+        }
+    }),
     created: function () {
         var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee() {
             return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
@@ -20625,7 +20661,49 @@ var render = function() {
                         _vm._v(" "),
                         _c("td", {
                           domProps: { innerHTML: _vm._s(cart.totalharga) }
-                        })
+                        }),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm.hover
+                            ? _c("i", {
+                                staticClass: "fa fa-trash fa-lg",
+                                attrs: { "aria-hidden": "true" },
+                                on: { mouseleave: _vm.mouseLeave }
+                              })
+                            : _c("i", {
+                                staticClass: "fa fa-trash-o fa-lg",
+                                attrs: { "aria-hidden": "true" },
+                                on: { mouseover: _vm.mouseOver }
+                              })
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm.hover2
+                            ? _c("i", {
+                                staticClass: "fa fa-plus-square-o fa-lg",
+                                attrs: { "aria-hidden": "true" },
+                                on: { mouseleave: _vm.mouseLeave2 }
+                              })
+                            : _c("i", {
+                                staticClass: "fa fa-plus-square fa-lg",
+                                attrs: { "aria-hidden": "true" },
+                                on: { mouseover: _vm.mouseOver2 }
+                              })
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm.hover3
+                            ? _c("i", {
+                                staticClass: "fa fa-minus-square-o fa-lg",
+                                attrs: { "aria-hidden": "true" },
+                                on: { mouseleave: _vm.mouseLeave3 }
+                              })
+                            : _c("i", {
+                                staticClass: "fa fa-minus-square fa-lg",
+                                attrs: { "aria-hidden": "true" },
+                                on: { mouseover: _vm.mouseOver3 }
+                              })
+                        ])
                       ]
                     )
                   })
@@ -20698,6 +20776,10 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "font-weight-bold" }, [_vm._v("Harga")]),
+        _vm._v(" "),
+        _c("th"),
+        _vm._v(" "),
+        _c("th"),
         _vm._v(" "),
         _c("th")
       ]

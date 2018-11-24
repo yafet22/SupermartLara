@@ -34,12 +34,26 @@
                                 <th class="font-weight-bold">Jumlah barang</th>
                                 <th class="font-weight-bold">Harga</th>
                                 <th> </th>
+                                <th></th>
+                                <th></th>
                             </tr>
                             <tr style="text-align:center;" v-for="cart of carts" :key="cart.id">
                                 <td v-html="cart.id"></td>
                                 <td v-html="cart.namabarang"></td>
                                 <td v-html="cart.jumlah"></td>
                                 <td v-html="cart.totalharga"></td>
+                                <td>
+                                    <i v-if="hover" @mouseleave="mouseLeave" class="fa fa-trash fa-lg" aria-hidden="true"></i>
+                                    <i v-else @mouseover="mouseOver" class="fa fa-trash-o fa-lg" aria-hidden="true"></i>
+                                </td>
+                                <td>
+                                    <i v-if="hover2" @mouseleave="mouseLeave2" class="fa fa-plus-square-o fa-lg" aria-hidden="true"></i>
+                                    <i v-else @mouseover="mouseOver2" class="fa fa-plus-square fa-lg" aria-hidden="true"></i>
+                                </td>
+                                <td>
+                                    <i v-if="hover3" @mouseleave="mouseLeave3"  class="fa fa-minus-square-o fa-lg" aria-hidden="true"></i>
+                                    <i v-else @mouseover="mouseOver3" class="fa fa-minus-square fa-lg" aria-hidden="true"></i>
+                                </td>
                             </tr>
                         </table>
                     </div>
@@ -72,6 +86,9 @@ export default {
             edittopup:'',
             fotobukti:'',
             id:0,
+            hover:false,
+            hover2:false,
+            hover3:false
         }
     },
     computed:{
@@ -86,6 +103,24 @@ export default {
         ...mapActions({
             get : 'Cart/getCartbyuser'
         }),
+        mouseOver(){
+            this.hover = true;   
+        },
+        mouseLeave(){
+            this.hover = false;   
+        },
+        mouseOver2(){
+            this.hover2 = true;   
+        },
+        mouseLeave2(){
+            this.hover2 = false;   
+        },
+        mouseOver3(){
+            this.hover3 = true;   
+        },
+        mouseLeave3(){
+            this.hover3 = false;   
+        }
      
     },   
     async created(){
