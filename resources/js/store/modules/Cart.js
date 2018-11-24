@@ -109,6 +109,22 @@ const actions =  {
         })
     },
 
+    destroy(context, id){
+        console.log(id)
+        return new Promise((resolve, reject) => {
+            const successCallback = res => {
+                if(res.status===200){
+                    console.log('Delete Cart')
+                    resolve()
+                }
+            }
+            const errorCallback = err => {
+                reject(err)
+            }
+            Http.delete('/cartshops/'+id, successCallback, errorCallback)
+        })
+    },
+
 
     
 };

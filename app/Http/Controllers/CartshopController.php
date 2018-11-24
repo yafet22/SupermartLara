@@ -171,6 +171,18 @@ class CartshopController extends RestController
      */
     public function destroy($id)
     {
-        //
+        try {
+            $cartshops=Cartshop::find($id);
+            $cartshops->transaksis->total=$cartshops->transaksis->total - $cartshops->totalharga;
+            $cartshops->barangs->stock=$cartshops->barangs->stock + $cartshops->jumlah;
+            $cartshops->transaksis->save();
+            $cartshops->barangs->save();    
+            $cartshops->delete();
+            return response()->json('Success',200);
+        } catch (ModelNotFoundException $e) {
+            return $this->sendNotFoundResponse('user_not_found');
+        } catch (\Exception $e) {
+            return $this->sendIseResponse($e->getMessage());
+        }
     }
 }

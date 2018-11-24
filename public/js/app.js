@@ -18955,6 +18955,21 @@ var actions = {
 
             __WEBPACK_IMPORTED_MODULE_0__http__["a" /* default */].patch('/editcart/' + payload.id, data, successCallback, errorCallback);
         });
+    },
+    destroy: function destroy(context, id) {
+        console.log(id);
+        return new Promise(function (resolve, reject) {
+            var successCallback = function successCallback(res) {
+                if (res.status === 200) {
+                    console.log('Delete Cart');
+                    resolve();
+                }
+            };
+            var errorCallback = function errorCallback(err) {
+                reject(err);
+            };
+            __WEBPACK_IMPORTED_MODULE_0__http__["a" /* default */].delete('/cartshops/' + id, successCallback, errorCallback);
+        });
     }
 };
 
@@ -20546,8 +20561,17 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
     methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapActions */])({
         get: 'Cart/getCartbyuser',
-        update: 'Cart/update'
+        update: 'Cart/update',
+        delete: 'Cart/destroy'
     }), {
+        deleteCart: function deleteCart(idcart) {
+            try {
+                this.delete(idcart);
+                this.get(this.$auth.user().id);
+            } catch (err) {
+                console.log(err);
+            }
+        },
         tambahCart: function tambahCart(idcart) {
             var payload = {
                 id: idcart,
@@ -20715,7 +20739,12 @@ var render = function() {
                             ? _c("i", {
                                 staticClass: "fa fa-trash fa-lg",
                                 attrs: { "aria-hidden": "true" },
-                                on: { mouseleave: _vm.mouseLeave }
+                                on: {
+                                  mouseleave: _vm.mouseLeave,
+                                  click: function($event) {
+                                    _vm.deleteCart(cart.id)
+                                  }
+                                }
                               })
                             : _c("i", {
                                 staticClass: "fa fa-trash-o fa-lg",
@@ -21311,8 +21340,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                 this.addTransaksi(this.$auth.user().id);
                 this.addCart(payload);
                 console.log('success!');
-                document.getElementById("close").click();
                 alert('Barang Masuk ke Cart shop');
+                document.getElementById("closemodal").click();
                 this.jumlah = '';
                 this.get();
             } catch (err) {
@@ -22626,7 +22655,7 @@ var staticRenderFns = [
         {
           staticClass: "close",
           attrs: {
-            id: "close",
+            id: "closemodal",
             type: "button",
             "data-dismiss": "modal",
             "aria-label": "Close"

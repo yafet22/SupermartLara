@@ -240,7 +240,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLongTitle"></h5>
-                    <button id="close" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <button id="closemodal" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
                     <div class="wrapper"><img v-bind:src="'/images/' + barang.image_name" alt="foto-bahan" class="img-info mx-auto d-block"/></div>
@@ -353,8 +353,8 @@ export default {
                 this.addTransaksi(this.$auth.user().id)
                 this.addCart(payload)
                 console.log('success!')
-                document.getElementById("close").click();
                 alert('Barang Masuk ke Cart shop')
+                document.getElementById("closemodal").click();
                 this.jumlah=''
                 this.get()
             }

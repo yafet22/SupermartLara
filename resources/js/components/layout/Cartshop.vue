@@ -43,7 +43,7 @@
                                 <td v-html="cart.jumlah"></td>
                                 <td v-html="cart.totalharga"></td>
                                 <td>
-                                    <i v-if="hover" @mouseleave="mouseLeave" class="fa fa-trash fa-lg" aria-hidden="true"></i>
+                                    <i v-if="hover" @mouseleave="mouseLeave" @click="deleteCart(cart.id)" class="fa fa-trash fa-lg" aria-hidden="true"></i>
                                     <i v-else @mouseover="mouseOver" class="fa fa-trash-o fa-lg" aria-hidden="true"></i>
                                 </td>
                                 <td>
@@ -102,8 +102,19 @@ export default {
     methods : {
         ...mapActions({
             get : 'Cart/getCartbyuser',
-            update : 'Cart/update'
+            update : 'Cart/update',
+            delete : 'Cart/destroy'
         }),
+        deleteCart(idcart)
+        {
+            try{
+                this.delete(idcart)
+                this.get(this.$auth.user().id)
+            }
+            catch(err){
+                console.log(err)
+            }
+        },
         tambahCart(idcart)
         {
             const payload = {
