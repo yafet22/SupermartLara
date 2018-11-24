@@ -77,6 +77,19 @@ class CartshopController extends RestController
         }
     }
 
+    public function showbytransaksi($id)
+    {
+        try {
+            $cartshops=Cartshop::where('idtransaksi',$id)->get();
+            $response = $this->generateCollection($cartshops);
+            return $this->sendResponse($response);
+        } catch (ModelNotFoundException $e) {
+            return $this->sendNotFoundResponse('cart_not_found');
+        } catch (\Exception $e) {
+            return $this->sendIseResponse($e->getMessage());
+        }
+    }
+
     /**
      * Display the specified resource.
      *

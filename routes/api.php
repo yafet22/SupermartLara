@@ -25,9 +25,10 @@ Route::resource('topups','TopupController');
 
 Route::resource('transaksis','TransaksiController');
 
-Route::resource('cartshop','CartshopController');
+Route::resource('cartshops','CartshopController');
 
 Route::post('add/{id}/{idbarang}','CartshopController@add');
+Route::get('cart/{id}','CartshopController@showbytransaksi');
 
 Route::post('start/{id}','TransaksiController@beli');
 Route::get('finish/{id}','TransaksiController@finish');

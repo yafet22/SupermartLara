@@ -9,7 +9,7 @@ import PanelBarangAdmin from './components/admin/PanelBarangAdmin.vue'
 import DataBarang from './components/admin/DataBarang.vue'
 import DataUser from './components/admin/DataUser.vue'
 import DataTopup from './components/admin/DataTopup.vue'
-import PanelBarangLogin from './components/afterlogin/PanelBarangLogin.vue'
+import DataTransaksi from './components/admin/DataTransaksi.vue'
 
 export const routes = [
     {
@@ -39,6 +39,11 @@ export const routes = [
         name : 'datatopup',
         path : '/datatopup',
         component : DataTopup
+    },
+    {
+        name : 'datatransaksi',
+        path : '/datatransaki',
+        component : DataTransaksi
     },
     {
         name : 'databarang',

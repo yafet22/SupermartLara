@@ -17,7 +17,7 @@
                         </li>
 
                         <li class="list-group-item">
-                            <a href="#" class="text-dark">Data Transaksi</a>
+                            <router-link class="text-dark" :to="{name: 'datatransaksi' }" >Data Transaksi</router-link>
                         </li>
 
                         <li class="list-group-item bg-primary">
