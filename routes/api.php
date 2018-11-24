@@ -23,6 +23,15 @@ Route::resource('users','UserController');
 
 Route::resource('topups','TopupController');
 
+Route::resource('transaksis','TransaksiController');
+
+Route::resource('cartshop','CartshopController');
+
+Route::post('add/{id}/{idbarang}','CartshopController@add');
+
+Route::post('start/{id}','TransaksiController@beli');
+Route::get('finish/{id}','TransaksiController@finish');
+
 Route::post('topup/{id}','TopupController@topup');
 Route::get('usertopup/{id}','TopupController@showbyuser');
 Route::post('sendconfirm/{id}','TopupController@sendconfirm');
