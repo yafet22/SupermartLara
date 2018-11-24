@@ -1439,60 +1439,6 @@ var index_esm = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__http__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__store__ = __webpack_require__(15);
-
-
-
-/* harmony default export */ __webpack_exports__["a"] = ({
-    register: function register(username, email, telp, password, checkpassword) {
-        return new Promise(function (resolve, reject) {
-            var payload = {
-                username: username,
-                email: email,
-                telp: telp,
-                password: password,
-                checkpassword: checkpassword
-            };
-
-            var successCallback = function successCallback(res) {
-                resolve();
-            };
-
-            var errorCallback = function errorCallback(err) {
-                reject(err);
-            };
-
-            __WEBPACK_IMPORTED_MODULE_0__http__["a" /* default */].post('api/users', payload, successCallback, errorCallback);
-        });
-    },
-    authenticate: function authenticate(email, password) {
-        return new Promise(function (resolve, reject) {
-            var payload = {
-                email: email,
-                password: password
-            };
-
-            var successCallback = function successCallback(res) {
-                var user = res.data;
-                __WEBPACK_IMPORTED_MODULE_1__store__["a" /* default */].commit('LoggedUser/setSource', user.data);
-                resolve();
-            };
-
-            var errorCallback = function errorCallback(err) {
-                reject(err);
-            };
-
-            __WEBPACK_IMPORTED_MODULE_0__http__["a" /* default */].post('api/login', payload, successCallback, errorCallback);
-        });
-    }
-});
-
-/***/ }),
-/* 5 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 
@@ -1526,6 +1472,53 @@ var index_esm = {
             url: url,
             method: 'delete'
         }).then(successCallback).catch(errorCallback);
+    }
+});
+
+/***/ }),
+/* 5 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__http__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__store__ = __webpack_require__(15);
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    register: function register(payload) {
+        return new Promise(function (resolve, reject) {
+
+            var successCallback = function successCallback(res) {
+                resolve();
+            };
+
+            var errorCallback = function errorCallback(err) {
+                reject(err);
+            };
+
+            __WEBPACK_IMPORTED_MODULE_0__http__["a" /* default */].post('/users', payload, successCallback, errorCallback);
+        });
+    },
+    authenticate: function authenticate(email, password) {
+        return new Promise(function (resolve, reject) {
+            var payload = {
+                email: email,
+                password: password
+            };
+
+            var successCallback = function successCallback(res) {
+                var user = res.data;
+                __WEBPACK_IMPORTED_MODULE_1__store__["a" /* default */].commit('LoggedUser/setSource', user.data);
+                resolve();
+            };
+
+            var errorCallback = function errorCallback(err) {
+                reject(err);
+            };
+
+            __WEBPACK_IMPORTED_MODULE_0__http__["a" /* default */].post('/login', payload, successCallback, errorCallback);
+        });
     }
 });
 
@@ -13177,7 +13170,7 @@ module.exports = (function () {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(19);
-module.exports = __webpack_require__(100);
+module.exports = __webpack_require__(107);
 
 
 /***/ }),
@@ -13188,14 +13181,14 @@ module.exports = __webpack_require__(100);
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_router__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__routes__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_App__ = __webpack_require__(76);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_App__ = __webpack_require__(83);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_App___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_App__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__store__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_axios__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_axios__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_vue_axios__ = __webpack_require__(92);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_vue_axios__ = __webpack_require__(99);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_vue_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_vue_axios__);
 
 
@@ -13217,10 +13210,10 @@ var router = new __WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]({
 
 __WEBPACK_IMPORTED_MODULE_3_vue___default.a.router = router;
 
-__WEBPACK_IMPORTED_MODULE_3_vue___default.a.use(__webpack_require__(93), {
-    auth: __webpack_require__(97),
-    http: __webpack_require__(98),
-    router: __webpack_require__(99)
+__WEBPACK_IMPORTED_MODULE_3_vue___default.a.use(__webpack_require__(100), {
+    auth: __webpack_require__(104),
+    http: __webpack_require__(105),
+    router: __webpack_require__(106)
 });
 
 new __WEBPACK_IMPORTED_MODULE_3_vue___default.a({
@@ -15872,20 +15865,29 @@ if (inBrowser && window.Vue) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_index_ContentIndex_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_index_ContentIndex_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_layout_Login_vue__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_layout_Login_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_layout_Login_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_layout_Register_vue__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_layout_Register_vue__ = __webpack_require__(54);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_layout_Register_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_layout_Register_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_index_PanelBarang_vue__ = __webpack_require__(56);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_index_PanelBarang_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_index_PanelBarang_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_index_PanelBarangOld_vue__ = __webpack_require__(59);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_index_PanelBarangOld_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__components_index_PanelBarangOld_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_index_LayoutBarang_vue__ = __webpack_require__(61);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_index_LayoutBarang_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__components_index_LayoutBarang_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_admin_PanelBarangAdmin_vue__ = __webpack_require__(64);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_admin_PanelBarangAdmin_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__components_admin_PanelBarangAdmin_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_admin_DataBarang_vue__ = __webpack_require__(70);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_admin_DataBarang_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__components_admin_DataBarang_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_admin_DataUser_vue__ = __webpack_require__(73);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_admin_DataUser_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__components_admin_DataUser_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_layout_TopUp_vue__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_layout_TopUp_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_layout_TopUp_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_index_PanelBarang_vue__ = __webpack_require__(60);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_index_PanelBarang_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__components_index_PanelBarang_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_index_PanelBarangOld_vue__ = __webpack_require__(63);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_index_PanelBarangOld_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__components_index_PanelBarangOld_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_index_LayoutBarang_vue__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_index_LayoutBarang_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__components_index_LayoutBarang_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_admin_PanelBarangAdmin_vue__ = __webpack_require__(68);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_admin_PanelBarangAdmin_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__components_admin_PanelBarangAdmin_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_admin_DataBarang_vue__ = __webpack_require__(71);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_admin_DataBarang_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__components_admin_DataBarang_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_admin_DataUser_vue__ = __webpack_require__(74);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_admin_DataUser_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__components_admin_DataUser_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_admin_DataTopup_vue__ = __webpack_require__(77);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_admin_DataTopup_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10__components_admin_DataTopup_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_afterlogin_PanelBarangLogin_vue__ = __webpack_require__(80);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_afterlogin_PanelBarangLogin_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11__components_afterlogin_PanelBarangLogin_vue__);
+
+
+
 
 
 
@@ -15901,6 +15903,13 @@ var routes = [{
     path: '/',
     component: __WEBPACK_IMPORTED_MODULE_0__components_index_ContentIndex_vue___default.a
 }, {
+    name: 'topup',
+    path: '/topup',
+    component: __WEBPACK_IMPORTED_MODULE_3__components_layout_TopUp_vue___default.a,
+    meta: {
+        auth: true
+    }
+}, {
     name: 'login',
     path: '/login',
     component: __WEBPACK_IMPORTED_MODULE_1__components_layout_Login_vue___default.a
@@ -15909,24 +15918,28 @@ var routes = [{
     path: '/register',
     component: __WEBPACK_IMPORTED_MODULE_2__components_layout_Register_vue___default.a
 }, {
+    name: 'datatopup',
+    path: '/datatopup',
+    component: __WEBPACK_IMPORTED_MODULE_10__components_admin_DataTopup_vue___default.a
+}, {
     name: 'databarang',
     path: '/databarang',
-    component: __WEBPACK_IMPORTED_MODULE_7__components_admin_DataBarang_vue___default.a
+    component: __WEBPACK_IMPORTED_MODULE_8__components_admin_DataBarang_vue___default.a
 }, {
     name: 'datauser',
     path: '/datauser',
-    component: __WEBPACK_IMPORTED_MODULE_8__components_admin_DataUser_vue___default.a
+    component: __WEBPACK_IMPORTED_MODULE_9__components_admin_DataUser_vue___default.a
 }, {
     name: 'panelbarang',
     path: '/:kategori',
-    component: __WEBPACK_IMPORTED_MODULE_3__components_index_PanelBarang_vue___default.a
+    component: __WEBPACK_IMPORTED_MODULE_4__components_index_PanelBarang_vue___default.a
 }, {
     name: 'panelbarangadmin',
     path: '/admin/:kategori',
     meta: {
         auth: true
     },
-    component: __WEBPACK_IMPORTED_MODULE_6__components_admin_PanelBarangAdmin_vue___default.a
+    component: __WEBPACK_IMPORTED_MODULE_7__components_admin_PanelBarangAdmin_vue___default.a
 }];
 
 /***/ }),
@@ -16316,7 +16329,7 @@ var normalizeComponent = __webpack_require__(0)
 /* script */
 var __vue_script__ = __webpack_require__(25)
 /* template */
-var __vue_template__ = __webpack_require__(52)
+var __vue_template__ = __webpack_require__(53)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -16362,7 +16375,7 @@ module.exports = Component.exports
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__auth__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__auth__ = __webpack_require__(5);
 
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -18397,6 +18410,8 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__LoggedUser__ = __webpack_require__(49);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__DataBarang__ = __webpack_require__(50);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__User__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Topup__ = __webpack_require__(52);
+
 
 
 
@@ -18404,7 +18419,8 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /* harmony default export */ __webpack_exports__["a"] = ({
     LoggedUser: __WEBPACK_IMPORTED_MODULE_0__LoggedUser__["a" /* default */],
     DataBarang: __WEBPACK_IMPORTED_MODULE_1__DataBarang__["a" /* default */],
-    User: __WEBPACK_IMPORTED_MODULE_2__User__["a" /* default */]
+    User: __WEBPACK_IMPORTED_MODULE_2__User__["a" /* default */],
+    Topup: __WEBPACK_IMPORTED_MODULE_3__Topup__["a" /* default */]
 });
 
 /***/ }),
@@ -18448,7 +18464,7 @@ var getter = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__http__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__http__ = __webpack_require__(4);
 
 
 var state = {
@@ -18515,7 +18531,7 @@ var actions = {
                 reject(err);
             };
 
-            __WEBPACK_IMPORTED_MODULE_0__http__["a" /* default */].delete('barangs/' + id, successCallback, errorCallback);
+            __WEBPACK_IMPORTED_MODULE_0__http__["a" /* default */].delete('/barangs/' + id, successCallback, errorCallback);
         });
     },
     update: function update(context, payload) {
@@ -18557,7 +18573,7 @@ var actions = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__http__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__http__ = __webpack_require__(4);
 
 
 var state = {
@@ -18588,6 +18604,24 @@ var actions = {
 
             __WEBPACK_IMPORTED_MODULE_0__http__["a" /* default */].get('/users', successCallback, errorCallback);
         });
+    },
+    destroy: function destroy(context, id) {
+        console.log(id);
+        return new Promise(function (resolve, reject) {
+            var successCallback = function successCallback(res) {
+                if (res.status === 200) {
+                    console.log('Delete User');
+                    context.dispatch('getAllUser');
+                    resolve();
+                }
+            };
+
+            var errorCallback = function errorCallback(err) {
+                reject(err);
+            };
+
+            __WEBPACK_IMPORTED_MODULE_0__http__["a" /* default */].delete('/users/' + id, successCallback, errorCallback);
+        });
     }
 };
 
@@ -18600,6 +18634,131 @@ var actions = {
 
 /***/ }),
 /* 52 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__http__ = __webpack_require__(4);
+
+
+var state = {
+    data: []
+};
+
+var mutations = {
+    setSource: function setSource(state, source) {
+        state.data = source;
+    },
+    created: function created(state, data) {
+        state.data.push(data);
+    }
+};
+
+var actions = {
+    getTopups: function getTopups(_ref) {
+        var commit = _ref.commit;
+
+        return new Promise(function (resolve, reject) {
+
+            var successCallback = function successCallback(res) {
+                console.log(res.data.data);
+                commit('setSource', res.data.data);
+                resolve();
+            };
+
+            var errorCallback = function errorCallback(err) {
+                reject(err);
+            };
+
+            __WEBPACK_IMPORTED_MODULE_0__http__["a" /* default */].get('/topups', successCallback, errorCallback);
+        });
+    },
+    getTopupbyUser: function getTopupbyUser(context, id) {
+        return new Promise(function (resolve, reject) {
+
+            var successCallback = function successCallback(res) {
+                console.log(res.data.data);
+                context.commit('setSource', res.data.data);
+                resolve();
+            };
+
+            var errorCallback = function errorCallback(err) {
+                reject(err);
+            };
+
+            __WEBPACK_IMPORTED_MODULE_0__http__["a" /* default */].get('/usertopup/' + id, successCallback, errorCallback);
+        });
+    },
+    addTopup: function addTopup(context, payload) {
+        return new Promise(function (resolve, reject) {
+
+            var data = {
+                bank: payload.bank,
+                topup: payload.topup
+            };
+
+            var successCallback = function successCallback(res) {
+                if (res.status === 201) {
+                    context.commit('created', res.data.data);
+                    resolve();
+                }
+            };
+
+            var errorCallback = function errorCallback(err) {
+
+                reject(err);
+            };
+
+            __WEBPACK_IMPORTED_MODULE_0__http__["a" /* default */].post('topup/' + payload.id, data, successCallback, errorCallback);
+        });
+    },
+    sendconfirm: function sendconfirm(context, payload) {
+        return new Promise(function (resolve, reject) {
+
+            var data = new FormData();
+            data.append("fotobukti", payload.get("fotobukti"));
+
+            var successCallback = function successCallback(res) {
+                if (res.status === 200) {
+                    context.dispatch('getTopups');
+                    resolve();
+                }
+            };
+
+            var errorCallback = function errorCallback(err) {
+                reject(err);
+            };
+
+            __WEBPACK_IMPORTED_MODULE_0__http__["a" /* default */].post('/sendconfirm/' + payload.get("id"), data, successCallback, errorCallback);
+        });
+    },
+    confirm: function confirm(context, id) {
+        return new Promise(function (resolve, reject) {
+
+            var successCallback = function successCallback(res) {
+                if (res.status === 200) {
+                    context.dispatch('getTopups');
+                    resolve();
+                }
+            };
+
+            var errorCallback = function errorCallback(err) {
+                reject(err);
+            };
+
+            __WEBPACK_IMPORTED_MODULE_0__http__["a" /* default */].patch('/confirm/' + id, successCallback, errorCallback);
+        });
+    }
+};
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    namespaced: true,
+    state: state,
+    mutations: mutations,
+    actions: actions
+});
+
+/***/ }),
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -18761,15 +18920,15 @@ if (false) {
 }
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(54)
+var __vue_script__ = __webpack_require__(55)
 /* template */
-var __vue_template__ = __webpack_require__(55)
+var __vue_template__ = __webpack_require__(56)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -18808,14 +18967,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__auth__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__auth__ = __webpack_require__(5);
 
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -18897,7 +19056,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             telp: '',
             email: '',
             password: '',
-            checkpassword: ''
+            checkpassword: '',
+            image_name: ''
         };
     },
     mounted: function mounted() {
@@ -18923,33 +19083,43 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     methods: {
         register: function () {
             var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee() {
+                var payload;
                 return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
                     while (1) {
                         switch (_context.prev = _context.next) {
                             case 0:
                                 _context.prev = 0;
-                                _context.next = 3;
-                                return __WEBPACK_IMPORTED_MODULE_1__auth__["a" /* default */].register(this.username, this.email, this.telp, this.password, this.checkpassword);
+                                payload = new FormData();
 
-                            case 3:
+                                payload.append('username', this.username);
+                                payload.append('email', this.email);
+                                payload.append('telp', this.telp);
+                                payload.append('password', this.password);
+                                payload.append('checkpassword', this.checkpassword);
+                                payload.append('image_name', this.image_name);
+                                _context.next = 10;
+                                return __WEBPACK_IMPORTED_MODULE_1__auth__["a" /* default */].register(payload);
+
+                            case 10:
                                 console.log('Berhasil Daftar');
                                 alert('Anda Berhasil Melakukan Registrasi, Silahkan Registrasi Email Anda');
-                                _context.next = 11;
+                                this.setInit();
+                                _context.next = 19;
                                 break;
 
-                            case 7:
-                                _context.prev = 7;
+                            case 15:
+                                _context.prev = 15;
                                 _context.t0 = _context['catch'](0);
 
                                 alert('Registrasi Anda Gagal');
                                 console.log(_context.t0);
 
-                            case 11:
+                            case 19:
                             case 'end':
                                 return _context.stop();
                         }
                     }
-                }, _callee, this, [[0, 7]]);
+                }, _callee, this, [[0, 15]]);
             }));
 
             function register() {
@@ -18957,12 +19127,19 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             }
 
             return register;
-        }()
+        }(),
+        setInit: function setInit() {
+            this.username = '', this.telp = '', this.email = 0, this.password = 0, this.checkpassword = '', this.image_name = '';
+        },
+        handleFileUpload: function handleFileUpload(e) {
+            this.image_name = e.target.files[0];
+            console.log(this.image_name);
+        }
     }
 });
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -18980,7 +19157,36 @@ var render = function() {
           _c("div", { staticClass: "col-md-4" }),
           _vm._v(" "),
           _c("div", { staticClass: "col-md-4" }, [
-            _vm._m(1),
+            _c("div", { staticClass: "form-group" }, [
+              _c("div", { staticClass: "container" }, [
+                _c("div", { staticClass: "picture-container" }, [
+                  _c("div", { staticClass: "picture" }, [
+                    _c("img", {
+                      staticClass: "picture-src",
+                      attrs: {
+                        width: "auto",
+                        height: "200",
+                        src: "image/profile/default-pp.jpg",
+                        id: "wizardPicturePreview",
+                        title: ""
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("input", {
+                      ref: "file",
+                      attrs: {
+                        id: "wizard-picture",
+                        type: "file",
+                        name: "file"
+                      },
+                      on: { change: _vm.handleFileUpload }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("h6", {}, [_vm._v("Choose Picture")])
+                ])
+              ])
+            ]),
             _vm._v(" "),
             _c("div", { staticClass: "form-group" }, [
               _c("label", { attrs: { for: "nama" } }, [_vm._v("Nama:")]),
@@ -19145,7 +19351,7 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "row" }, [
-              _vm._m(2),
+              _vm._m(1),
               _vm._v(" "),
               _c("div", { staticClass: "col-md-6" }, [
                 _c(
@@ -19186,35 +19392,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("div", { staticClass: "container" }, [
-        _c("div", { staticClass: "picture-container" }, [
-          _c("div", { staticClass: "picture" }, [
-            _c("img", {
-              staticClass: "picture-src",
-              attrs: {
-                width: "auto",
-                height: "200",
-                src: "image/profile/default-pp.jpg",
-                id: "wizardPicturePreview",
-                title: ""
-              }
-            }),
-            _vm._v(" "),
-            _c("input", {
-              attrs: { id: "wizard-picture", type: "file", name: "file" }
-            })
-          ]),
-          _vm._v(" "),
-          _c("h6", {}, [_vm._v("Choose Picture")])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-md-6" }, [
       _c(
         "button",
@@ -19238,15 +19415,774 @@ if (false) {
 }
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(57)
+var __vue_script__ = __webpack_require__(58)
 /* template */
-var __vue_template__ = __webpack_require__(58)
+var __vue_template__ = __webpack_require__(59)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/layout/TopUp.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-41d485d6", Component.options)
+  } else {
+    hotAPI.reload("data-v-41d485d6", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 58 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(3);
+
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            bank: '',
+            topup: 0,
+            key: '',
+            editbank: '',
+            edittopup: '',
+            fotobukti: ''
+        };
+    },
+    mounted: function mounted() {
+        $(document).ready(function () {
+            $(document).on('change', '.btn-file :file', function () {
+                var input = $(this),
+                    label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+                input.trigger('fileselect', [label]);
+            });
+
+            $('.btn-file :file').on('fileselect', function (event, label) {
+
+                var input = $(this).parents('.input-group').find(':text'),
+                    log = label;
+
+                if (input.length) {
+                    input.val(log);
+                } else {
+                    if (log) alert(log);
+                }
+            });
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#img-upload').attr('src', e.target.result);
+                    };
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            $("#file").change(function () {
+                readURL(this);
+            });
+        });
+    },
+
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["c" /* mapState */])({
+        topups: function topups(state) {
+            return state.Topup.data;
+        }
+    }), {
+        filterbyid: function filterbyid() {
+            var _this = this;
+
+            var filter = this.topups;
+            filter = this.topups.filter(function (t) {
+                return t.id === _this.key;
+            });
+            return filter;
+        }
+    }),
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapActions */])({
+        get: 'Topup/getTopupbyUser',
+        doTopup: 'Topup/addTopup',
+        sendConfirm: 'Topup/sendconfirm'
+    }), {
+        input: function input() {
+            try {
+                var payload = {
+                    bank: this.bank,
+                    topup: this.topup,
+                    id: this.$auth.user().id
+                };
+                this.doTopup(payload);
+                this.get(this.$auth.user().id);
+                console.log('success!');
+            } catch (err) {
+                console.log(rr);
+            }
+        },
+        confirm: function confirm() {
+            try {
+                var payload = new FormData();
+                payload.append('fotobukti', this.fotobukti);
+                payload.append('id', this.key);
+                console.log(payload.get("fotobukti"));
+                this.sendConfirm(payload);
+                this.get(this.$auth.user().id);
+                console.log('success!');
+            } catch (err) {
+                console.log(rr);
+            }
+        },
+        bindData: function bindData(key) {
+            this.key = key;
+            console.log(this.filterbyid[0]);
+            this.editbank = this.filterbyid[0].bank;
+            this.edittopup = this.filterbyid[0].topup;
+        },
+        handleFileUpload: function handleFileUpload(e) {
+            this.fotobukti = e.target.files[0];
+            console.log(this.fotobukti);
+        }
+    }),
+    created: function () {
+        var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee() {
+            return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
+                while (1) {
+                    switch (_context.prev = _context.next) {
+                        case 0:
+                            _context.next = 2;
+                            return this.get(this.$auth.user().id);
+
+                        case 2:
+                        case 'end':
+                            return _context.stop();
+                    }
+                }
+            }, _callee, this);
+        }));
+
+        function created() {
+            return _ref.apply(this, arguments);
+        }
+
+        return created;
+    }()
+});
+
+/***/ }),
+/* 59 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("section", { staticClass: "kategori" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("div", { staticClass: "container shop list" }, [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-md-5 order-first mt-2" }, [
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "nama" } }, [
+                _vm._v("Nominal Top Up:")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.topup,
+                    expression: "topup"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "number",
+                  min: "10000",
+                  step: "100",
+                  id: "saldo",
+                  placeholder: "Enter Nominal",
+                  name: "saldo",
+                  required: ""
+                },
+                domProps: { value: _vm.topup },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.topup = $event.target.value
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "nama" } }, [_vm._v("Bank:")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "radio" }, [
+                _c("label", [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.bank,
+                        expression: "bank"
+                      }
+                    ],
+                    attrs: {
+                      type: "radio",
+                      name: "optradio",
+                      checked: "",
+                      value: "Mandiri"
+                    },
+                    domProps: { checked: _vm._q(_vm.bank, "Mandiri") },
+                    on: {
+                      change: function($event) {
+                        _vm.bank = "Mandiri"
+                      }
+                    }
+                  }),
+                  _vm._v(" Mandiri-Jose(123456789)")
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "radio" }, [
+                _c("label", [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.bank,
+                        expression: "bank"
+                      }
+                    ],
+                    attrs: { type: "radio", name: "optradio", value: "BRI" },
+                    domProps: { checked: _vm._q(_vm.bank, "BRI") },
+                    on: {
+                      change: function($event) {
+                        _vm.bank = "BRI"
+                      }
+                    }
+                  }),
+                  _vm._v(" BRI-Jose(123456788)")
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "radio" }, [
+                _c("label", [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.bank,
+                        expression: "bank"
+                      }
+                    ],
+                    attrs: { type: "radio", name: "optradio", value: "BCA" },
+                    domProps: { checked: _vm._q(_vm.bank, "BCA") },
+                    on: {
+                      change: function($event) {
+                        _vm.bank = "BCA"
+                      }
+                    }
+                  }),
+                  _vm._v(" BCA-Jose(123456777)")
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary",
+                staticStyle: { display: "block", margin: "0 auto" },
+                attrs: { type: "submit" },
+                on: { click: _vm.input }
+              },
+              [_vm._v("Beli")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-md-7 order-first mt-2" }, [
+            _c(
+              "h2",
+              {
+                staticClass: "font-weight-bold",
+                staticStyle: { "text-align": "center" }
+              },
+              [_vm._v("DATA TOP UP POINT")]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "table-responsive-md" }, [
+              _c(
+                "table",
+                {
+                  staticClass: "table table-bordered",
+                  attrs: {
+                    id: "tabletopup",
+                    cellpadding: "5",
+                    cellspacing: "0",
+                    width: "100%"
+                  }
+                },
+                [
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _vm._l(_vm.topups, function(topup) {
+                    return _c(
+                      "tr",
+                      {
+                        key: topup.id,
+                        staticStyle: { "text-align": "center" }
+                      },
+                      [
+                        _c("td"),
+                        _vm._v(" "),
+                        _c("td", { domProps: { innerHTML: _vm._s(topup.id) } }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: { innerHTML: _vm._s(topup.topup) }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: { innerHTML: _vm._s(topup.bank) }
+                        }),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: { innerHTML: _vm._s(topup.verifikasi) }
+                        }),
+                        _vm._v(" "),
+                        _c("td", [
+                          topup.verifikasi == "UNCONFIRMED"
+                            ? _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "btn btn-warning btn-sm btn-block",
+                                  attrs: {
+                                    type: "button",
+                                    "data-toggle": "modal",
+                                    "data-target": "#konfirmasitopup"
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.bindData(topup.id)
+                                    }
+                                  }
+                                },
+                                [_vm._v("KONFIRMASI")]
+                              )
+                            : topup.verifikasi == "WAITING" ||
+                              topup.verifikasi == "CONFIRMED"
+                            ? _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "btn btn-primary btn-sm btn-block",
+                                  attrs: {
+                                    type: "button",
+                                    "data-toggle": "modal",
+                                    "data-target": "#konfirmasitopup",
+                                    disabled: ""
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.bindData(topup.id)
+                                    }
+                                  }
+                                },
+                                [_vm._v("KONFIRMASI")]
+                              )
+                            : _vm._e()
+                        ])
+                      ]
+                    )
+                  })
+                ],
+                2
+              )
+            ])
+          ])
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "wrapper" }, [
+      _c(
+        "div",
+        {
+          staticClass: "modal fade",
+          attrs: { id: "konfirmasitopup", role: "dialog" }
+        },
+        [
+          _c(
+            "div",
+            { staticClass: "modal-dialog", attrs: { role: "document" } },
+            [
+              _c("div", { staticClass: "modal-content" }, [
+                _vm._m(2),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-body" }, [
+                  _c("div", { staticClass: "form-group row" }, [
+                    _c("label", { staticClass: "col-sm-4 col-form-label" }, [
+                      _vm._v("Nominal Topup ")
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-sm-8" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.edittopup,
+                            expression: "edittopup"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text", name: "topup", readonly: "" },
+                        domProps: { value: _vm.edittopup },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.edittopup = $event.target.value
+                          }
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group row" }, [
+                    _c("label", { staticClass: "col-sm-4 col-form-label" }, [
+                      _vm._v("Bank ")
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-sm-8" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.editbank,
+                            expression: "editbank"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text", name: "bank", readonly: "" },
+                        domProps: { value: _vm.editbank },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.editbank = $event.target.value
+                          }
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group row" }, [
+                    _c("label", { staticClass: "col-sm-4 col-form-label" }, [
+                      _vm._v("Upload Bukti Pembayaran")
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "input-group" }, [
+                      _c("span", { staticClass: "input-group-btn" }, [
+                        _c(
+                          "span",
+                          { staticClass: "btn btn-default btn-file" },
+                          [
+                            _vm._v(
+                              "\n                                        Browse… "
+                            ),
+                            _c("input", {
+                              ref: "file",
+                              attrs: { type: "file", id: "file", name: "file" },
+                              on: { change: _vm.handleFileUpload }
+                            })
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        staticClass: "form-control",
+                        attrs: { type: "text", readonly: "" }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("img", { attrs: { id: "img-upload" } })
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-danger pull-left",
+                      attrs: { "data-dismiss": "modal" }
+                    },
+                    [_vm._v("Cancel")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary pull-right",
+                      attrs: {
+                        type: "submit",
+                        value: "Upload",
+                        name: "simpan"
+                      },
+                      on: { click: _vm.confirm }
+                    },
+                    [_vm._v("Save ")]
+                  )
+                ])
+              ])
+            ]
+          )
+        ]
+      )
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "container title_hightlight" }, [
+      _c("h2", { staticClass: "font-weight-bold" }, [_vm._v("TOP UP POINT")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "tr",
+      {
+        staticStyle: {
+          "background-color": "#4285f4",
+          color: "white",
+          "text-align": "center"
+        }
+      },
+      [
+        _c("th", { staticClass: "font-weight-bold" }, [_vm._v("No")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "font-weight-bold" }, [_vm._v("Id Transaksi")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "font-weight-bold" }, [_vm._v("Jumlah TopUp")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "font-weight-bold" }, [_vm._v("Bank")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "font-weight-bold" }, [_vm._v("Status")]),
+        _vm._v(" "),
+        _c("th")
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "exampleModalLongTitle" } },
+        [_vm._v("Konfirmasi Pembayaran")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-41d485d6", module.exports)
+  }
+}
+
+/***/ }),
+/* 60 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(61)
+/* template */
+var __vue_template__ = __webpack_require__(62)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -19285,7 +20221,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 57 */
+/* 61 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -19299,6 +20235,164 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -19524,7 +20618,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 });
 
 /***/ }),
-/* 58 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -19705,7 +20799,7 @@ var render = function() {
           _vm._v(" "),
           _vm.$route.params.kategori == "MakananRingan" ||
           _vm.$route.params.kategori == "MakananBeku" ||
-          _vm.$route.params.kategori == "MinumanPokok"
+          _vm.$route.params.kategori == "MakananPokok"
             ? _c(
                 "div",
                 { staticClass: "col-md-3 order-first mt-2" },
@@ -19870,6 +20964,727 @@ var render = function() {
               )
             : _vm._e(),
           _vm._v(" "),
+          _vm.$route.params.kategori == "PerawatanDiri" ||
+          _vm.$route.params.kategori == "PerawatanBadan" ||
+          _vm.$route.params.kategori == "PerawatanRambut" ||
+          _vm.$route.params.kategori == "PerawatanPria" ||
+          _vm.$route.params.kategori == "Obat"
+            ? _c(
+                "div",
+                { staticClass: "col-md-3 order-first mt-2" },
+                [
+                  _vm.$route.params.kategori == "PerawatanDiri"
+                    ? _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "PerawatanDiri" }
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "li",
+                            { staticClass: "list-group-item bg-primary" },
+                            [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "text-light",
+                                  attrs: { href: "#" }
+                                },
+                                [_vm._v("Perawatan Diri")]
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    : _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "PerawatanDiri" }
+                            }
+                          }
+                        },
+                        [
+                          _c("li", { staticClass: "list-group-item" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "text-dark",
+                                attrs: { href: "#" }
+                              },
+                              [_vm._v("Perawatan Diri")]
+                            )
+                          ])
+                        ]
+                      ),
+                  _vm._v(" "),
+                  _vm.$route.params.kategori == "PerawatanBadan"
+                    ? _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "PerawatanBadan" }
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "li",
+                            { staticClass: "list-group-item bg-primary" },
+                            [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "text-light",
+                                  attrs: { href: "#" }
+                                },
+                                [_vm._v("Perawatan Badan")]
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    : _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "PerawatanBadan" }
+                            }
+                          }
+                        },
+                        [
+                          _c("li", { staticClass: "list-group-item" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "text-dark",
+                                attrs: { href: "#" }
+                              },
+                              [_vm._v("Perawatan Badan")]
+                            )
+                          ])
+                        ]
+                      ),
+                  _vm._v(" "),
+                  _vm.$route.params.kategori == "PerawatanRambut"
+                    ? _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "PerawatanRambut" }
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "li",
+                            { staticClass: "list-group-item bg-primary" },
+                            [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "text-light",
+                                  attrs: { href: "#" }
+                                },
+                                [_vm._v("Perawatan Rambut")]
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    : _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "PerawatanRambut" }
+                            }
+                          }
+                        },
+                        [
+                          _c("li", { staticClass: "list-group-item" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "text-dark",
+                                attrs: { href: "#" }
+                              },
+                              [_vm._v("Perawatan Rambut")]
+                            )
+                          ])
+                        ]
+                      ),
+                  _vm._v(" "),
+                  _vm.$route.params.kategori == "PerawatanPria"
+                    ? _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "PerawatanPria" }
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "li",
+                            { staticClass: "list-group-item bg-primary" },
+                            [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "text-light",
+                                  attrs: { href: "#" }
+                                },
+                                [_vm._v("Perawatan Pria")]
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    : _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "PerawatanPria" }
+                            }
+                          }
+                        },
+                        [
+                          _c("li", { staticClass: "list-group-item" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "text-dark",
+                                attrs: { href: "#" }
+                              },
+                              [_vm._v("Perawatan Pria")]
+                            )
+                          ])
+                        ]
+                      ),
+                  _vm._v(" "),
+                  _vm.$route.params.kategori == "Obat"
+                    ? _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "Obat" }
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "li",
+                            { staticClass: "list-group-item bg-primary" },
+                            [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "text-light",
+                                  attrs: { href: "#" }
+                                },
+                                [_vm._v("Obat-obatan")]
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    : _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "Obat" }
+                            }
+                          }
+                        },
+                        [
+                          _c("li", { staticClass: "list-group-item" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "text-dark",
+                                attrs: { href: "#" }
+                              },
+                              [_vm._v("Obat-obatan")]
+                            )
+                          ])
+                        ]
+                      )
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.$route.params.kategori == "Televisi" ||
+          _vm.$route.params.kategori == "AksesorisKomputer" ||
+          _vm.$route.params.kategori == "AksesorisHP"
+            ? _c(
+                "div",
+                { staticClass: "col-md-3 order-first mt-2" },
+                [
+                  _vm.$route.params.kategori == "Televisi"
+                    ? _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "Televisi" }
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "li",
+                            { staticClass: "list-group-item bg-primary" },
+                            [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "text-light",
+                                  attrs: { href: "#" }
+                                },
+                                [_vm._v("Televisi")]
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    : _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "Televisi" }
+                            }
+                          }
+                        },
+                        [
+                          _c("li", { staticClass: "list-group-item" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "text-dark",
+                                attrs: { href: "#" }
+                              },
+                              [_vm._v("Televisi")]
+                            )
+                          ])
+                        ]
+                      ),
+                  _vm._v(" "),
+                  _vm.$route.params.kategori == "AksesorisKomputer"
+                    ? _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "AksesorisKomputer" }
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "li",
+                            { staticClass: "list-group-item bg-primary" },
+                            [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "text-light",
+                                  attrs: { href: "#" }
+                                },
+                                [_vm._v("Aksesoris Komputer")]
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    : _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "AksesorisKomputer" }
+                            }
+                          }
+                        },
+                        [
+                          _c("li", { staticClass: "list-group-item" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "text-dark",
+                                attrs: { href: "#" }
+                              },
+                              [_vm._v("Aksesoris Komputer")]
+                            )
+                          ])
+                        ]
+                      ),
+                  _vm._v(" "),
+                  _vm.$route.params.kategori == "AksesorisHP"
+                    ? _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "AksesorisHP" }
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "li",
+                            { staticClass: "list-group-item bg-primary" },
+                            [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "text-light",
+                                  attrs: { href: "#" }
+                                },
+                                [_vm._v("Aksesoris HP")]
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    : _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "AksesorisHP" }
+                            }
+                          }
+                        },
+                        [
+                          _c("li", { staticClass: "list-group-item" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "text-dark",
+                                attrs: { href: "#" }
+                              },
+                              [_vm._v("Aksesoris HP")]
+                            )
+                          ])
+                        ]
+                      )
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.$route.params.kategori == "PeralatanKebersihan" ||
+          _vm.$route.params.kategori == "PeralatanMakan" ||
+          _vm.$route.params.kategori == "PeralatanRT"
+            ? _c(
+                "div",
+                { staticClass: "col-md-3 order-first mt-2" },
+                [
+                  _vm.$route.params.kategori == "PeralatanKebersihan"
+                    ? _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "PeralatanKebersihan" }
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "li",
+                            { staticClass: "list-group-item bg-primary" },
+                            [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "text-light",
+                                  attrs: { href: "#" }
+                                },
+                                [_vm._v("Peralatan Kebersihan")]
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    : _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "PeralatanKebersihan" }
+                            }
+                          }
+                        },
+                        [
+                          _c("li", { staticClass: "list-group-item" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "text-dark",
+                                attrs: { href: "#" }
+                              },
+                              [_vm._v("Peralatan Kebersihan")]
+                            )
+                          ])
+                        ]
+                      ),
+                  _vm._v(" "),
+                  _vm.$route.params.kategori == "PeralatanMakan"
+                    ? _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "PeralatanMakan" }
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "li",
+                            { staticClass: "list-group-item bg-primary" },
+                            [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "text-light",
+                                  attrs: { href: "#" }
+                                },
+                                [_vm._v("Peralatan Makan")]
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    : _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "PeralatanMakan" }
+                            }
+                          }
+                        },
+                        [
+                          _c("li", { staticClass: "list-group-item" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "text-dark",
+                                attrs: { href: "#" }
+                              },
+                              [_vm._v("Peralatan Makan")]
+                            )
+                          ])
+                        ]
+                      ),
+                  _vm._v(" "),
+                  _vm.$route.params.kategori == "PeralatanRT"
+                    ? _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "PeralatanRT" }
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "li",
+                            { staticClass: "list-group-item bg-primary" },
+                            [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "text-light",
+                                  attrs: { href: "#" }
+                                },
+                                [_vm._v("Peralatan Rumah Tangga")]
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    : _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "PeralatanRT" }
+                            }
+                          }
+                        },
+                        [
+                          _c("li", { staticClass: "list-group-item" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "text-dark",
+                                attrs: { href: "#" }
+                              },
+                              [_vm._v("Peralatan Rumah Tangga")]
+                            )
+                          ])
+                        ]
+                      )
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.$route.params.kategori == "FashionPria" ||
+          _vm.$route.params.kategori == "FashionWanita"
+            ? _c(
+                "div",
+                { staticClass: "col-md-3 order-first mt-2" },
+                [
+                  _vm.$route.params.kategori == "FashionPria"
+                    ? _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "FashionPria" }
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "li",
+                            { staticClass: "list-group-item bg-primary" },
+                            [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "text-light",
+                                  attrs: { href: "#" }
+                                },
+                                [_vm._v("Fashion Pria")]
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    : _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "FashionPria" }
+                            }
+                          }
+                        },
+                        [
+                          _c("li", { staticClass: "list-group-item" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "text-dark",
+                                attrs: { href: "#" }
+                              },
+                              [_vm._v("Fashion Pria")]
+                            )
+                          ])
+                        ]
+                      ),
+                  _vm._v(" "),
+                  _vm.$route.params.kategori == "FashionWanita"
+                    ? _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "FashionWanita" }
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "li",
+                            { staticClass: "list-group-item bg-primary" },
+                            [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "text-light",
+                                  attrs: { href: "#" }
+                                },
+                                [_vm._v("Fashion Wanita")]
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    : _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "FashionWanita" }
+                            }
+                          }
+                        },
+                        [
+                          _c("li", { staticClass: "list-group-item" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "text-dark",
+                                attrs: { href: "#" }
+                              },
+                              [_vm._v("Fashion Wanita")]
+                            )
+                          ])
+                        ]
+                      )
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
           _c("div", { staticClass: "col-md-9 order-last mt-2" }, [
             _c(
               "div",
@@ -19919,7 +21734,6 @@ var render = function() {
             staticClass: "modal fade",
             attrs: {
               id: barang.idbarang,
-              "data-backdrop": "false",
               tabindex: "-1",
               role: "dialog",
               "aria-labelledby": "exampleModalCenterTitle",
@@ -19942,7 +21756,7 @@ var render = function() {
                       _c("img", {
                         staticClass: "img-info mx-auto d-block",
                         attrs: {
-                          src: "/image/" + barang.image_name,
+                          src: "/images/" + barang.image_name,
                           alt: "foto-bahan"
                         }
                       })
@@ -19965,26 +21779,44 @@ var render = function() {
                       ])
                     ]),
                     _vm._v(" "),
-                    _c(
-                      "p",
-                      { staticClass: "text-center" },
-                      [
-                        _vm._v("Lakukan "),
-                        _c(
-                          "router-link",
-                          {
-                            staticStyle: { color: "white" },
-                            attrs: { to: "/login" }
-                          },
-                          [_c("a", { attrs: { href: "#" } }, [_vm._v("Login")])]
-                        ),
-                        _vm._v(" untuk dapat membeli barang")
-                      ],
-                      1
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _vm._m(1, true)
+                    _vm.$auth.user().role == "user"
+                      ? _c("div", { staticClass: "form-group" }, [
+                          _c("input", {
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "number",
+                              min: "1",
+                              id: "jumlah",
+                              placeholder: "Jumlah beli",
+                              name: "jumlah",
+                              required: ""
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm._m(1, true)
+                        ])
+                      : _c(
+                          "p",
+                          { staticClass: "text-center" },
+                          [
+                            _vm._v("Lakukan "),
+                            _c(
+                              "router-link",
+                              {
+                                staticStyle: { color: "white" },
+                                attrs: { to: "/login" }
+                              },
+                              [
+                                _c("a", { attrs: { href: "#" } }, [
+                                  _vm._v("Login")
+                                ])
+                              ]
+                            ),
+                            _vm._v(" untuk dapat membeli barang")
+                          ],
+                          1
+                        )
+                  ])
                 ])
               ]
             )
@@ -20024,15 +21856,17 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-footer" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-secondary",
-          attrs: { type: "button", "data-dismiss": "modal" }
-        },
-        [_vm._v("Close")]
-      )
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-xs-12 col-sm-12 col-md-12 text-center" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-warning",
+            attrs: { type: "submit", value: "tambah", name: "tambah" }
+          },
+          [_vm._v("Masukan chart")]
+        )
+      ])
     ])
   }
 ]
@@ -20046,7 +21880,7 @@ if (false) {
 }
 
 /***/ }),
-/* 59 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
@@ -20054,7 +21888,7 @@ var normalizeComponent = __webpack_require__(0)
 /* script */
 var __vue_script__ = null
 /* template */
-var __vue_template__ = __webpack_require__(60)
+var __vue_template__ = __webpack_require__(64)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -20093,7 +21927,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 60 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -20440,15 +22274,15 @@ if (false) {
 }
 
 /***/ }),
-/* 61 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(62)
+var __vue_script__ = __webpack_require__(66)
 /* template */
-var __vue_template__ = __webpack_require__(63)
+var __vue_template__ = __webpack_require__(67)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -20487,14 +22321,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 62 */
+/* 66 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__auth__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__auth__ = __webpack_require__(5);
 
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -20584,7 +22418,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 });
 
 /***/ }),
-/* 63 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -20763,15 +22597,15 @@ if (false) {
 }
 
 /***/ }),
-/* 64 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(65)
+var __vue_script__ = __webpack_require__(69)
 /* template */
-var __vue_template__ = __webpack_require__(66)
+var __vue_template__ = __webpack_require__(70)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -20810,7 +22644,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 65 */
+/* 69 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -21491,7 +23325,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 });
 
 /***/ }),
-/* 66 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -23677,18 +25511,15 @@ if (false) {
 }
 
 /***/ }),
-/* 67 */,
-/* 68 */,
-/* 69 */,
-/* 70 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(71)
+var __vue_script__ = __webpack_require__(72)
 /* template */
-var __vue_template__ = __webpack_require__(72)
+var __vue_template__ = __webpack_require__(73)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -23727,7 +25558,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 71 */
+/* 72 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -23838,8 +25669,18 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
     methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapActions */])({
         inputBarang: 'DataBarang/addBarang',
-        get: 'DataBarang/getBarang'
-    })),
+        get: 'DataBarang/getBarang',
+        deleteBarang: 'DataBarang/destroy'
+    }), {
+        destroy: function destroy(id) {
+            try {
+                this.deleteBarang(id);
+                console.log("Succes Delete");
+            } catch (err) {
+                console.log(err);
+            }
+        }
+    }),
     created: function () {
         var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee() {
             return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
@@ -23866,7 +25707,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 });
 
 /***/ }),
-/* 72 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -23910,11 +25751,22 @@ var render = function() {
             _vm._v(" "),
             _vm._m(1),
             _vm._v(" "),
-            _vm._m(2)
+            _c(
+              "li",
+              { staticClass: "list-group-item" },
+              [
+                _c(
+                  "router-link",
+                  { staticClass: "text-dark", attrs: { to: "/datatopup" } },
+                  [_vm._v("Data Topup")]
+                )
+              ],
+              1
+            )
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "col-md-9 order-first mt-2" }, [
-            _vm._m(3),
+            _vm._m(2),
             _vm._v(" "),
             _c("div", { staticClass: "row" }, [
               _c("div", { staticClass: "col-md-12 order-first mt-2" }, [
@@ -23931,7 +25783,7 @@ var render = function() {
                       }
                     },
                     [
-                      _vm._m(4),
+                      _vm._m(3),
                       _vm._v(" "),
                       _vm._l(_vm.barang, function(barang) {
                         return _c(
@@ -23963,7 +25815,32 @@ var render = function() {
                               domProps: { innerHTML: _vm._s(barang.stock) }
                             }),
                             _vm._v(" "),
-                            _vm._m(5, true)
+                            _c("td", [
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "btn btn-primary btn-sm btn-block",
+                                  attrs: { type: "button" }
+                                },
+                                [_vm._v("Edit")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "btn btn-danger btn-sm btn-block",
+                                  attrs: { type: "button" },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.destroy(barang.idbarang)
+                                    }
+                                  }
+                                },
+                                [_vm._v("Hapus")]
+                              )
+                            ])
                           ]
                         )
                       })
@@ -23995,16 +25872,6 @@ var staticRenderFns = [
     return _c("li", { staticClass: "list-group-item" }, [
       _c("a", { staticClass: "text-dark", attrs: { href: "#" } }, [
         _vm._v("Data Transaksi")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "list-group-item" }, [
-      _c("a", { staticClass: "text-dark", attrs: { href: "#" } }, [
-        _vm._v("Konfirmasi")
       ])
     ])
   },
@@ -24070,30 +25937,6 @@ var staticRenderFns = [
         _c("th")
       ]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-primary btn-sm btn-block",
-          attrs: { type: "button" }
-        },
-        [_vm._v("Edit")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-danger btn-sm btn-block",
-          attrs: { type: "button" }
-        },
-        [_vm._v("Hapus")]
-      )
-    ])
   }
 ]
 render._withStripped = true
@@ -24106,15 +25949,15 @@ if (false) {
 }
 
 /***/ }),
-/* 73 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(74)
+var __vue_script__ = __webpack_require__(75)
 /* template */
-var __vue_template__ = __webpack_require__(75)
+var __vue_template__ = __webpack_require__(76)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -24153,7 +25996,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 74 */
+/* 75 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -24256,8 +26099,18 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     mounted: function mounted() {},
 
     methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapActions */])({
-        get: 'User/getAllUser'
-    })),
+        get: 'User/getAllUser',
+        deleteUser: 'User/destroy'
+    }), {
+        destroy: function destroy(id) {
+            try {
+                this.deleteUser(id);
+                console.log('Success Delete');
+            } catch (err) {
+                console.log(err);
+            }
+        }
+    }),
     created: function () {
         var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee() {
             return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
@@ -24284,7 +26137,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 });
 
 /***/ }),
-/* 75 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -24328,11 +26181,22 @@ var render = function() {
             _vm._v(" "),
             _vm._m(1),
             _vm._v(" "),
-            _vm._m(2)
+            _c(
+              "li",
+              { staticClass: "list-group-item" },
+              [
+                _c(
+                  "router-link",
+                  { staticClass: "text-dark", attrs: { to: "/datatopup" } },
+                  [_vm._v("Data Topup")]
+                )
+              ],
+              1
+            )
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "col-md-9 order-first mt-2" }, [
-            _vm._m(3),
+            _vm._m(2),
             _vm._v(" "),
             _c("div", { staticClass: "row" }, [
               _c("div", { staticClass: "col-md-12 order-first mt-2" }, [
@@ -24349,7 +26213,7 @@ var render = function() {
                       }
                     },
                     [
-                      _vm._m(4),
+                      _vm._m(3),
                       _vm._v(" "),
                       _vm._l(_vm.users, function(user) {
                         return _c(
@@ -24377,7 +26241,32 @@ var render = function() {
                               domProps: { innerHTML: _vm._s(user.aktif) }
                             }),
                             _vm._v(" "),
-                            _vm._m(5, true)
+                            _c("td", [
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "btn btn-primary btn-sm btn-block",
+                                  attrs: { type: "button" }
+                                },
+                                [_vm._v("Edit")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "btn btn-danger btn-sm btn-block",
+                                  attrs: { type: "button" },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.destroy(user.id)
+                                    }
+                                  }
+                                },
+                                [_vm._v("Hapus")]
+                              )
+                            ])
                           ]
                         )
                       })
@@ -24409,16 +26298,6 @@ var staticRenderFns = [
     return _c("li", { staticClass: "list-group-item" }, [
       _c("a", { staticClass: "text-dark", attrs: { href: "#" } }, [
         _vm._v("Data Transaksi")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "list-group-item" }, [
-      _c("a", { staticClass: "text-dark", attrs: { href: "#" } }, [
-        _vm._v("Konfirmasi")
       ])
     ])
   },
@@ -24482,30 +26361,6 @@ var staticRenderFns = [
         _c("th")
       ]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-primary btn-sm btn-block",
-          attrs: { type: "button" }
-        },
-        [_vm._v("Edit")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-danger btn-sm btn-block",
-          attrs: { type: "button" }
-        },
-        [_vm._v("Hapus")]
-      )
-    ])
   }
 ]
 render._withStripped = true
@@ -24518,15 +26373,2345 @@ if (false) {
 }
 
 /***/ }),
-/* 76 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(77)
+var __vue_script__ = __webpack_require__(78)
 /* template */
-var __vue_template__ = __webpack_require__(91)
+var __vue_template__ = __webpack_require__(79)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/admin/DataTopup.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-0661a86a", Component.options)
+  } else {
+    hotAPI.reload("data-v-0661a86a", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 78 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(3);
+
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            key: '',
+            editbank: '',
+            edittopup: '',
+            fotobukti: '',
+            id: 0
+        };
+    },
+
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["c" /* mapState */])({
+        topups: function topups(state) {
+            return state.Topup.data;
+        }
+    }), {
+        filterbyid: function filterbyid() {
+            var _this = this;
+
+            var filter = this.topups;
+            filter = this.topups.filter(function (t) {
+                return t.id === _this.key;
+            });
+            return filter;
+        }
+    }),
+    mounted: function mounted() {},
+
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapActions */])({
+        get: 'Topup/getTopups',
+        confirm: 'Topup/confirm'
+    }), {
+        konfirmasi: function konfirmasi() {
+            try {
+                this.confirm(this.id);
+                this.get();
+                console.log('success!');
+            } catch (err) {
+                console.log(rr);
+            }
+        },
+        bindData: function bindData(key) {
+            this.key = key;
+            console.log(this.filterbyid[0]);
+            this.editbank = this.filterbyid[0].bank;
+            this.edittopup = this.filterbyid[0].topup;
+            this.fotobukti = this.filterbyid[0].fotobukti;
+            this.id = this.filterbyid[0].id;
+        }
+    }),
+    created: function () {
+        var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee() {
+            return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
+                while (1) {
+                    switch (_context.prev = _context.next) {
+                        case 0:
+                            _context.next = 2;
+                            return this.get();
+
+                        case 2:
+                        case 'end':
+                            return _context.stop();
+                    }
+                }
+            }, _callee, this);
+        }));
+
+        function created() {
+            return _ref.apply(this, arguments);
+        }
+
+        return created;
+    }()
+});
+
+/***/ }),
+/* 79 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("section", { staticClass: "kategori" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("div", { staticClass: "container shop list" }, [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-md-3 order-first mt-2" }, [
+            _c(
+              "li",
+              { staticClass: "list-group-item" },
+              [
+                _c(
+                  "router-link",
+                  { staticClass: "text-dark", attrs: { to: "/databarang" } },
+                  [_vm._v("Data Barang")]
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "li",
+              { staticClass: "list-group-item" },
+              [
+                _c(
+                  "router-link",
+                  { staticClass: "text-dark", attrs: { to: "/datauser" } },
+                  [_vm._v("Data User")]
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _vm._m(1),
+            _vm._v(" "),
+            _c(
+              "li",
+              { staticClass: "list-group-item bg-primary" },
+              [
+                _c(
+                  "router-link",
+                  { staticClass: "text-light", attrs: { to: "/datatopup" } },
+                  [_vm._v("Data Topup")]
+                )
+              ],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-md-9 order-first mt-2" }, [
+            _vm._m(2),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-md-12 order-first mt-2" }, [
+                _c("div", { staticClass: "table-responsive-md" }, [
+                  _c(
+                    "table",
+                    {
+                      staticClass: "table table-md table-bordered",
+                      attrs: {
+                        id: "tableadmin",
+                        cellpadding: "5",
+                        cellspacing: "0",
+                        width: "100%"
+                      }
+                    },
+                    [
+                      _vm._m(3),
+                      _vm._v(" "),
+                      _vm._l(_vm.topups, function(topup) {
+                        return _c(
+                          "tr",
+                          {
+                            key: topup.id,
+                            staticStyle: { "text-align": "center" }
+                          },
+                          [
+                            _c("td"),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: { innerHTML: _vm._s(topup.id) }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: { innerHTML: _vm._s(topup.iduser) }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: { innerHTML: _vm._s(topup.topup) }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: { innerHTML: _vm._s(topup.bank) }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: { innerHTML: _vm._s(topup.verifikasi) }
+                            }),
+                            _vm._v(" "),
+                            _c("td", [
+                              topup.verifikasi == "WAITING"
+                                ? _c(
+                                    "button",
+                                    {
+                                      staticClass:
+                                        "btn btn-warning btn-sm btn-block",
+                                      attrs: {
+                                        type: "button",
+                                        "data-toggle": "modal",
+                                        "data-target": "#konfirmasitopup"
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          _vm.bindData(topup.id)
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Verifikasi")]
+                                  )
+                                : topup.verifikasi == "CONFIRMED"
+                                ? _c(
+                                    "button",
+                                    {
+                                      staticClass:
+                                        "btn btn-dark btn-sm btn-block",
+                                      attrs: { type: "button", disabled: "" }
+                                    },
+                                    [_vm._v("Confirmed")]
+                                  )
+                                : topup.verifikasi == "UNCONFIRMED"
+                                ? _c(
+                                    "button",
+                                    {
+                                      staticClass:
+                                        "btn btn-dark btn-sm btn-block",
+                                      attrs: { type: "button", disabled: "" }
+                                    },
+                                    [_vm._v("UnConfirmed")]
+                                  )
+                                : _vm._e()
+                            ])
+                          ]
+                        )
+                      })
+                    ],
+                    2
+                  )
+                ])
+              ])
+            ])
+          ])
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "wrapper" }, [
+      _c(
+        "div",
+        {
+          staticClass: "modal fade",
+          attrs: { id: "konfirmasitopup", role: "dialog" }
+        },
+        [
+          _c(
+            "div",
+            { staticClass: "modal-dialog", attrs: { role: "document" } },
+            [
+              _c("div", { staticClass: "modal-content" }, [
+                _vm._m(4),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-body" }, [
+                  _c("div", { staticClass: "wrapper" }, [
+                    _c("img", {
+                      staticClass: "img-info mx-auto d-block",
+                      attrs: {
+                        src: "/images/bukti/" + _vm.fotobukti,
+                        alt: "foto-bahan"
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group row" }, [
+                    _c("label", { staticClass: "col-sm-4 col-form-label" }, [
+                      _vm._v("Nominal Topup ")
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-sm-8" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.edittopup,
+                            expression: "edittopup"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text", name: "topup", readonly: "" },
+                        domProps: { value: _vm.edittopup },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.edittopup = $event.target.value
+                          }
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group row" }, [
+                    _c("label", { staticClass: "col-sm-4 col-form-label" }, [
+                      _vm._v("Bank ")
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-sm-8" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.editbank,
+                            expression: "editbank"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text", name: "bank", readonly: "" },
+                        domProps: { value: _vm.editbank },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.editbank = $event.target.value
+                          }
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-danger pull-left",
+                      attrs: { "data-dismiss": "modal" }
+                    },
+                    [_vm._v("Cancel")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary pull-right",
+                      attrs: {
+                        type: "submit",
+                        value: "Upload",
+                        name: "simpan"
+                      },
+                      on: { click: _vm.konfirmasi }
+                    },
+                    [_vm._v("Save ")]
+                  )
+                ])
+              ])
+            ]
+          )
+        ]
+      )
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "container title_hightlight" }, [
+      _c("h2", { staticClass: "font-weight-bold" }, [_vm._v("DATA TOPUP")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "list-group-item" }, [
+      _c("a", { staticClass: "text-dark", attrs: { href: "#" } }, [
+        _vm._v("Data Transaksi")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-12 order-first mt-2" }, [
+        _c("div", { staticClass: "pull-right" }, [
+          _c("input", {
+            staticClass: "form-control mr-sm-2 ",
+            attrs: {
+              type: "text",
+              id: "myInput",
+              placeholder: "Search by Nama Barang",
+              "aria-label": "Search"
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "pull-left" }, [
+          _c("a", { attrs: { href: "#" } }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-success btn-sm",
+                attrs: { type: "button" }
+              },
+              [_vm._v("Download Report")]
+            )
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "tr",
+      {
+        staticStyle: {
+          "background-color": "#4285f4",
+          color: "white",
+          "text-align": "center"
+        }
+      },
+      [
+        _c("th", { staticClass: "font-weight-bold" }, [_vm._v("No")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "font-weight-bold" }, [_vm._v("Id Barang")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "font-weight-bold" }, [_vm._v("Nama Barang")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "font-weight-bold" }, [_vm._v("Kategori")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "font-weight-bold" }, [_vm._v("Harga")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "font-weight-bold" }, [_vm._v("Stock")]),
+        _vm._v(" "),
+        _c("th")
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "exampleModalLongTitle" } },
+        [_vm._v("Konfirmasi Pembayaran")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-0661a86a", module.exports)
+  }
+}
+
+/***/ }),
+/* 80 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(81)
+/* template */
+var __vue_template__ = __webpack_require__(82)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/afterlogin/PanelBarangLogin.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-2c914205", Component.options)
+  } else {
+    hotAPI.reload("data-v-2c914205", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 81 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(3);
+
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            namabarang: '',
+            kategori: '',
+            harga: 0,
+            stock: 0,
+            deskripsi: '',
+            image_name: []
+        };
+    },
+
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["c" /* mapState */])({
+        barang: function barang(state) {
+            return state.DataBarang.data;
+        }
+    }), {
+        filtered: function filtered() {
+            var _this = this;
+
+            var filter = this.barang;
+            filter = this.barang.filter(function (b) {
+                return b.kategori === _this.$route.params.kategori;
+            });
+            return filter;
+        }
+    }),
+    mounted: function mounted() {
+        $(document).ready(function () {
+            $(document).on('change', '.btn-file :file', function () {
+                var input = $(this),
+                    label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+                input.trigger('fileselect', [label]);
+            });
+
+            $('.btn-file :file').on('fileselect', function (event, label) {
+
+                var input = $(this).parents('.input-group').find(':text'),
+                    log = label;
+
+                if (input.length) {
+                    input.val(log);
+                } else {
+                    if (log) alert(log);
+                }
+            });
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#img-upload').attr('src', e.target.result);
+                    };
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            $("#file").change(function () {
+                readURL(this);
+            });
+        });
+    },
+
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapActions */])({
+        inputBarang: 'DataBarang/addBarang',
+        get: 'DataBarang/getBarang'
+    }), {
+        input: function input() {
+            var payload = {
+                namabarang: this.namabarang,
+                kategori: this.kategori,
+                harga: this.harga,
+                stock: this.stock,
+                deskripsi: this.deskripsi,
+                image_name: this.image_name
+            };
+
+            try {
+                this.inputBarang(payload);
+                console.log('success!');
+            } catch (err) {
+                console.log(err);
+            }
+        },
+        handleFileUpload: function handleFileUpload() {
+            this.image_name = this.$refs.file.files;
+        }
+    }),
+    created: function () {
+        var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee() {
+            return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
+                while (1) {
+                    switch (_context.prev = _context.next) {
+                        case 0:
+                            _context.next = 2;
+                            return this.get();
+
+                        case 2:
+                        case 'end':
+                            return _context.stop();
+                    }
+                }
+            }, _callee, this);
+        }));
+
+        function created() {
+            return _ref.apply(this, arguments);
+        }
+
+        return created;
+    }()
+});
+
+/***/ }),
+/* 82 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("div", { staticClass: "container" }, [
+        _c("div", { staticClass: "row" }, [
+          _vm.$route.params.kategori == "MinumanRingan" ||
+          _vm.$route.params.kategori == "MinumanIsotonik" ||
+          _vm.$route.params.kategori == "MinumanSoda"
+            ? _c(
+                "div",
+                { staticClass: "col-md-3 order-first mt-2" },
+                [
+                  _vm.$route.params.kategori == "MinumanRingan"
+                    ? _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "MinumanRingan" }
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "li",
+                            { staticClass: "list-group-item bg-primary" },
+                            [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "text-light",
+                                  attrs: { href: "#" }
+                                },
+                                [_vm._v("Minuman Ringan")]
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    : _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "MinumanRingan" }
+                            }
+                          }
+                        },
+                        [
+                          _c("li", { staticClass: "list-group-item" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "text-dark",
+                                attrs: { href: "#" }
+                              },
+                              [_vm._v("Minuman Ringan")]
+                            )
+                          ])
+                        ]
+                      ),
+                  _vm._v(" "),
+                  _vm.$route.params.kategori == "MinumanIsotonik"
+                    ? _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "MinumanIsotonik" }
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "li",
+                            { staticClass: "list-group-item bg-primary" },
+                            [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "text-light",
+                                  attrs: { href: "#" }
+                                },
+                                [_vm._v("Minuman Isotonik")]
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    : _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "MinumanIsotonik" }
+                            }
+                          }
+                        },
+                        [
+                          _c("li", { staticClass: "list-group-item" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "text-dark",
+                                attrs: { href: "#" }
+                              },
+                              [_vm._v("Minuman Isotonik")]
+                            )
+                          ])
+                        ]
+                      ),
+                  _vm._v(" "),
+                  _vm.$route.params.kategori == "MinumanSoda"
+                    ? _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "MinumanSoda" }
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "li",
+                            { staticClass: "list-group-item bg-primary" },
+                            [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "text-light",
+                                  attrs: { href: "#" }
+                                },
+                                [_vm._v("Minuman Soda")]
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    : _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "MinumanSoda" }
+                            }
+                          }
+                        },
+                        [
+                          _c("li", { staticClass: "list-group-item" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "text-dark",
+                                attrs: { href: "#" }
+                              },
+                              [_vm._v("Minuman Soda")]
+                            )
+                          ])
+                        ]
+                      )
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.$route.params.kategori == "MakananRingan" ||
+          _vm.$route.params.kategori == "MakananBeku" ||
+          _vm.$route.params.kategori == "MakananPokok"
+            ? _c(
+                "div",
+                { staticClass: "col-md-3 order-first mt-2" },
+                [
+                  _vm.$route.params.kategori == "MakananRingan"
+                    ? _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "MakananRingan" }
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "li",
+                            { staticClass: "list-group-item bg-primary" },
+                            [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "text-light",
+                                  attrs: { href: "#" }
+                                },
+                                [_vm._v("Makanan Ringan")]
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    : _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "MakananRingan" }
+                            }
+                          }
+                        },
+                        [
+                          _c("li", { staticClass: "list-group-item" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "text-dark",
+                                attrs: { href: "#" }
+                              },
+                              [_vm._v("Makanan Ringan")]
+                            )
+                          ])
+                        ]
+                      ),
+                  _vm._v(" "),
+                  _vm.$route.params.kategori == "MakananBeku"
+                    ? _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "MakananBeku" }
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "li",
+                            { staticClass: "list-group-item bg-primary" },
+                            [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "text-light",
+                                  attrs: { href: "#" }
+                                },
+                                [_vm._v("Makanan Beku")]
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    : _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "MakananBeku" }
+                            }
+                          }
+                        },
+                        [
+                          _c("li", { staticClass: "list-group-item" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "text-dark",
+                                attrs: { href: "#" }
+                              },
+                              [_vm._v("Makanan Beku")]
+                            )
+                          ])
+                        ]
+                      ),
+                  _vm._v(" "),
+                  _vm.$route.params.kategori == "MakananPokok"
+                    ? _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "MakananPokok" }
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "li",
+                            { staticClass: "list-group-item bg-primary" },
+                            [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "text-light",
+                                  attrs: { href: "#" }
+                                },
+                                [_vm._v("Makanan Pokok")]
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    : _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "MakananPokok" }
+                            }
+                          }
+                        },
+                        [
+                          _c("li", { staticClass: "list-group-item" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "text-dark",
+                                attrs: { href: "#" }
+                              },
+                              [_vm._v("Makanan Pokok")]
+                            )
+                          ])
+                        ]
+                      )
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.$route.params.kategori == "PerawatanDiri" ||
+          _vm.$route.params.kategori == "PerawatanBadan" ||
+          _vm.$route.params.kategori == "PerawatanRambut" ||
+          _vm.$route.params.kategori == "PerawatanPria" ||
+          _vm.$route.params.kategori == "Obat"
+            ? _c(
+                "div",
+                { staticClass: "col-md-3 order-first mt-2" },
+                [
+                  _vm.$route.params.kategori == "PerawatanDiri"
+                    ? _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "PerawatanDiri" }
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "li",
+                            { staticClass: "list-group-item bg-primary" },
+                            [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "text-light",
+                                  attrs: { href: "#" }
+                                },
+                                [_vm._v("Perawatan Diri")]
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    : _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "PerawatanDiri" }
+                            }
+                          }
+                        },
+                        [
+                          _c("li", { staticClass: "list-group-item" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "text-dark",
+                                attrs: { href: "#" }
+                              },
+                              [_vm._v("Perawatan Diri")]
+                            )
+                          ])
+                        ]
+                      ),
+                  _vm._v(" "),
+                  _vm.$route.params.kategori == "PerawatanBadan"
+                    ? _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "PerawatanBadan" }
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "li",
+                            { staticClass: "list-group-item bg-primary" },
+                            [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "text-light",
+                                  attrs: { href: "#" }
+                                },
+                                [_vm._v("Perawatan Badan")]
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    : _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "PerawatanBadan" }
+                            }
+                          }
+                        },
+                        [
+                          _c("li", { staticClass: "list-group-item" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "text-dark",
+                                attrs: { href: "#" }
+                              },
+                              [_vm._v("Perawatan Badan")]
+                            )
+                          ])
+                        ]
+                      ),
+                  _vm._v(" "),
+                  _vm.$route.params.kategori == "PerawatanRambut"
+                    ? _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "PerawatanRambut" }
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "li",
+                            { staticClass: "list-group-item bg-primary" },
+                            [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "text-light",
+                                  attrs: { href: "#" }
+                                },
+                                [_vm._v("Perawatan Rambut")]
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    : _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "PerawatanRambut" }
+                            }
+                          }
+                        },
+                        [
+                          _c("li", { staticClass: "list-group-item" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "text-dark",
+                                attrs: { href: "#" }
+                              },
+                              [_vm._v("Perawatan Rambut")]
+                            )
+                          ])
+                        ]
+                      ),
+                  _vm._v(" "),
+                  _vm.$route.params.kategori == "PerawatanPria"
+                    ? _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "PerawatanPria" }
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "li",
+                            { staticClass: "list-group-item bg-primary" },
+                            [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "text-light",
+                                  attrs: { href: "#" }
+                                },
+                                [_vm._v("Perawatan Pria")]
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    : _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "PerawatanPria" }
+                            }
+                          }
+                        },
+                        [
+                          _c("li", { staticClass: "list-group-item" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "text-dark",
+                                attrs: { href: "#" }
+                              },
+                              [_vm._v("Perawatan Pria")]
+                            )
+                          ])
+                        ]
+                      ),
+                  _vm._v(" "),
+                  _vm.$route.params.kategori == "Obat"
+                    ? _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "Obat" }
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "li",
+                            { staticClass: "list-group-item bg-primary" },
+                            [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "text-light",
+                                  attrs: { href: "#" }
+                                },
+                                [_vm._v("Obat-obatan")]
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    : _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "Obat" }
+                            }
+                          }
+                        },
+                        [
+                          _c("li", { staticClass: "list-group-item" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "text-dark",
+                                attrs: { href: "#" }
+                              },
+                              [_vm._v("Obat-obatan")]
+                            )
+                          ])
+                        ]
+                      )
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.$route.params.kategori == "Televisi" ||
+          _vm.$route.params.kategori == "AksesorisKomputer" ||
+          _vm.$route.params.kategori == "AksesorisHP"
+            ? _c(
+                "div",
+                { staticClass: "col-md-3 order-first mt-2" },
+                [
+                  _vm.$route.params.kategori == "Televisi"
+                    ? _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "Televisi" }
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "li",
+                            { staticClass: "list-group-item bg-primary" },
+                            [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "text-light",
+                                  attrs: { href: "#" }
+                                },
+                                [_vm._v("Televisi")]
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    : _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "Televisi" }
+                            }
+                          }
+                        },
+                        [
+                          _c("li", { staticClass: "list-group-item" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "text-dark",
+                                attrs: { href: "#" }
+                              },
+                              [_vm._v("Televisi")]
+                            )
+                          ])
+                        ]
+                      ),
+                  _vm._v(" "),
+                  _vm.$route.params.kategori == "AksesorisKomputer"
+                    ? _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "AksesorisKomputer" }
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "li",
+                            { staticClass: "list-group-item bg-primary" },
+                            [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "text-light",
+                                  attrs: { href: "#" }
+                                },
+                                [_vm._v("Aksesoris Komputer")]
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    : _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "AksesorisKomputer" }
+                            }
+                          }
+                        },
+                        [
+                          _c("li", { staticClass: "list-group-item" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "text-dark",
+                                attrs: { href: "#" }
+                              },
+                              [_vm._v("Aksesoris Komputer")]
+                            )
+                          ])
+                        ]
+                      ),
+                  _vm._v(" "),
+                  _vm.$route.params.kategori == "AksesorisHP"
+                    ? _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "AksesorisHP" }
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "li",
+                            { staticClass: "list-group-item bg-primary" },
+                            [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "text-light",
+                                  attrs: { href: "#" }
+                                },
+                                [_vm._v("Aksesoris HP")]
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    : _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "AksesorisHP" }
+                            }
+                          }
+                        },
+                        [
+                          _c("li", { staticClass: "list-group-item" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "text-dark",
+                                attrs: { href: "#" }
+                              },
+                              [_vm._v("Aksesoris HP")]
+                            )
+                          ])
+                        ]
+                      )
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.$route.params.kategori == "PeralatanKebersihan" ||
+          _vm.$route.params.kategori == "PeralatanMakan" ||
+          _vm.$route.params.kategori == "PeralatanRT"
+            ? _c(
+                "div",
+                { staticClass: "col-md-3 order-first mt-2" },
+                [
+                  _vm.$route.params.kategori == "PeralatanKebersihan"
+                    ? _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "PeralatanKebersihan" }
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "li",
+                            { staticClass: "list-group-item bg-primary" },
+                            [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "text-light",
+                                  attrs: { href: "#" }
+                                },
+                                [_vm._v("Peralatan Kebersihan")]
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    : _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "PeralatanKebersihan" }
+                            }
+                          }
+                        },
+                        [
+                          _c("li", { staticClass: "list-group-item" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "text-dark",
+                                attrs: { href: "#" }
+                              },
+                              [_vm._v("Peralatan Kebersihan")]
+                            )
+                          ])
+                        ]
+                      ),
+                  _vm._v(" "),
+                  _vm.$route.params.kategori == "PeralatanMakan"
+                    ? _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "PeralatanMakan" }
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "li",
+                            { staticClass: "list-group-item bg-primary" },
+                            [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "text-light",
+                                  attrs: { href: "#" }
+                                },
+                                [_vm._v("Peralatan Makan")]
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    : _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "PeralatanMakan" }
+                            }
+                          }
+                        },
+                        [
+                          _c("li", { staticClass: "list-group-item" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "text-dark",
+                                attrs: { href: "#" }
+                              },
+                              [_vm._v("Peralatan Makan")]
+                            )
+                          ])
+                        ]
+                      ),
+                  _vm._v(" "),
+                  _vm.$route.params.kategori == "PeralatanRT"
+                    ? _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "PeralatanRT" }
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "li",
+                            { staticClass: "list-group-item bg-primary" },
+                            [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "text-light",
+                                  attrs: { href: "#" }
+                                },
+                                [_vm._v("Peralatan Rumah Tangga")]
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    : _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "PeralatanRT" }
+                            }
+                          }
+                        },
+                        [
+                          _c("li", { staticClass: "list-group-item" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "text-dark",
+                                attrs: { href: "#" }
+                              },
+                              [_vm._v("Peralatan Rumah Tangga")]
+                            )
+                          ])
+                        ]
+                      )
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.$route.params.kategori == "FashionPria" ||
+          _vm.$route.params.kategori == "FashionWanita"
+            ? _c(
+                "div",
+                { staticClass: "col-md-3 order-first mt-2" },
+                [
+                  _vm.$route.params.kategori == "FashionPria"
+                    ? _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "FashionPria" }
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "li",
+                            { staticClass: "list-group-item bg-primary" },
+                            [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "text-light",
+                                  attrs: { href: "#" }
+                                },
+                                [_vm._v("Fashion Pria")]
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    : _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "FashionPria" }
+                            }
+                          }
+                        },
+                        [
+                          _c("li", { staticClass: "list-group-item" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "text-dark",
+                                attrs: { href: "#" }
+                              },
+                              [_vm._v("Fashion Pria")]
+                            )
+                          ])
+                        ]
+                      ),
+                  _vm._v(" "),
+                  _vm.$route.params.kategori == "FashionWanita"
+                    ? _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "FashionWanita" }
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "li",
+                            { staticClass: "list-group-item bg-primary" },
+                            [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "text-light",
+                                  attrs: { href: "#" }
+                                },
+                                [_vm._v("Fashion Wanita")]
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    : _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "panelbarang",
+                              params: { kategori: "FashionWanita" }
+                            }
+                          }
+                        },
+                        [
+                          _c("li", { staticClass: "list-group-item" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "text-dark",
+                                attrs: { href: "#" }
+                              },
+                              [_vm._v("Fashion Wanita")]
+                            )
+                          ])
+                        ]
+                      )
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-md-9 order-last mt-2" }, [
+            _c(
+              "div",
+              { staticClass: "row" },
+              _vm._l(_vm.filtered, function(barang) {
+                return _c(
+                  "div",
+                  {
+                    key: barang["idbarang"],
+                    staticClass: "card col-md-3 mx-1 p-3"
+                  },
+                  [
+                    _c("img", {
+                      staticClass: "img-display",
+                      attrs: { src: "/images/" + barang.image_name }
+                    }),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "text-center lead" }, [
+                      _vm._v(_vm._s(barang.namabarang))
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        attrs: {
+                          type: "button",
+                          "data-toggle": "modal",
+                          "data-target": "#" + barang.idbarang
+                        }
+                      },
+                      [_vm._v("Info")]
+                    )
+                  ]
+                )
+              })
+            )
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _vm._l(_vm.filtered, function(barang) {
+        return _c(
+          "div",
+          {
+            key: barang["idbarang"],
+            staticClass: "modal fade",
+            attrs: {
+              id: barang.idbarang,
+              "data-backdrop": "false",
+              tabindex: "-1",
+              role: "dialog",
+              "aria-labelledby": "exampleModalCenterTitle",
+              "aria-hidden": "true"
+            }
+          },
+          [
+            _c(
+              "div",
+              {
+                staticClass: "modal-dialog modal-dialog-centered",
+                attrs: { role: "document" }
+              },
+              [
+                _c("div", { staticClass: "modal-content" }, [
+                  _vm._m(0, true),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-body" }, [
+                    _c("div", { staticClass: "wrapper" }, [
+                      _c("img", {
+                        staticClass: "img-info mx-auto d-block",
+                        attrs: {
+                          src: "/images/" + barang.image_name,
+                          alt: "foto-bahan"
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "info-wrapper" }, [
+                      _c("ul", [
+                        _c("li", [
+                          _c("b", [_vm._v("Harga")]),
+                          _vm._v(" : " + _vm._s(barang.harga))
+                        ]),
+                        _c("li", [
+                          _c("b", [_vm._v("Stok")]),
+                          _vm._v("  : " + _vm._s(barang.stock))
+                        ]),
+                        _c("li", [
+                          _c("b", [_vm._v("Deskripsi")]),
+                          _vm._v("  : " + _vm._s(barang.deskripsi))
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "p",
+                      { staticClass: "text-center" },
+                      [
+                        _vm._v("Lakukan "),
+                        _c(
+                          "router-link",
+                          {
+                            staticStyle: { color: "white" },
+                            attrs: { to: "/login" }
+                          },
+                          [_c("a", { attrs: { href: "#" } }, [_vm._v("Login")])]
+                        ),
+                        _vm._v(" untuk dapat membeli barang")
+                      ],
+                      1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(1, true)
+                ])
+              ]
+            )
+          ]
+        )
+      })
+    ],
+    2
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", {
+        staticClass: "modal-title",
+        attrs: { id: "exampleModalLongTitle" }
+      }),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-footer" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-secondary",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_vm._v("Close")]
+      )
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-2c914205", module.exports)
+  }
+}
+
+/***/ }),
+/* 83 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(84)
+/* template */
+var __vue_template__ = __webpack_require__(98)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -24565,22 +28750,22 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 77 */
+/* 84 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__afterlogin_HeaderLogin_vue__ = __webpack_require__(78);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__afterlogin_HeaderLogin_vue__ = __webpack_require__(85);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__afterlogin_HeaderLogin_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__afterlogin_HeaderLogin_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__afterlogin_FooterLogin_vue__ = __webpack_require__(81);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__afterlogin_FooterLogin_vue__ = __webpack_require__(88);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__afterlogin_FooterLogin_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__afterlogin_FooterLogin_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__index_HeaderIndex_vue__ = __webpack_require__(83);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__index_HeaderIndex_vue__ = __webpack_require__(90);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__index_HeaderIndex_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__index_HeaderIndex_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__index_FooterIndex_vue__ = __webpack_require__(85);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__index_FooterIndex_vue__ = __webpack_require__(92);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__index_FooterIndex_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__index_FooterIndex_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__admin_HeaderAdmin_vue__ = __webpack_require__(87);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__admin_HeaderAdmin_vue__ = __webpack_require__(94);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__admin_HeaderAdmin_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__admin_HeaderAdmin_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__admin_FooterAdmin_vue__ = __webpack_require__(89);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__admin_FooterAdmin_vue__ = __webpack_require__(96);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__admin_FooterAdmin_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__admin_FooterAdmin_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_vuex__ = __webpack_require__(3);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -24625,15 +28810,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 });
 
 /***/ }),
-/* 78 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(79)
+var __vue_script__ = __webpack_require__(86)
 /* template */
-var __vue_template__ = __webpack_require__(80)
+var __vue_template__ = __webpack_require__(87)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -24672,11 +28857,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 79 */
+/* 86 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
 //
 //
 //
@@ -24791,7 +28979,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 80 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -24807,9 +28995,34 @@ var render = function() {
       },
       [
         _c("div", { staticClass: "container" }, [
-          _vm._m(0),
+          _c(
+            "div",
+            { staticClass: "navbar-header" },
+            [
+              _c(
+                "router-link",
+                { staticClass: "navbar-brand", attrs: { to: "/" } },
+                [
+                  _c(
+                    "a",
+                    { staticClass: "navbar-brand", attrs: { href: "#" } },
+                    [
+                      _c("img", {
+                        attrs: {
+                          id: "logo",
+                          src: "img/logo-supermarket-supermart.png",
+                          alt: "logo-imk-supermarket"
+                        }
+                      })
+                    ]
+                  )
+                ]
+              )
+            ],
+            1
+          ),
           _vm._v(" "),
-          _vm._m(1),
+          _vm._m(0),
           _vm._v(" "),
           _c(
             "div",
@@ -24820,12 +29033,12 @@ var render = function() {
             [
               _c("ul", { staticClass: "nav navbar-nav mr-auto" }),
               _vm._v(" "),
-              _vm._m(2),
+              _vm._m(1),
               _vm._v(" "),
               _c(
                 "span",
                 { staticStyle: { "font-size": "18px", color: "white" } },
-                [_vm._v("Saldo : " + _vm._s(_vm.data.saldo))]
+                [_vm._v("Saldo : " + _vm._s(this.$auth.user().saldo))]
               ),
               _vm._v(" "),
               _c("ul", { staticClass: "nav navbar-nav navbar-right" }, [
@@ -24857,13 +29070,116 @@ var render = function() {
                             width: "35px",
                             height: "35px"
                           },
-                          attrs: { src: "image/profile/" + _vm.data.image_name }
+                          attrs: {
+                            src: "images/" + this.$auth.user().image_name
+                          }
                         }),
-                        _vm._v(_vm._s(_vm.data.email) + "\n                ")
+                        _vm._v(
+                          _vm._s(this.$auth.user().email) + "\n                "
+                        )
                       ]
                     ),
                     _vm._v(" "),
-                    _vm._m(3)
+                    _c(
+                      "div",
+                      {
+                        staticClass: "dropdown-menu w-100",
+                        attrs: { "aria-labelledby": "navbarDropdown" }
+                      },
+                      [
+                        _c(
+                          "router-link",
+                          { staticClass: "dropdown-item", attrs: { to: "/" } },
+                          [
+                            _c("img", {
+                              staticClass: "img-display mx-2",
+                              staticStyle: { width: "30px", height: "30px" },
+                              attrs: {
+                                id: "shop-chart",
+                                src: "img/homelogo.png",
+                                alt: "home-logo"
+                              }
+                            }),
+                            _c(
+                              "span",
+                              {
+                                staticStyle: {
+                                  "margin-left": "45px",
+                                  "font-size": "18px"
+                                }
+                              },
+                              [_vm._v("Home")]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _vm._m(2),
+                        _vm._v(" "),
+                        _c(
+                          "router-link",
+                          {
+                            staticClass: "dropdown-item",
+                            attrs: { to: "/topup" }
+                          },
+                          [
+                            _c("img", {
+                              staticClass: "img-display mx-2",
+                              staticStyle: { width: "30px", height: "30px" },
+                              attrs: { src: "img/topup.png", alt: "user-logo" }
+                            }),
+                            _c(
+                              "span",
+                              {
+                                staticStyle: {
+                                  "margin-left": "45px",
+                                  "font-size": "18px"
+                                }
+                              },
+                              [_vm._v("Top-up")]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _vm._m(3),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "dropdown-divider" }),
+                        _vm._v(" "),
+                        _c(
+                          "a",
+                          {
+                            staticClass: "dropdown-item",
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                _vm.$auth.logout()
+                              }
+                            }
+                          },
+                          [
+                            _c("img", {
+                              staticClass: "img-display mx-2",
+                              staticStyle: { width: "36px", height: "30px" },
+                              attrs: {
+                                id: "logout-logo",
+                                src: "img/logoutlogo.png",
+                                alt: "logout-logo"
+                              }
+                            }),
+                            _c(
+                              "span",
+                              {
+                                staticStyle: {
+                                  "margin-left": "40px",
+                                  "font-size": "18px"
+                                }
+                              },
+                              [_vm._v("Log Out")]
+                            )
+                          ]
+                        )
+                      ],
+                      1
+                    )
                   ]
                 )
               ])
@@ -24873,33 +29189,462 @@ var render = function() {
       ]
     ),
     _vm._v(" "),
-    _vm._m(4)
+    _c("nav", { attrs: { id: "navbar" } }, [
+      _c("div", { staticClass: "container" }, [
+        _c("div", { staticClass: "menu-wrapper" }, [
+          _c("ul", { staticStyle: { "padding-left": "0px" } }, [
+            _c("div", { staticClass: "dropdown" }, [
+              _c("li", { staticClass: "menu" }, [_vm._v("Makanan")]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "menu-content" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticStyle: { color: "black" },
+                      attrs: {
+                        to: {
+                          name: "panelbarang",
+                          params: { kategori: "MakananRingan" }
+                        }
+                      }
+                    },
+                    [
+                      _c("li", [
+                        _c("a", { attrs: { href: "#" } }, [
+                          _vm._v("Makanan Ringan")
+                        ])
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "router-link",
+                    {
+                      staticStyle: { color: "black" },
+                      attrs: {
+                        to: {
+                          name: "panelbarang",
+                          params: { kategori: "MakananBeku" }
+                        }
+                      }
+                    },
+                    [
+                      _c("li", [
+                        _c("a", { attrs: { href: "#" } }, [
+                          _vm._v("Makanan Beku")
+                        ])
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "router-link",
+                    {
+                      staticStyle: { color: "black" },
+                      attrs: {
+                        to: {
+                          name: "panelbarang",
+                          params: { kategori: "MakananPokok" }
+                        }
+                      }
+                    },
+                    [
+                      _c("li", [
+                        _c("a", { attrs: { href: "#" } }, [
+                          _vm._v("Makanan Pokok")
+                        ])
+                      ])
+                    ]
+                  )
+                ],
+                1
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "dropdown" }, [
+              _c("li", { staticClass: "menu" }, [_vm._v("Minuman")]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "menu-content" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticStyle: { color: "black" },
+                      attrs: {
+                        to: {
+                          name: "panelbarang",
+                          params: { kategori: "MinumanRingan" }
+                        }
+                      }
+                    },
+                    [
+                      _c("li", [
+                        _c("a", { attrs: { href: "#" } }, [
+                          _vm._v("Minuman Ringan")
+                        ])
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "router-link",
+                    {
+                      staticStyle: { color: "black" },
+                      attrs: {
+                        to: {
+                          name: "panelbarang",
+                          params: { kategori: "MinumanIsotonik" }
+                        }
+                      }
+                    },
+                    [
+                      _c("li", [
+                        _c("a", { attrs: { href: "#" } }, [
+                          _vm._v("Minuman Isotonik")
+                        ])
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "router-link",
+                    {
+                      staticStyle: { color: "black" },
+                      attrs: {
+                        to: {
+                          name: "panelbarang",
+                          params: { kategori: "MinumanSoda" }
+                        }
+                      }
+                    },
+                    [
+                      _c("li", [
+                        _c("a", { attrs: { href: "#" } }, [
+                          _vm._v("Minuman Soda")
+                        ])
+                      ])
+                    ]
+                  )
+                ],
+                1
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "dropdown" }, [
+              _c("li", { staticClass: "menu" }, [_vm._v("Kesehatan")]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "menu-content" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticStyle: { color: "black" },
+                      attrs: {
+                        to: {
+                          name: "panelbarang",
+                          params: { kategori: "PerawatanDiri" }
+                        }
+                      }
+                    },
+                    [
+                      _c("li", [
+                        _c("a", { attrs: { href: "#" } }, [
+                          _vm._v("Perawatan Diri")
+                        ])
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "router-link",
+                    {
+                      staticStyle: { color: "black" },
+                      attrs: {
+                        to: {
+                          name: "panelbarang",
+                          params: { kategori: "PerawatanBadan" }
+                        }
+                      }
+                    },
+                    [
+                      _c("li", [
+                        _c("a", { attrs: { href: "#" } }, [
+                          _vm._v("Perawatan Badan")
+                        ])
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "router-link",
+                    {
+                      staticStyle: { color: "black" },
+                      attrs: {
+                        to: {
+                          name: "panelbarang",
+                          params: { kategori: "PerawatanRambut" }
+                        }
+                      }
+                    },
+                    [
+                      _c("li", [
+                        _c("a", { attrs: { href: "#" } }, [
+                          _vm._v("Perawatan Rambut")
+                        ])
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "router-link",
+                    {
+                      staticStyle: { color: "black" },
+                      attrs: {
+                        to: {
+                          name: "panelbarang",
+                          params: { kategori: "PerawatanPria" }
+                        }
+                      }
+                    },
+                    [
+                      _c("li", [
+                        _c("a", { attrs: { href: "#" } }, [
+                          _vm._v("Perawatan Pria")
+                        ])
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "router-link",
+                    {
+                      staticStyle: { color: "black" },
+                      attrs: {
+                        to: {
+                          name: "panelbarang",
+                          params: { kategori: "Obat" }
+                        }
+                      }
+                    },
+                    [
+                      _c("li", [
+                        _c("a", { attrs: { href: "#" } }, [
+                          _vm._v("Obat - obatan")
+                        ])
+                      ])
+                    ]
+                  )
+                ],
+                1
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "dropdown" }, [
+              _c("li", { staticClass: "menu" }, [_vm._v("Elektronik")]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "menu-content" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticStyle: { color: "black" },
+                      attrs: {
+                        to: {
+                          name: "panelbarang",
+                          params: { kategori: "Televisi" }
+                        }
+                      }
+                    },
+                    [
+                      _c("li", [
+                        _c("a", { attrs: { href: "#" } }, [_vm._v("Televisi")])
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "router-link",
+                    {
+                      staticStyle: { color: "black" },
+                      attrs: {
+                        to: {
+                          name: "panelbarang",
+                          params: { kategori: "AksesorisKomputer" }
+                        }
+                      }
+                    },
+                    [
+                      _c("li", [
+                        _c("a", { attrs: { href: "#" } }, [
+                          _vm._v("Aksesoris Komputer")
+                        ])
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "router-link",
+                    {
+                      staticStyle: { color: "black" },
+                      attrs: {
+                        to: {
+                          name: "panelbarang",
+                          params: { kategori: "AksesorisHP" }
+                        }
+                      }
+                    },
+                    [
+                      _c("li", [
+                        _c("a", { attrs: { href: "#" } }, [
+                          _vm._v("Aksesoris HandPhone")
+                        ])
+                      ])
+                    ]
+                  )
+                ],
+                1
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "dropdown" }, [
+              _c("li", { staticClass: "menu" }, [
+                _vm._v("Kebutuhan Rumah Tangga")
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "menu-content" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticStyle: { color: "black" },
+                      attrs: {
+                        to: {
+                          name: "panelbarang",
+                          params: { kategori: "PeralatanKebersihan" }
+                        }
+                      }
+                    },
+                    [
+                      _c("li", [
+                        _c("a", { attrs: { href: "#" } }, [
+                          _vm._v("Peralatan Kebersihan")
+                        ])
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "router-link",
+                    {
+                      staticStyle: { color: "black" },
+                      attrs: {
+                        to: {
+                          name: "panelbarang",
+                          params: { kategori: "PeralatanMakan" }
+                        }
+                      }
+                    },
+                    [
+                      _c("li", [
+                        _c("a", { attrs: { href: "#" } }, [
+                          _vm._v("Peralatan Makan")
+                        ])
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "router-link",
+                    {
+                      staticStyle: { color: "black" },
+                      attrs: {
+                        to: {
+                          name: "panelbarang",
+                          params: { kategori: "PeralatanRT" }
+                        }
+                      }
+                    },
+                    [
+                      _c("li", [
+                        _c("a", { attrs: { href: "#" } }, [
+                          _vm._v("Peralatan Rumah Tangga")
+                        ])
+                      ])
+                    ]
+                  )
+                ],
+                1
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "dropdown" }, [
+              _c("li", { staticClass: "menu" }, [_vm._v("Fashion")]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "menu-content" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticStyle: { color: "black" },
+                      attrs: {
+                        to: {
+                          name: "panelbarang",
+                          params: { kategori: "FashionPria" }
+                        }
+                      }
+                    },
+                    [
+                      _c("li", [
+                        _c("a", { attrs: { href: "#" } }, [
+                          _vm._v("Fashion Pria")
+                        ])
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "router-link",
+                    {
+                      staticStyle: { color: "black" },
+                      attrs: {
+                        to: {
+                          name: "panelbarang",
+                          params: { kategori: "FashionWanita" }
+                        }
+                      }
+                    },
+                    [
+                      _c("li", [
+                        _c("a", { attrs: { href: "#" } }, [
+                          _vm._v("Fashion Wanita")
+                        ])
+                      ])
+                    ]
+                  )
+                ],
+                1
+              )
+            ])
+          ])
+        ])
+      ])
+    ])
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "navbar-header" }, [
-      _c(
-        "a",
-        {
-          staticClass: "navbar-brand",
-          attrs: { href: "../../after-login.php" }
-        },
-        [
-          _c("img", {
-            attrs: {
-              id: "logo",
-              src: "img/logo-supermarket-supermart.png",
-              alt: "logo-imk-supermarket"
-            }
-          })
-        ]
-      )
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -24916,7 +29661,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("span", [
-      _c("a", { attrs: { href: "../../shopping-list.php" } }, [
+      _c("a", { attrs: { href: "#" } }, [
         _c("img", {
           staticClass: "img-display mx-2",
           staticStyle: { width: "30px", height: "30px" },
@@ -24934,121 +29679,18 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c(
-      "div",
-      {
-        staticClass: "dropdown-menu w-100",
-        attrs: { "aria-labelledby": "navbarDropdown" }
-      },
+      "a",
+      { staticClass: "dropdown-item", attrs: { href: "../../profile.php" } },
       [
+        _c("img", {
+          staticClass: "img-display mx-2",
+          staticStyle: { width: "30px", height: "30px" },
+          attrs: { src: "img/user-logo.png", alt: "user-logo" }
+        }),
         _c(
-          "a",
-          {
-            staticClass: "dropdown-item",
-            attrs: { href: "../../after-login.php" }
-          },
-          [
-            _c("img", {
-              staticClass: "img-display mx-2",
-              staticStyle: { width: "30px", height: "30px" },
-              attrs: {
-                id: "shop-chart",
-                src: "img/homelogo.png",
-                alt: "home-logo"
-              }
-            }),
-            _c(
-              "span",
-              { staticStyle: { "margin-left": "45px", "font-size": "18px" } },
-              [_vm._v("Home")]
-            )
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "a",
-          {
-            staticClass: "dropdown-item",
-            attrs: { href: "../../profile.php" }
-          },
-          [
-            _c("img", {
-              staticClass: "img-display mx-2",
-              staticStyle: { width: "30px", height: "30px" },
-              attrs: { src: "img/user-logo.png", alt: "user-logo" }
-            }),
-            _c(
-              "span",
-              { staticStyle: { "margin-left": "45px", "font-size": "18px" } },
-              [_vm._v("Profile")]
-            )
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "a",
-          { staticClass: "dropdown-item", attrs: { href: "../../topup.php" } },
-          [
-            _c("img", {
-              staticClass: "img-display mx-2",
-              staticStyle: { width: "30px", height: "30px" },
-              attrs: { src: "img/topup.png", alt: "user-logo" }
-            }),
-            _c(
-              "span",
-              { staticStyle: { "margin-left": "45px", "font-size": "18px" } },
-              [_vm._v("Top-up")]
-            )
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "a",
-          {
-            staticClass: "dropdown-item",
-            attrs: { href: "../../shopping-list.php" }
-          },
-          [
-            _c("img", {
-              staticClass: "img-display mx-2",
-              staticStyle: { width: "28px", height: "30px" },
-              attrs: {
-                id: "shop-chart",
-                src: "img/shoplist.png",
-                alt: "shop-chart"
-              }
-            }),
-            _c(
-              "span",
-              { staticStyle: { "margin-left": "45px", "font-size": "18px" } },
-              [_vm._v("Shopping List")]
-            )
-          ]
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "dropdown-divider" }),
-        _vm._v(" "),
-        _c(
-          "a",
-          {
-            staticClass: "dropdown-item",
-            attrs: { href: "../../logout-proses.php" }
-          },
-          [
-            _c("img", {
-              staticClass: "img-display mx-2",
-              staticStyle: { width: "36px", height: "30px" },
-              attrs: {
-                id: "logout-logo",
-                src: "img/logoutlogo.png",
-                alt: "logout-logo"
-              }
-            }),
-            _c(
-              "span",
-              { staticStyle: { "margin-left": "40px", "font-size": "18px" } },
-              [_vm._v("Log Out")]
-            )
-          ]
+          "span",
+          { staticStyle: { "margin-left": "45px", "font-size": "18px" } },
+          [_vm._v("Profile")]
         )
       ]
     )
@@ -25057,270 +29699,29 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("nav", { attrs: { id: "navbar" } }, [
-      _c("div", { staticClass: "container" }, [
-        _c("div", { staticClass: "menu-wrapper" }, [
-          _c("ul", { staticStyle: { "padding-left": "0px" } }, [
-            _c("div", { staticClass: "dropdown" }, [
-              _c("li", { staticClass: "menu" }, [_vm._v("Makanan")]),
-              _vm._v(" "),
-              _c("div", { staticClass: "menu-content" }, [
-                _c("li", [
-                  _c(
-                    "a",
-                    {
-                      attrs: {
-                        href: "../makanan/makanan-ringan-afterlogin.php"
-                      }
-                    },
-                    [_vm._v("Makanan Ringan")]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c(
-                    "a",
-                    {
-                      attrs: { href: "../makanan/makanan-beku-afterlogin.php" }
-                    },
-                    [_vm._v("Makanan Beku")]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c(
-                    "a",
-                    {
-                      attrs: { href: "../makanan/makanan-pokok-afterlogin.php" }
-                    },
-                    [_vm._v("Makanan Pokok")]
-                  )
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "dropdown" }, [
-              _c("li", { staticClass: "menu" }, [_vm._v("Minuman")]),
-              _vm._v(" "),
-              _c("div", { staticClass: "menu-content" }, [
-                _c("li", [
-                  _c(
-                    "a",
-                    {
-                      attrs: {
-                        href: "../minuman/minuman-ringan-afterlogin.php"
-                      }
-                    },
-                    [_vm._v("Minuman Ringan")]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c(
-                    "a",
-                    {
-                      attrs: {
-                        href: "../minuman/minuman-isotonik-afterlogin.php"
-                      }
-                    },
-                    [_vm._v("Minuman Isotonik")]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c(
-                    "a",
-                    {
-                      attrs: { href: "../minuman/minuman-soda-afterlogin.php" }
-                    },
-                    [_vm._v("Minuman Soda")]
-                  )
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "dropdown" }, [
-              _c("li", { staticClass: "menu" }, [_vm._v("Kesehatan")]),
-              _vm._v(" "),
-              _c("div", { staticClass: "menu-content" }, [
-                _c("li", [
-                  _c(
-                    "a",
-                    {
-                      attrs: {
-                        href: "../kesehatan/perawatan-diri-afterlogin.php"
-                      }
-                    },
-                    [_vm._v("Perawatan Diri")]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c(
-                    "a",
-                    {
-                      attrs: {
-                        href: "../kesehatan/perawatan-badan-afterlogin.php"
-                      }
-                    },
-                    [_vm._v("Perawatan Badan")]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c(
-                    "a",
-                    {
-                      attrs: {
-                        href: "../kesehatan/perawatan-rambut-afterlogin.php"
-                      }
-                    },
-                    [_vm._v("Perawatan Rambut")]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c(
-                    "a",
-                    {
-                      attrs: {
-                        href: "../kesehatan/perawatan-pria-afterlogin.php"
-                      }
-                    },
-                    [_vm._v("Perawatan Pria")]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c(
-                    "a",
-                    {
-                      attrs: { href: "../kesehatan/obat-obatan-afterlogin.php" }
-                    },
-                    [_vm._v("Obat - obatan")]
-                  )
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "dropdown" }, [
-              _c("li", { staticClass: "menu" }, [_vm._v("Elektronik")]),
-              _vm._v(" "),
-              _c("div", { staticClass: "menu-content" }, [
-                _c("li", [
-                  _c(
-                    "a",
-                    {
-                      attrs: { href: "../elektronik/televisi-afterlogin.php" }
-                    },
-                    [_vm._v("Televisi")]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c(
-                    "a",
-                    {
-                      attrs: {
-                        href: "../elektronik/aksesoris-komputer-afterlogin.php"
-                      }
-                    },
-                    [_vm._v("Aksesoris Komputer")]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c(
-                    "a",
-                    {
-                      attrs: {
-                        href: "../elektronik/aksesoris-handphone-afterlogin.php"
-                      }
-                    },
-                    [_vm._v("Aksesoris Handphone")]
-                  )
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "dropdown" }, [
-              _c("li", { staticClass: "menu" }, [
-                _vm._v("Kebutuhan Rumah Tangga")
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "menu-content" }, [
-                _c("li", [
-                  _c(
-                    "a",
-                    {
-                      attrs: {
-                        href:
-                          "../kebutuhan rumah tangga/peralatan-kebersihan-afterlogin.php"
-                      }
-                    },
-                    [_vm._v("Peralatan Kebersihan")]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c(
-                    "a",
-                    {
-                      attrs: {
-                        href:
-                          "../kebutuhan rumah tangga/peralatan-makan-afterlogin.php"
-                      }
-                    },
-                    [_vm._v("Peralatan Makan")]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c(
-                    "a",
-                    {
-                      attrs: {
-                        href:
-                          "../kebutuhan rumah tangga/peralatan-rumah-tangga-afterlogin.php"
-                      }
-                    },
-                    [_vm._v("Peralatan Rumah Tangga")]
-                  )
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "dropdown" }, [
-              _c("li", { staticClass: "menu" }, [_vm._v("Fashion")]),
-              _vm._v(" "),
-              _c("div", { staticClass: "menu-content" }, [
-                _c("li", [
-                  _c(
-                    "a",
-                    {
-                      attrs: { href: "../fashion/fashion-pria-afterlogin.php" }
-                    },
-                    [_vm._v("Fashion Pria")]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c(
-                    "a",
-                    {
-                      attrs: {
-                        href: "../fashion/fashion-wanita-afterlogin.php"
-                      }
-                    },
-                    [_vm._v("Fashion Wanita")]
-                  )
-                ])
-              ])
-            ])
-          ])
-        ])
-      ])
-    ])
+    return _c(
+      "a",
+      {
+        staticClass: "dropdown-item",
+        attrs: { href: "../../shopping-list.php" }
+      },
+      [
+        _c("img", {
+          staticClass: "img-display mx-2",
+          staticStyle: { width: "28px", height: "30px" },
+          attrs: {
+            id: "shop-chart",
+            src: "img/shoplist.png",
+            alt: "shop-chart"
+          }
+        }),
+        _c(
+          "span",
+          { staticStyle: { "margin-left": "45px", "font-size": "18px" } },
+          [_vm._v("Shopping List")]
+        )
+      ]
+    )
   }
 ]
 render._withStripped = true
@@ -25333,7 +29734,7 @@ if (false) {
 }
 
 /***/ }),
-/* 81 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
@@ -25341,7 +29742,7 @@ var normalizeComponent = __webpack_require__(0)
 /* script */
 var __vue_script__ = null
 /* template */
-var __vue_template__ = __webpack_require__(82)
+var __vue_template__ = __webpack_require__(89)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -25380,7 +29781,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 82 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -25673,7 +30074,7 @@ if (false) {
 }
 
 /***/ }),
-/* 83 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
@@ -25681,7 +30082,7 @@ var normalizeComponent = __webpack_require__(0)
 /* script */
 var __vue_script__ = null
 /* template */
-var __vue_template__ = __webpack_require__(84)
+var __vue_template__ = __webpack_require__(91)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -25720,7 +30121,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 84 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -25806,7 +30207,25 @@ var render = function() {
                 "div",
                 { staticClass: "menu-content" },
                 [
-                  _vm._m(1),
+                  _c(
+                    "router-link",
+                    {
+                      staticStyle: { color: "black" },
+                      attrs: {
+                        to: {
+                          name: "panelbarang",
+                          params: { kategori: "MakananRingan" }
+                        }
+                      }
+                    },
+                    [
+                      _c("li", [
+                        _c("a", { attrs: { href: "#" } }, [
+                          _vm._v("Makanan Ringan")
+                        ])
+                      ])
+                    ]
+                  ),
                   _vm._v(" "),
                   _c(
                     "router-link",
@@ -25828,7 +30247,25 @@ var render = function() {
                     ]
                   ),
                   _vm._v(" "),
-                  _vm._m(2)
+                  _c(
+                    "router-link",
+                    {
+                      staticStyle: { color: "black" },
+                      attrs: {
+                        to: {
+                          name: "panelbarang",
+                          params: { kategori: "MakananPokok" }
+                        }
+                      }
+                    },
+                    [
+                      _c("li", [
+                        _c("a", { attrs: { href: "#" } }, [
+                          _vm._v("Makanan Pokok")
+                        ])
+                      ])
+                    ]
+                  )
                 ],
                 1
               )
@@ -25905,19 +30342,315 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            _vm._m(3),
+            _c("div", { staticClass: "dropdown" }, [
+              _c("li", { staticClass: "menu" }, [_vm._v("Kesehatan")]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "menu-content" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticStyle: { color: "black" },
+                      attrs: {
+                        to: {
+                          name: "panelbarang",
+                          params: { kategori: "PerawatanDiri" }
+                        }
+                      }
+                    },
+                    [
+                      _c("li", [
+                        _c("a", { attrs: { href: "#" } }, [
+                          _vm._v("Perawatan Diri")
+                        ])
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "router-link",
+                    {
+                      staticStyle: { color: "black" },
+                      attrs: {
+                        to: {
+                          name: "panelbarang",
+                          params: { kategori: "PerawatanBadan" }
+                        }
+                      }
+                    },
+                    [
+                      _c("li", [
+                        _c("a", { attrs: { href: "#" } }, [
+                          _vm._v("Perawatan Badan")
+                        ])
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "router-link",
+                    {
+                      staticStyle: { color: "black" },
+                      attrs: {
+                        to: {
+                          name: "panelbarang",
+                          params: { kategori: "PerawatanRambut" }
+                        }
+                      }
+                    },
+                    [
+                      _c("li", [
+                        _c("a", { attrs: { href: "#" } }, [
+                          _vm._v("Perawatan Rambut")
+                        ])
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "router-link",
+                    {
+                      staticStyle: { color: "black" },
+                      attrs: {
+                        to: {
+                          name: "panelbarang",
+                          params: { kategori: "PerawatanPria" }
+                        }
+                      }
+                    },
+                    [
+                      _c("li", [
+                        _c("a", { attrs: { href: "#" } }, [
+                          _vm._v("Perawatan Pria")
+                        ])
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "router-link",
+                    {
+                      staticStyle: { color: "black" },
+                      attrs: {
+                        to: {
+                          name: "panelbarang",
+                          params: { kategori: "Obat" }
+                        }
+                      }
+                    },
+                    [
+                      _c("li", [
+                        _c("a", { attrs: { href: "#" } }, [
+                          _vm._v("Obat - obatan")
+                        ])
+                      ])
+                    ]
+                  )
+                ],
+                1
+              )
+            ]),
             _vm._v(" "),
-            _vm._m(4),
+            _c("div", { staticClass: "dropdown" }, [
+              _c("li", { staticClass: "menu" }, [_vm._v("Elektronik")]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "menu-content" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticStyle: { color: "black" },
+                      attrs: {
+                        to: {
+                          name: "panelbarang",
+                          params: { kategori: "Televisi" }
+                        }
+                      }
+                    },
+                    [
+                      _c("li", [
+                        _c("a", { attrs: { href: "#" } }, [_vm._v("Televisi")])
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "router-link",
+                    {
+                      staticStyle: { color: "black" },
+                      attrs: {
+                        to: {
+                          name: "panelbarang",
+                          params: { kategori: "AksesorisKomputer" }
+                        }
+                      }
+                    },
+                    [
+                      _c("li", [
+                        _c("a", { attrs: { href: "#" } }, [
+                          _vm._v("Aksesoris Komputer")
+                        ])
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "router-link",
+                    {
+                      staticStyle: { color: "black" },
+                      attrs: {
+                        to: {
+                          name: "panelbarang",
+                          params: { kategori: "AksesorisHP" }
+                        }
+                      }
+                    },
+                    [
+                      _c("li", [
+                        _c("a", { attrs: { href: "#" } }, [
+                          _vm._v("Aksesoris HandPhone")
+                        ])
+                      ])
+                    ]
+                  )
+                ],
+                1
+              )
+            ]),
             _vm._v(" "),
-            _vm._m(5),
+            _c("div", { staticClass: "dropdown" }, [
+              _c("li", { staticClass: "menu" }, [
+                _vm._v("Kebutuhan Rumah Tangga")
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "menu-content" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticStyle: { color: "black" },
+                      attrs: {
+                        to: {
+                          name: "panelbarang",
+                          params: { kategori: "PeralatanKebersihan" }
+                        }
+                      }
+                    },
+                    [
+                      _c("li", [
+                        _c("a", { attrs: { href: "#" } }, [
+                          _vm._v("Peralatan Kebersihan")
+                        ])
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "router-link",
+                    {
+                      staticStyle: { color: "black" },
+                      attrs: {
+                        to: {
+                          name: "panelbarang",
+                          params: { kategori: "PeralatanMakan" }
+                        }
+                      }
+                    },
+                    [
+                      _c("li", [
+                        _c("a", { attrs: { href: "#" } }, [
+                          _vm._v("Peralatan Makan")
+                        ])
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "router-link",
+                    {
+                      staticStyle: { color: "black" },
+                      attrs: {
+                        to: {
+                          name: "panelbarang",
+                          params: { kategori: "PeralatanRT" }
+                        }
+                      }
+                    },
+                    [
+                      _c("li", [
+                        _c("a", { attrs: { href: "#" } }, [
+                          _vm._v("Peralatan Rumah Tangga")
+                        ])
+                      ])
+                    ]
+                  )
+                ],
+                1
+              )
+            ]),
             _vm._v(" "),
-            _vm._m(6)
+            _c("div", { staticClass: "dropdown" }, [
+              _c("li", { staticClass: "menu" }, [_vm._v("Fashion")]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "menu-content" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticStyle: { color: "black" },
+                      attrs: {
+                        to: {
+                          name: "panelbarang",
+                          params: { kategori: "FashionPria" }
+                        }
+                      }
+                    },
+                    [
+                      _c("li", [
+                        _c("a", { attrs: { href: "#" } }, [
+                          _vm._v("Fashion Pria")
+                        ])
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "router-link",
+                    {
+                      staticStyle: { color: "black" },
+                      attrs: {
+                        to: {
+                          name: "panelbarang",
+                          params: { kategori: "FashionWanita" }
+                        }
+                      }
+                    },
+                    [
+                      _c("li", [
+                        _c("a", { attrs: { href: "#" } }, [
+                          _vm._v("Fashion Wanita")
+                        ])
+                      ])
+                    ]
+                  )
+                ],
+                1
+              )
+            ])
           ])
         ])
       ])
     ]),
     _vm._v(" "),
-    _vm._m(7)
+    _vm._m(1)
   ])
 }
 var staticRenderFns = [
@@ -25934,108 +30667,6 @@ var staticRenderFns = [
           alt: "icon-menu"
         }
       })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c("a", { attrs: { href: "#" } }, [_vm._v("Makanan Ringan")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c("a", { attrs: { href: "#" } }, [_vm._v("Makanan Pokok")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "dropdown" }, [
-      _c("li", { staticClass: "menu" }, [_vm._v("Kesehatan")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "menu-content" }, [
-        _c("li", [
-          _c("a", { attrs: { href: "#" } }, [_vm._v("Perawatan Diri")])
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("a", { attrs: { href: "#" } }, [_vm._v("Perawatan Badan")])
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("a", { attrs: { href: "#" } }, [_vm._v("Perawatan Rambut")])
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("a", { attrs: { href: "#" } }, [_vm._v("Perawatan Pria")])
-        ]),
-        _vm._v(" "),
-        _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Obat - obatan")])])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "dropdown" }, [
-      _c("li", { staticClass: "menu" }, [_vm._v("Elektronik")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "menu-content" }, [
-        _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Televisi")])]),
-        _vm._v(" "),
-        _c("li", [
-          _c("a", { attrs: { href: "#" } }, [_vm._v("Aksesoris Komputer")])
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("a", { attrs: { href: "#" } }, [_vm._v("Aksesoris Handphone")])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "dropdown" }, [
-      _c("li", { staticClass: "menu" }, [_vm._v("Kebutuhan Rumah Tangga")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "menu-content" }, [
-        _c("li", [
-          _c("a", { attrs: { href: "#" } }, [_vm._v("Peralatan Kebersihan")])
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("a", { attrs: { href: "#" } }, [_vm._v("Peralatan Makan")])
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("a", { attrs: { href: "#" } }, [_vm._v("Peralatan Rumah Tangga")])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "dropdown" }, [
-      _c("li", { staticClass: "menu" }, [_vm._v("Fashion")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "menu-content" }, [
-        _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Fashion Pria")])]),
-        _vm._v(" "),
-        _c("li", [
-          _c("a", { attrs: { href: "#" } }, [_vm._v("Fashion Wanita")])
-        ])
-      ])
     ])
   },
   function() {
@@ -26107,7 +30738,7 @@ if (false) {
 }
 
 /***/ }),
-/* 85 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
@@ -26115,7 +30746,7 @@ var normalizeComponent = __webpack_require__(0)
 /* script */
 var __vue_script__ = null
 /* template */
-var __vue_template__ = __webpack_require__(86)
+var __vue_template__ = __webpack_require__(93)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -26154,7 +30785,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 86 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -26444,7 +31075,7 @@ if (false) {
 }
 
 /***/ }),
-/* 87 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
@@ -26452,7 +31083,7 @@ var normalizeComponent = __webpack_require__(0)
 /* script */
 var __vue_script__ = null
 /* template */
-var __vue_template__ = __webpack_require__(88)
+var __vue_template__ = __webpack_require__(95)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -26491,7 +31122,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 88 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -27289,7 +31920,7 @@ if (false) {
 }
 
 /***/ }),
-/* 89 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
@@ -27297,7 +31928,7 @@ var normalizeComponent = __webpack_require__(0)
 /* script */
 var __vue_script__ = null
 /* template */
-var __vue_template__ = __webpack_require__(90)
+var __vue_template__ = __webpack_require__(97)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -27336,7 +31967,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 90 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -27629,7 +32260,7 @@ if (false) {
 }
 
 /***/ }),
-/* 91 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -27641,16 +32272,16 @@ var render = function() {
     [
       this.$auth.user().role == "admin"
         ? _c("header-admin")
-        : _vm.user.role == "user"
+        : this.$auth.user().role == "user"
         ? _c("header-login", { attrs: { data: _vm.user } })
         : _c("header-index"),
       _vm._v(" "),
       _c("router-view", { key: _vm.$route.fullPath }),
       _vm._v(" "),
-      _vm.user.role == "admin"
+      this.$auth.user().role == "admin"
         ? _c("footer-admin")
-        : _vm.user.role == "user"
-        ? _c("footer-login")
+        : this.$auth.user().role == "user"
+        ? _c("footer-login", { attrs: { data: _vm.user } })
         : _c("footer-index")
     ],
     1
@@ -27667,7 +32298,7 @@ if (false) {
 }
 
 /***/ }),
-/* 92 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27675,10 +32306,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var _typeof="fun
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)):window.Vue&&window.axios&&Vue.use(o,window.axios)}();
 
 /***/ }),
-/* 93 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Auth = __webpack_require__(94)();
+var Auth = __webpack_require__(101)();
 
 module.exports = (function () {
 
@@ -27719,11 +32350,11 @@ module.exports = (function () {
 })();
 
 /***/ }),
-/* 94 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var __utils  = __webpack_require__(95),
-    __token  = __webpack_require__(96),
+var __utils  = __webpack_require__(102),
+    __token  = __webpack_require__(103),
     __cookie = __webpack_require__(17)
 
 module.exports = function () {
@@ -28433,7 +33064,7 @@ module.exports = function () {
 
 
 /***/ }),
-/* 95 */
+/* 102 */
 /***/ (function(module, exports) {
 
 module.exports = (function (){
@@ -28515,7 +33146,7 @@ module.exports = (function (){
 
 
 /***/ }),
-/* 96 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __cookie = __webpack_require__(17);
@@ -28595,7 +33226,7 @@ module.exports = (function () {
 })();
 
 /***/ }),
-/* 97 */
+/* 104 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -28617,7 +33248,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 98 */
+/* 105 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -28683,7 +33314,7 @@ module.exports = {
 
 
 /***/ }),
-/* 99 */
+/* 106 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -28751,7 +33382,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 100 */
+/* 107 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

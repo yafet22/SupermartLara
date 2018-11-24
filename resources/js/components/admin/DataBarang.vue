@@ -21,7 +21,7 @@
                         </li>
 
                         <li class="list-group-item">
-                            <a href="#" class="text-dark">Konfirmasi</a>
+                            <router-link class="text-dark" to="/datatopup">Data Topup</router-link>
                         </li>
                     </div>
                     <div class="col-md-9 order-first mt-2">
@@ -57,7 +57,7 @@
                                             <td v-html="barang.stock"></td>
                                             <td>
                                                 <button type="button" class="btn btn-primary btn-sm btn-block">Edit</button>
-                                                <button type="button" class="btn btn-danger btn-sm btn-block">Hapus</button>
+                                                <button type="button" class="btn btn-danger btn-sm btn-block" @click="destroy(barang.idbarang)"  >Hapus</button>
                                             </td>
                                         </tr>
                                     </table>
@@ -96,8 +96,18 @@ export default {
     methods : {
         ...mapActions({
             inputBarang : 'DataBarang/addBarang',
-            get : 'DataBarang/getBarang'
+            get : 'DataBarang/getBarang',
+            deleteBarang : 'DataBarang/destroy'
         }),
+
+        destroy(id){
+            try {
+                this.deleteBarang(id);
+                console.log("Succes Delete")
+            } catch (err) {
+               console.log(err) 
+            }
+        }
     },   
     async created(){
         await this.get()

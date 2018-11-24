@@ -21,6 +21,13 @@ Route::resource('barangs','BarangController');
 
 Route::resource('users','UserController');
 
+Route::resource('topups','TopupController');
+
+Route::post('topup/{id}','TopupController@topup');
+Route::get('usertopup/{id}','TopupController@showbyuser');
+Route::post('sendconfirm/{id}','TopupController@sendconfirm');
+Route::patch('confirm/{id}','TopupController@confirm');
+
 Route::get('kategori/{kategori}','BarangController@findbykategori');
 
 Route::post('login','UserController@login');

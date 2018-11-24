@@ -31,4 +31,12 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
     ];
+
+    public function topups(){
+        return $this->hasMany('App\Topup','iduser');
+    }  
+    
+    public function transaksis(){
+        return $this->hasMany('App\Transaksi','iduser');
+    }  
 }

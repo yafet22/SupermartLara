@@ -1,18 +1,29 @@
 import ContentIndex from './components/index/ContentIndex.vue'
 import Login from './components/layout/Login.vue'
 import Register from './components/layout/Register.vue'
+import TopUp from './components/layout/TopUp.vue'
 import PanelBarang from './components/index/PanelBarang.vue'
 import PanelBarang1 from './components/index/PanelBarangOld.vue'
 import Layout from './components/index/LayoutBarang.vue'
 import PanelBarangAdmin from './components/admin/PanelBarangAdmin.vue'
 import DataBarang from './components/admin/DataBarang.vue'
 import DataUser from './components/admin/DataUser.vue'
+import DataTopup from './components/admin/DataTopup.vue'
+import PanelBarangLogin from './components/afterlogin/PanelBarangLogin.vue'
 
 export const routes = [
     {
         name : 'home',
         path : '/',
         component : ContentIndex
+    },
+    {
+        name : 'topup',
+        path : '/topup',
+        component : TopUp,
+        meta: {
+            auth: true
+        },
     },
     {
         name : 'login',
@@ -23,6 +34,11 @@ export const routes = [
         name : 'register',
         path : '/register',
         component : Register
+    },
+    {
+        name : 'datatopup',
+        path : '/datatopup',
+        component : DataTopup
     },
     {
         name : 'databarang',

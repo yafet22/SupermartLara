@@ -29,9 +29,9 @@
                         <div class="dropdown">
                             <li class="menu">Makanan</li>
                             <div class="menu-content">
-                                <li><a href="#">Makanan Ringan</a></li>
+                                <router-link style="color:black" :to="{name: 'panelbarang',  params: {  kategori: 'MakananRingan' } }"><li><a href="#">Makanan Ringan</a></li></router-link>
                                 <router-link style="color:black" :to="{name: 'panelbarang',  params: {  kategori: 'MakananBeku' } }"><li><a href="#">Makanan Beku</a></li></router-link>
-                                <li><a href="#">Makanan Pokok</a></li>
+                                <router-link style="color:black" :to="{name: 'panelbarang',  params: {  kategori: 'MakananPokok' } }"><li><a href="#">Makanan Pokok</a></li></router-link>
                             </div>
                         </div>
 
@@ -47,37 +47,37 @@
                         <div class="dropdown">
                             <li class="menu">Kesehatan</li>
                             <div class="menu-content">
-                                <li><a href="#">Perawatan Diri</a></li>
-                                <li><a href="#">Perawatan Badan</a></li>
-                                <li><a href="#">Perawatan Rambut</a></li>
-                                <li><a href="#">Perawatan Pria</a></li>
-                                <li><a href="#">Obat - obatan</a></li>
+                                <router-link style="color:black" :to="{name: 'panelbarang',  params: {  kategori: 'PerawatanDiri' } }"><li><a href="#">Perawatan Diri</a></li></router-link>
+                                <router-link style="color:black" :to="{name: 'panelbarang',  params: {  kategori: 'PerawatanBadan' } }"><li><a href="#">Perawatan Badan</a></li></router-link>
+                                <router-link style="color:black" :to="{name: 'panelbarang',  params: {  kategori: 'PerawatanRambut' } }"><li><a href="#">Perawatan Rambut</a></li></router-link>
+                                <router-link style="color:black" :to="{name: 'panelbarang',  params: {  kategori: 'PerawatanPria' } }"><li><a href="#">Perawatan Pria</a></li></router-link>
+                                <router-link style="color:black" :to="{name: 'panelbarang',  params: {  kategori: 'Obat' } }"><li><a href="#">Obat - obatan</a></li></router-link>
                             </div>
                         </div>
 
                         <div class="dropdown">
                             <li class="menu">Elektronik</li>
                             <div class="menu-content">
-                                <li><a href="#">Televisi</a></li>
-                                <li><a href="#">Aksesoris Komputer</a></li>
-                                <li><a href="#">Aksesoris Handphone</a></li>
+                                <router-link style="color:black" :to="{name: 'panelbarang',  params: {  kategori: 'Televisi' } }"><li><a href="#">Televisi</a></li></router-link>
+                                <router-link style="color:black" :to="{name: 'panelbarang',  params: {  kategori: 'AksesorisKomputer' } }"><li><a href="#">Aksesoris Komputer</a></li></router-link>
+                                <router-link style="color:black" :to="{name: 'panelbarang',  params: {  kategori: 'AksesorisHP' } }"><li><a href="#">Aksesoris HandPhone</a></li></router-link>
                             </div>
                         </div>
 
                         <div class="dropdown">
                             <li class="menu">Kebutuhan Rumah Tangga</li>
                             <div class="menu-content">
-                                <li><a href="#">Peralatan Kebersihan</a></li>
-                                <li><a href="#">Peralatan Makan</a></li>
-                                <li><a href="#">Peralatan Rumah Tangga</a></li>
+                                <router-link style="color:black" :to="{name: 'panelbarang',  params: {  kategori: 'PeralatanKebersihan' } }"><li><a href="#">Peralatan Kebersihan</a></li></router-link>
+                                <router-link style="color:black" :to="{name: 'panelbarang',  params: {  kategori: 'PeralatanMakan' } }"><li><a href="#">Peralatan Makan</a></li></router-link>
+                                <router-link style="color:black" :to="{name: 'panelbarang',  params: {  kategori: 'PeralatanRT' } }"><li><a href="#">Peralatan Rumah Tangga</a></li></router-link>
                             </div>
                         </div>
 
                         <div class="dropdown">
                             <li class="menu">Fashion</li>
                             <div class="menu-content">
-                                <li><a href="#">Fashion Pria</a></li>
-                                <li><a href="#">Fashion Wanita</a></li>
+                                <router-link style="color:black" :to="{name: 'panelbarang',  params: {  kategori: 'FashionPria' } }"><li><a href="#">Fashion Pria</a></li></router-link>
+                                <router-link style="color:black" :to="{name: 'panelbarang',  params: {  kategori: 'FashionWanita' } }"><li><a href="#">Fashion Wanita</a></li></router-link>
                             </div>
                         </div>
                     </ul>

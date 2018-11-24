@@ -235,7 +235,7 @@
             </div>
         </div>
 
-        <div v-for="barang of filtered" v-bind:key="barang['idbarang']" class="modal fade" v-bind:id="barang.idbarang" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div v-for="barang of filtered" v-bind:key="barang['idbarang']" class="modal fade" v-bind:id="barang.idbarang" data-backdrop="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -244,19 +244,12 @@
                 </div>
                 <div class="modal-body">
                     <div class="wrapper"><img v-bind:src="'/images/' + barang.image_name" alt="foto-bahan" class="img-info mx-auto d-block"/></div>
-                    <div class="info-wrapper"><ul><li><b>Harga</b> : {{ barang.harga }}</li><li><b>Stok</b>  : {{ barang.stock }}</li><li><b>Deskripsi</b>  : {{ barang.deskripsi }}</li> </ul></div>       
-                    <div v-if="$auth.user().role =='user'" class="form-group">
-                        <input type="number" min="1" class="form-control" id="jumlah" placeholder="Jumlah beli" name="jumlah" required>
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                                <button type="submit" value="tambah" name="tambah" class="btn btn-warning" >Masukan chart</button>
-                            </div> 
-                        </div>
-                        
-                    </div>
-                    <p v-else class="text-center">Lakukan <router-link style="color:white;" to="/login"><a href="#">Login</a></router-link> untuk dapat membeli barang</p>
+                    <div class="info-wrapper"><ul><li><b>Harga</b> : {{ barang.harga }}</li><li><b>Stok</b>  : {{ barang.stock }}</li><li><b>Deskripsi</b>  : {{ barang.deskripsi }}</li> </ul></div>
+                    <p class="text-center">Lakukan <router-link style="color:white;" to="/login"><a href="#">Login</a></router-link> untuk dapat membeli barang</p>
                 </div>
-                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
                 </div>
             </div>
         </div>

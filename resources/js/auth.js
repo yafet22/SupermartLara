@@ -2,15 +2,9 @@ import Http from './http'
 import store from './store'
 
 export default {
-    register(username,email,telp,password,checkpassword){
+    register(payload){
         return new Promise((resolve,reject) => {
-            const payload ={
-                username,
-                email,
-                telp,
-                password,
-                checkpassword
-            }
+            
 
             const successCallback = (res) => {
                 resolve()
@@ -20,7 +14,7 @@ export default {
                 reject(err)
             }
 
-            Http.post('api/users',payload,successCallback,errorCallback)
+            Http.post('/users',payload,successCallback,errorCallback)
         })
     },
     authenticate(email,password){
@@ -40,7 +34,7 @@ export default {
                 reject(err)
             }
 
-            Http.post('api/login',payload,successCallback,errorCallback)
+            Http.post('/login',payload,successCallback,errorCallback)
         })
     },
     // getBarang(){

@@ -27,6 +27,25 @@ const actions =  {
             Http.get('/users',successCallback,errorCallback)
         })
     },
+
+    destroy(context, id){
+        console.log(id)
+        return new Promise((resolve, reject) => {
+            const successCallback = res => {
+                if(res.status===200){
+                    console.log('Delete User')
+                    context.dispatch('getAllUser')
+                    resolve()
+                }
+            }
+
+            const errorCallback = err => {
+                reject(err)
+            }
+
+            Http.delete('/users/'+id, successCallback, errorCallback)
+        })
+    },
     
 };
 

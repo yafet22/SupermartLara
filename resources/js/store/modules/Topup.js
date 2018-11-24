@@ -16,7 +16,7 @@ const mutations = {
 };
 
 const actions =  {
-    getBarang({commit}){
+    getTopups({commit}){
         return new Promise((resolve, reject) =>{
             
             const successCallback = (res) => {
@@ -29,12 +29,35 @@ const actions =  {
                 reject(err)
             }
 
-            Http.get('/barangs',successCallback,errorCallback)
+            Http.get('/topups',successCallback,errorCallback)
         })
     },
 
-    addBarang( context, payload){
+    getTopupbyUser(context,id){
+        return new Promise((resolve, reject) =>{
+            
+            const successCallback = (res) => {
+                console.log(res.data.data)
+                context.commit('setSource',res.data.data)
+                resolve()
+            }
+
+            const errorCallback = (err) => {
+                reject(err)
+            }
+
+            Http.get('/usertopup/'+id,successCallback,errorCallback)
+        })
+    },
+
+    addTopup( context, payload){
         return new Promise((resolve,reject) => {
+
+            const data = {
+                bank : payload.bank,
+                topup : payload.topup
+            }
+
             const successCallback = (res) => {
                 if(res.status === 201){
                     context.commit('created',res.data.data)
@@ -47,43 +70,19 @@ const actions =  {
                 reject(err)
             }
 
-            Http.post('barangs',payload,successCallback,errorCallback)
+            Http.post('topup/'+payload.id,data,successCallback,errorCallback)
         })
     },
 
-    destroy(context, id){
-        console.log(id)
+    sendconfirm(context, payload){
         return new Promise((resolve, reject) => {
-            const successCallback = res => {
-                if(res.status===200){
-                    console.log('Delete Barang')
-                    context.dispatch('getBarang')
-                    resolve()
-                }
-            }
 
-            const errorCallback = err => {
-                reject(err)
-            }
-
-            Http.delete('/barangs/'+id, successCallback, errorCallback)
-        })
-    },
-
-    update(context, payload){
-        return new Promise((resolve, reject) => {
-            const data = {
-                namabarang : payload.namabarang,
-                kategori : payload.kategori,
-                harga : payload.harga,
-                stock :payload.stock,
-                deskripsi : payload.deskripsi,
-                image_name :payload.image_name
-            }
+            let data = new FormData()
+            data.append("fotobukti",payload.get("fotobukti"))
 
             const successCallback = res => {
                 if(res.status === 200){
-                    context.dispatch('getBarang')
+                    context.dispatch('getTopups')
                     resolve()
                 }
             }
@@ -92,7 +91,25 @@ const actions =  {
                 reject(err)
             }
 
-            Http.patch('/barangs/'+payload.idbarang, data, successCallback, errorCallback)
+            Http.post('/sendconfirm/'+payload.get("id"),data, successCallback, errorCallback)
+        })
+    },
+
+    confirm(context,id){
+        return new Promise((resolve, reject) => {
+
+            const successCallback = res => {
+                if(res.status === 200){
+                    context.dispatch('getTopups')
+                    resolve()
+                }
+            }
+
+            const errorCallback = err => {
+                reject(err)
+            }
+
+            Http.patch('/confirm/'+id,successCallback, errorCallback)
         })
     },
 

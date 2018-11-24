@@ -1,11 +1,11 @@
 <template>
     <div>
         <header-admin v-if="this.$auth.user().role =='admin'"></header-admin>
-        <header-login v-else-if="user.role =='user'" v-bind:data="user" ></header-login>
+        <header-login v-else-if="this.$auth.user().role =='user'" v-bind:data="user" ></header-login>
         <header-index v-else></header-index>
         <router-view :key="$route.fullPath"></router-view>
-        <footer-admin v-if="user.role =='admin'"></footer-admin>
-        <footer-login v-else-if="user.role =='user'"></footer-login>
+        <footer-admin v-if="this.$auth.user().role =='admin'"></footer-admin>
+        <footer-login v-else-if="this.$auth.user().role =='user'" v-bind:data="user"></footer-login>
         <footer-index v-else></footer-index>
     </div>
 </template>

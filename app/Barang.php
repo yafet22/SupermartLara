@@ -15,4 +15,8 @@ class Barang extends Model
     'stock',
     'image_name',
     'deskripsi'];
+
+    public function cartshops(){
+        return $this->hasMany('App\Cartshop','idbarang');
+    }
 }

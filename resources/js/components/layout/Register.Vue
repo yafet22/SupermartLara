@@ -20,7 +20,7 @@
                                             <!-- belom jalan  -->
 
                                             <!-- belom jalan -->
-                                            <input id="wizard-picture" type="file" name="file">
+                                            <input id="wizard-picture" type="file" name="file" ref="file" v-on:change="handleFileUpload">
                                         </div>
                                         <h6 class="">Choose Picture</h6>
                                     </div>
@@ -75,7 +75,8 @@ data(){
         telp:'',
         email:'',
         password:'',
-        checkpassword:''
+        checkpassword:'',
+        image_name:''
     }
 },
     mounted() {
@@ -98,16 +99,38 @@ data(){
         $('.picture-src').croppie();
     },
     methods : {
-       async register(){
-           try{
-               await Auth.register(this.username,this.email, this.telp,this.password, this.checkpassword)
-               console.log('Berhasil Daftar')
-               alert('Anda Berhasil Melakukan Registrasi, Silahkan Registrasi Email Anda')
-           }catch(err){
-               alert('Registrasi Anda Gagal')
-               console.log(err)
-           }
-       },
+        async register(){
+            try{
+                let payload = new FormData();
+                payload.append('username',this.username);
+                payload.append('email',this.email);
+                payload.append('telp',this.telp);
+                payload.append('password',this.password);
+                payload.append('checkpassword',this.checkpassword);
+                payload.append('image_name',this.image_name);
+                await Auth.register(payload)
+                console.log('Berhasil Daftar')
+                alert('Anda Berhasil Melakukan Registrasi, Silahkan Registrasi Email Anda')
+                this.setInit()
+            }catch(err){
+                alert('Registrasi Anda Gagal')
+                console.log(err)
+            }
+        },
+
+        setInit(){
+                this.username='',
+                this.telp='',
+                this.email=0,
+                this.password=0,
+                this.checkpassword='',
+                this.image_name=''
+        },
+        
+        handleFileUpload(e){
+                this.image_name = e.target.files[0];
+                console.log(this.image_name)
+        },
     }
 }
 </script>
