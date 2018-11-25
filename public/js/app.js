@@ -19255,10 +19255,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__auth__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(3);
 
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
@@ -19332,7 +19329,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
 
-
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
@@ -19364,13 +19360,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
         $('.picture-src').croppie();
     },
 
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapActions */])({
-        get: 'Cart/getCartbyuser',
-        update: 'Cart/update',
-        delete: 'Cart/destroy',
-        finish: 'Transaksi/finish',
-        addTransaksi: 'Transaksi/addTransaksi'
-    }), {
+    methods: {
         register: function () {
             var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee() {
                 var payload;
@@ -19425,7 +19415,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             this.image_name = e.target.files[0];
             console.log(this.image_name);
         }
-    })
+    }
 });
 
 /***/ }),
