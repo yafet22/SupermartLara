@@ -20,6 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::resource('barangs','BarangController');
 
 Route::resource('users','UserController');
+Route::post('profile/{id}','UserController@updateProfile');
 
 Route::resource('topups','TopupController');
 

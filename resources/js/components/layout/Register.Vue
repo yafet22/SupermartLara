@@ -67,6 +67,7 @@
 
 <script>
 import Auth from '../../auth'
+import {mapActions, mapState} from 'vuex'
 
 export default {
 data(){
@@ -99,6 +100,13 @@ data(){
         $('.picture-src').croppie();
     },
     methods : {
+         ...mapActions({
+            get : 'Cart/getCartbyuser',
+            update : 'Cart/update',
+            delete : 'Cart/destroy',
+            finish : 'Transaksi/finish',
+            addTransaksi : 'Transaksi/addTransaksi',
+        }),
         async register(){
             try{
                 let payload = new FormData();

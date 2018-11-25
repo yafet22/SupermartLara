@@ -282,7 +282,7 @@ export default {
     computed:{
         ...mapState({
             barang : state => state.DataBarang.data,
-            transaksi : state => state.Transaksi.data
+            transaksi : state => state.Transaksi.transaksi
         }),
         filtered(){
            let filter = this.barang
@@ -338,14 +338,13 @@ export default {
 
         inputTransaksi(){
             const payload = {
-                id : this.transaksi[0].id,
+                id : this.transaksi.id,
                 idbarang : this.idbarang,
                 jumlah : this.jumlah
             }
 
             try{
                 this.addTransaksi(this.$auth.user().id)
-                this.getTransaksi(this.$auth.user().id)
                 this.addCart(payload)
                 document.getElementById("closemodal").click();
                 alert('Barang Masuk ke Cart shop')

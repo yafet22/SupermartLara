@@ -174,6 +174,43 @@ class UserController extends RestController
         }
     }
 
+    public function updateProfile(Request $request, $id)
+    {
+        try {
+
+            $users = User::find($id);
+            if (Hash::check($request->get('oldpassword'), $users->password))
+            {
+                // The passwords match...
+                if($request->hasfile('image_name'))
+                {
+                    $file = $request->file('image_name');
+                    $name=time().$file->getClientOriginalName();
+                    $file->move(public_path().'/images/', $name);
+                    $users->image_name=$name;
+                }
+
+                $users->username=$request->get('username');
+                $users->telp=$request->get('telp');
+                $users->password=bcrypt($request->get('password'));
+                $users->save();
+
+                $response = $this->generateItem($users);
+
+                return $this->sendResponse($response, 201);
+            }
+            else{
+                return response()->json('Wrong Password');
+            }
+
+        }catch (ModelNotFoundException $e) {
+            return $this->sendNotFoundResponse('barang_not_found');
+        }
+        catch (\Exception $e) {
+            return $this->sendIseResponse($e->getMessage());
+        }
+    }
+
     /**
      * Remove the specified resource from storage.
      *

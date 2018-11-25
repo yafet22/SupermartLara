@@ -18625,6 +18625,28 @@ var actions = {
             __WEBPACK_IMPORTED_MODULE_0__http__["a" /* default */].get('/users', successCallback, errorCallback);
         });
     },
+    update: function update(context, payload) {
+        return new Promise(function (resolve, reject) {
+            var data = {
+                username: payload.namabarang,
+                telp: payload.kategori,
+                image_name: payload.image_name
+            };
+
+            var successCallback = function successCallback(res) {
+                if (res.status === 200) {
+                    context.dispatch('getBarang');
+                    resolve();
+                }
+            };
+
+            var errorCallback = function errorCallback(err) {
+                reject(err);
+            };
+
+            __WEBPACK_IMPORTED_MODULE_0__http__["a" /* default */].patch('/barangs/' + payload.idbarang, data, successCallback, errorCallback);
+        });
+    },
     destroy: function destroy(context, id) {
         console.log(id);
         return new Promise(function (resolve, reject) {
@@ -18786,12 +18808,16 @@ var actions = {
 
 
 var state = {
-    data: []
+    data: [],
+    transaksi: {}
 };
 
 var mutations = {
     setSource: function setSource(state, source) {
         state.data = source;
+    },
+    setTransaksi: function setTransaksi(state, source) {
+        state.transaksi = source;
     },
     created: function created(state, data) {
         state.data.push(data);
@@ -18822,7 +18848,7 @@ var actions = {
 
             var successCallback = function successCallback(res) {
                 console.log(res.data.data);
-                context.commit('setSource', res.data.data);
+                context.commit('setTransaksi', res.data.data);
                 resolve();
             };
 
@@ -19229,7 +19255,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__auth__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(3);
 
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
@@ -19303,6 +19332,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
@@ -19334,7 +19364,13 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
         $('.picture-src').croppie();
     },
 
-    methods: {
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapActions */])({
+        get: 'Cart/getCartbyuser',
+        update: 'Cart/update',
+        delete: 'Cart/destroy',
+        finish: 'Transaksi/finish',
+        addTransaksi: 'Transaksi/addTransaksi'
+    }), {
         register: function () {
             var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee() {
                 var payload;
@@ -19389,7 +19425,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             this.image_name = e.target.files[0];
             console.log(this.image_name);
         }
-    }
+    })
 });
 
 /***/ }),
@@ -20710,8 +20746,7 @@ var render = function() {
                     staticClass: "img-display mx-2",
                     staticStyle: { "border-radius": "50%" },
                     attrs: { src: "images/" + this.$auth.user().image_name }
-                  }),
-                  _vm._v(";\n                ")
+                  })
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "info" }, [
@@ -21307,7 +21342,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             return state.DataBarang.data;
         },
         transaksi: function transaksi(state) {
-            return state.Transaksi.data;
+            return state.Transaksi.transaksi;
         }
     }), {
         filtered: function filtered() {
@@ -21366,14 +21401,13 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     }), {
         inputTransaksi: function inputTransaksi() {
             var payload = {
-                id: this.transaksi[0].id,
+                id: this.transaksi.id,
                 idbarang: this.idbarang,
                 jumlah: this.jumlah
             };
 
             try {
                 this.addTransaksi(this.$auth.user().id);
-                this.getTransaksi(this.$auth.user().id);
                 this.addCart(payload);
                 document.getElementById("closemodal").click();
                 alert('Barang Masuk ke Cart shop');

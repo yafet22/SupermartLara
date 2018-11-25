@@ -13,7 +13,7 @@
 
                     </div>
                     <div class="avatar">
-                        <img v-bind:src="'images/'+this.$auth.user().image_name" class="img-display mx-2" style="border-radius:50%;"/>;
+                        <img v-bind:src="'images/'+this.$auth.user().image_name" class="img-display mx-2" style="border-radius:50%;"/>
                     </div>
                     <div class="info">
                         <div class="title" style="font-size:15px">{{ this.$auth.user().email }}</div>

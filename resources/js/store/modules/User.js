@@ -28,6 +28,29 @@ const actions =  {
         })
     },
 
+    update(context, payload){
+        return new Promise((resolve, reject) => {
+            const data = {
+                username : payload.namabarang,
+                telp : payload.kategori,
+                image_name :payload.image_name
+            }
+
+            const successCallback = res => {
+                if(res.status === 200){
+                    context.dispatch('getBarang')
+                    resolve()
+                }
+            }
+
+            const errorCallback = err => {
+                reject(err)
+            }
+
+            Http.patch('/barangs/'+payload.idbarang, data, successCallback, errorCallback)
+        })
+    },
+
     destroy(context, id){
         console.log(id)
         return new Promise((resolve, reject) => {

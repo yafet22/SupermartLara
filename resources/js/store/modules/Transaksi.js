@@ -1,12 +1,16 @@
 import Http from '../../http'
 
 const state = {
-    data:[]
+    data:[],
+    transaksi:{}
 };
 
 const mutations = {
     setSource(state, source){
         state.data = source
+    },
+    setTransaksi(state, source){
+        state.transaksi = source
     },
 
     created(state,data){
@@ -38,7 +42,7 @@ const actions =  {
             
             const successCallback = (res) => {
                 console.log(res.data.data)
-                context.commit('setSource',res.data.data)
+                context.commit('setTransaksi',res.data.data)
                 resolve()
             }
 

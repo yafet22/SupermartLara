@@ -98,8 +98,11 @@ class TransaksiController extends RestController
     public function showbyuser($id)
     {
         try {
-            $transaksis = Transaksi::where('iduser',$id)->where('status',0)->get();
-            $response = $this->generateCollection($transaksis);
+            $transaksis = Transaksi::where([
+                'iduser' => $id,
+                'status' => 0
+                ])->first();
+            $response = $this->generateItem($transaksis);
             return $this->sendResponse($response);
         } catch (ModelNotFoundException $e) {
             return $this->sendNotFoundResponse('topup_not_found');
