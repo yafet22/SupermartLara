@@ -84,7 +84,22 @@ class TransaksiController extends RestController
             $transaksis = Transaksi::find($id);
             $transaksis->status=1;
             $transaksis->save();
+            $transaksis->users->saldo = $transaksis->users->saldo - $transaksis->total;
+            $transaksis->users->save();
             $response = $this->generateItem($transaksis);
+            return $this->sendResponse($response);
+        } catch (ModelNotFoundException $e) {
+            return $this->sendNotFoundResponse('topup_not_found');
+        } catch (\Exception $e) {
+            return $this->sendIseResponse($e->getMessage());
+        }
+    }
+
+    public function showbyuser($id)
+    {
+        try {
+            $transaksis = Transaksi::where('iduser',$id)->where('status',0)->get();
+            $response = $this->generateCollection($transaksis);
             return $this->sendResponse($response);
         } catch (ModelNotFoundException $e) {
             return $this->sendNotFoundResponse('topup_not_found');

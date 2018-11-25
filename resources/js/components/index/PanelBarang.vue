@@ -289,11 +289,6 @@ export default {
            filter = this.barang.filter( b => b.kategori === this.$route.params.kategori)
            return filter
         },
-        filteredTransaksi(){
-            let filter = this.transaksi
-            filter = this.transaksi.filter( b => b.iduser === this.$auth.user().id && b.status == 0 )
-            return filter
-        }
     },
     mounted() {
         $(document).ready( function() {
@@ -336,25 +331,24 @@ export default {
         ...mapActions({
             inputBarang : 'DataBarang/addBarang',
             get : 'DataBarang/getBarang',
-            getTransaksi : 'Transaksi/getTransaksis',
+            getTransaksi : 'Transaksi/transaksibyUser',
             addTransaksi : 'Transaksi/addTransaksi',
             addCart : 'Cart/addCart'
         }),
 
         inputTransaksi(){
             const payload = {
-                id : this.filteredTransaksi[0].id,
+                id : this.transaksi[0].id,
                 idbarang : this.idbarang,
                 jumlah : this.jumlah
             }
 
             try{
-                console.log(payload.jumlah)
                 this.addTransaksi(this.$auth.user().id)
+                this.getTransaksi(this.$auth.user().id)
                 this.addCart(payload)
-                console.log('success!')
-                alert('Barang Masuk ke Cart shop')
                 document.getElementById("closemodal").click();
+                alert('Barang Masuk ke Cart shop')
                 this.jumlah=''
                 this.get()
             }
@@ -362,6 +356,8 @@ export default {
                 console.log(err)
             }
         },
+
+        
         
        handleFileUpload(){
         this.image_name = this.$refs.file.files;
@@ -372,7 +368,7 @@ export default {
     },   
     async created(){
         await this.get(),
-        await this.getTransaksi()
+        await this.getTransaksi(this.$auth.user().id)
     }
 }
 </script>

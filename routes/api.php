@@ -34,6 +34,7 @@ Route::patch('editcart/{id}','CartshopController@editcart');
 
 Route::post('start/{id}','TransaksiController@beli');
 Route::get('finish/{id}','TransaksiController@finish');
+Route::get('show/{id}','TransaksiController@showbyuser');
 
 Route::post('topup/{id}','TopupController@topup');
 Route::get('usertopup/{id}','TopupController@showbyuser');
