@@ -62,7 +62,7 @@
                     <br>
                     <div class="row">
                         <div class="col-md-6">
-                            <button type="button" class="btn btn-success" style="display: block; margin: 0 auto;">FINISH BUY</button>
+                            <button type="button" class="btn btn-success" @click="finishBuy(carts[0].idtransaksi)" style="display: block; margin: 0 auto;">FINISH BUY</button>
                         </div>
                         <div class="col-md-6">
                             <a href="#"><button type="button" class="btn btn-danger" style="display: block; margin: 0 auto;">CANCEL ALL</button></a>
@@ -103,8 +103,19 @@ export default {
         ...mapActions({
             get : 'Cart/getCartbyuser',
             update : 'Cart/update',
-            delete : 'Cart/destroy'
+            delete : 'Cart/destroy',
+            finish : 'Transaksi/finish'
         }),
+        finishBuy(idtransaksi)
+        {
+            try{
+                this.finish(idtransaksi)
+                this.get(this.$auth.user().id)
+            }
+            catch(err){
+                console.log(err)
+            }
+        },
         deleteCart(idcart)
         {
             try{

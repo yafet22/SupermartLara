@@ -12,7 +12,7 @@
                 <ul class="nav navbar-nav mr-auto">
                     
                 </ul>
-                <span>  <a href="#"><img id="shop-chart" src="img/shop-chart.png" class="img-display mx-2" style="width:30px;height:30px;" alt="shop-logo"></a></span>
+                <span><router-link to="/cart" ><a href="#"><img id="shop-chart" src="img/shop-chart.png" class="img-display mx-2" style="width:30px;height:30px;" alt="shop-logo"></a></router-link></span>
                 <span style="font-size: 18px; color:white;">Saldo : {{ this.$auth.user().saldo }}</span>
                 <ul class="nav navbar-nav navbar-right">
                 <li id="profiledrop" class="nav-item dropdown">

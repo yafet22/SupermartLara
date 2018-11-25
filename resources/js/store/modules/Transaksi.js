@@ -33,6 +33,23 @@ const actions =  {
         })
     },
 
+    transaksibyUser(context, id){
+        return new Promise((resolve, reject) =>{
+            
+            const successCallback = (res) => {
+                console.log(res.data.data)
+                context.commit('setSource',res.data.data)
+                resolve()
+            }
+
+            const errorCallback = (err) => {
+                reject(err)
+            }
+
+            Http.get('/show/'+id,successCallback,errorCallback)
+        })
+    },
+
     addTransaksi(context, id){
         return new Promise((resolve,reject) => {
             const successCallback = (res) => {
@@ -50,7 +67,22 @@ const actions =  {
             Http.post('/start/'+id,successCallback,errorCallback)
         })
     },
-    
+    finish(context,id){
+        return new Promise((resolve, reject) => {
+
+            const successCallback = (res) => {
+                console.log(res.data.data)
+                resolve()
+            }
+
+            const errorCallback = err => {
+                reject(err)
+            }
+
+            Http.get('/finish/'+id,successCallback, errorCallback)
+        })
+    },
+       
 };
 
 export default {

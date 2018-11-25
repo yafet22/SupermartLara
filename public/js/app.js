@@ -18817,6 +18817,22 @@ var actions = {
             __WEBPACK_IMPORTED_MODULE_0__http__["a" /* default */].get('/transaksis', successCallback, errorCallback);
         });
     },
+    transaksibyUser: function transaksibyUser(context, id) {
+        return new Promise(function (resolve, reject) {
+
+            var successCallback = function successCallback(res) {
+                console.log(res.data.data);
+                context.commit('setSource', res.data.data);
+                resolve();
+            };
+
+            var errorCallback = function errorCallback(err) {
+                reject(err);
+            };
+
+            __WEBPACK_IMPORTED_MODULE_0__http__["a" /* default */].get('/show/' + id, successCallback, errorCallback);
+        });
+    },
     addTransaksi: function addTransaksi(context, id) {
         return new Promise(function (resolve, reject) {
             var successCallback = function successCallback(res) {
@@ -18832,6 +18848,21 @@ var actions = {
             };
 
             __WEBPACK_IMPORTED_MODULE_0__http__["a" /* default */].post('/start/' + id, successCallback, errorCallback);
+        });
+    },
+    finish: function finish(context, id) {
+        return new Promise(function (resolve, reject) {
+
+            var successCallback = function successCallback(res) {
+                console.log(res.data.data);
+                resolve();
+            };
+
+            var errorCallback = function errorCallback(err) {
+                reject(err);
+            };
+
+            __WEBPACK_IMPORTED_MODULE_0__http__["a" /* default */].get('/finish/' + id, successCallback, errorCallback);
         });
     }
 };
@@ -20562,8 +20593,17 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapActions */])({
         get: 'Cart/getCartbyuser',
         update: 'Cart/update',
-        delete: 'Cart/destroy'
+        delete: 'Cart/destroy',
+        finish: 'Transaksi/finish'
     }), {
+        finishBuy: function finishBuy(idtransaksi) {
+            try {
+                this.finish(idtransaksi);
+                this.get(this.$auth.user().id);
+            } catch (err) {
+                console.log(err);
+            }
+        },
         deleteCart: function deleteCart(idcart) {
             try {
                 this.delete(idcart);
@@ -20804,7 +20844,26 @@ var render = function() {
             _vm._v(" "),
             _c("br"),
             _vm._v(" "),
-            _vm._m(3)
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-md-6" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-success",
+                    staticStyle: { display: "block", margin: "0 auto" },
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        _vm.finishBuy(_vm.carts[0].idtransaksi)
+                      }
+                    }
+                  },
+                  [_vm._v("FINISH BUY")]
+                )
+              ]),
+              _vm._v(" "),
+              _vm._m(3)
+            ])
           ])
         ])
       ])
@@ -20875,31 +20934,17 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-6" }, [
+    return _c("div", { staticClass: "col-md-6" }, [
+      _c("a", { attrs: { href: "#" } }, [
         _c(
           "button",
           {
-            staticClass: "btn btn-success",
+            staticClass: "btn btn-danger",
             staticStyle: { display: "block", margin: "0 auto" },
             attrs: { type: "button" }
           },
-          [_vm._v("FINISH BUY")]
+          [_vm._v("CANCEL ALL")]
         )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-6" }, [
-        _c("a", { attrs: { href: "#" } }, [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-danger",
-              staticStyle: { display: "block", margin: "0 auto" },
-              attrs: { type: "button" }
-            },
-            [_vm._v("CANCEL ALL")]
-          )
-        ])
       ])
     ])
   }
@@ -21273,15 +21318,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                 return b.kategori === _this.$route.params.kategori;
             });
             return filter;
-        },
-        filteredTransaksi: function filteredTransaksi() {
-            var _this2 = this;
-
-            var filter = this.transaksi;
-            filter = this.transaksi.filter(function (b) {
-                return b.iduser === _this2.$auth.user().id && b.status == 0;
-            });
-            return filter;
         }
     }),
     mounted: function mounted() {
@@ -21324,24 +21360,23 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapActions */])({
         inputBarang: 'DataBarang/addBarang',
         get: 'DataBarang/getBarang',
-        getTransaksi: 'Transaksi/getTransaksis',
+        getTransaksi: 'Transaksi/transaksibyUser',
         addTransaksi: 'Transaksi/addTransaksi',
         addCart: 'Cart/addCart'
     }), {
         inputTransaksi: function inputTransaksi() {
             var payload = {
-                id: this.filteredTransaksi[0].id,
+                id: this.transaksi[0].id,
                 idbarang: this.idbarang,
                 jumlah: this.jumlah
             };
 
             try {
-                console.log(payload.jumlah);
                 this.addTransaksi(this.$auth.user().id);
+                this.getTransaksi(this.$auth.user().id);
                 this.addCart(payload);
-                console.log('success!');
-                alert('Barang Masuk ke Cart shop');
                 document.getElementById("closemodal").click();
+                alert('Barang Masuk ke Cart shop');
                 this.jumlah = '';
                 this.get();
             } catch (err) {
@@ -21366,7 +21401,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
                         case 2:
                             _context.next = 4;
-                            return this.getTransaksi();
+                            return this.getTransaksi(this.$auth.user().id);
 
                         case 4:
                         case 'end':
@@ -28748,7 +28783,25 @@ var render = function() {
             [
               _c("ul", { staticClass: "nav navbar-nav mr-auto" }),
               _vm._v(" "),
-              _vm._m(1),
+              _c(
+                "span",
+                [
+                  _c("router-link", { attrs: { to: "/cart" } }, [
+                    _c("a", { attrs: { href: "#" } }, [
+                      _c("img", {
+                        staticClass: "img-display mx-2",
+                        staticStyle: { width: "30px", height: "30px" },
+                        attrs: {
+                          id: "shop-chart",
+                          src: "img/shop-chart.png",
+                          alt: "shop-logo"
+                        }
+                      })
+                    ])
+                  ])
+                ],
+                1
+              ),
               _vm._v(" "),
               _c(
                 "span",
@@ -28828,7 +28881,7 @@ var render = function() {
                           ]
                         ),
                         _vm._v(" "),
-                        _vm._m(2),
+                        _vm._m(1),
                         _vm._v(" "),
                         _c(
                           "router-link",
@@ -29396,24 +29449,6 @@ var staticRenderFns = [
         staticStyle: { width: "40px" },
         attrs: { src: "img/menu.png", id: "menu-icon-phone", alt: "icon-menu" }
       })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", [
-      _c("a", { attrs: { href: "#" } }, [
-        _c("img", {
-          staticClass: "img-display mx-2",
-          staticStyle: { width: "30px", height: "30px" },
-          attrs: {
-            id: "shop-chart",
-            src: "img/shop-chart.png",
-            alt: "shop-logo"
-          }
-        })
-      ])
     ])
   },
   function() {
