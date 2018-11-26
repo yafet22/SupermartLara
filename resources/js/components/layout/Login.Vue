@@ -72,7 +72,7 @@ export default {
                     alert('Login Berhasil')
                 },
                 error: function () {
-
+                    alert('Terjadi Kesalahan Login')
                 },
                 rememberMe: true,
                 redirect: '/',

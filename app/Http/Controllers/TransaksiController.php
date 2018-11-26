@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Transformers\TransaksiTransformer;
+use PDF;
 
 
 class TransaksiController extends RestController
@@ -26,6 +27,14 @@ class TransaksiController extends RestController
         $transaksis = Transaksi::all();
         $response = $this->generateCollection($transaksis);
         return $this->sendResponse($response);
+    }
+
+    public function generatepdf()
+    {
+        $transaksis = Transaksi::all();
+  
+        $pdf = PDF::loadView('pdf.tabletransaksi', compact('transaksis'));
+        return $pdf->download('datatransaksi.pdf');
     }
 
     /**

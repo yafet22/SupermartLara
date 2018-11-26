@@ -104,15 +104,18 @@ export default {
             get : 'Cart/getCartbyuser',
             update : 'Cart/update',
             delete : 'Cart/destroy',
-            finish : 'Transaksi/finish'
+            finish : 'Transaksi/finish',
+            export : 'Cart/download'
         }),
         finishBuy(idtransaksi)
         {
             try{
                 this.finish(idtransaksi)
                 this.get(this.$auth.user().id)
+                this.export(this.$auth.user().id)
             }
             catch(err){
+                alert('Gagal Melakukan Pembelian')
                 console.log(err)
             }
         },

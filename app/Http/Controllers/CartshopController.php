@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Transformers\CartshopTransformer;
+use PDF;
 
 class CartshopController extends RestController
 {
@@ -105,6 +106,19 @@ class CartshopController extends RestController
         } catch (\Exception $e) {
             return $this->sendIseResponse($e->getMessage());
         }
+    }
+
+    public function generatepdf($id)
+    {
+        $transaksis=Transaksi::where('iduser',$id)->orderBy('created_at', 'desc')->first();
+        $cartshops=Cartshop::where('idtransaksi',$transaksis->id)->get();
+        $total=0;
+        foreach($cartshops as $data){
+            $total= $total + $data->totalharga;
+        }
+  
+        $pdf = PDF::loadView('pdf.invoice', compact('transaksis','cartshops','total'));
+        return $pdf->download('invoice.pdf');
     }
 
     public function editcart(Request $request,$id)

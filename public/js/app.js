@@ -16484,7 +16484,9 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                                     success: function success() {
                                         alert('Login Berhasil');
                                     },
-                                    error: function error() {},
+                                    error: function error() {
+                                        alert('Terjadi Kesalahan Login');
+                                    },
                                     rememberMe: true,
                                     redirect: '/',
                                     fetchUser: true
@@ -18921,6 +18923,20 @@ var actions = {
             __WEBPACK_IMPORTED_MODULE_0__http__["a" /* default */].get('/show/' + id, successCallback, errorCallback);
         });
     },
+    download: function download() {
+        return new Promise(function (resolve, reject) {
+
+            var successCallback = function successCallback(res) {
+                resolve();
+            };
+
+            var errorCallback = function errorCallback(err) {
+                reject(err);
+            };
+
+            __WEBPACK_IMPORTED_MODULE_0__http__["a" /* default */].get('/transaksipdf', successCallback, errorCallback);
+        });
+    },
     addTransaksi: function addTransaksi(context, id) {
         return new Promise(function (resolve, reject) {
             var successCallback = function successCallback(res) {
@@ -19032,6 +19048,20 @@ var actions = {
             };
 
             __WEBPACK_IMPORTED_MODULE_0__http__["a" /* default */].get('/usercart/' + id, successCallback, errorCallback);
+        });
+    },
+    download: function download(context, id) {
+        return new Promise(function (resolve, reject) {
+
+            var successCallback = function successCallback(res) {
+                resolve();
+            };
+
+            var errorCallback = function errorCallback(err) {
+                reject(err);
+            };
+
+            __WEBPACK_IMPORTED_MODULE_0__http__["a" /* default */].get('/invoice/' + id, successCallback, errorCallback);
         });
     },
     addCart: function addCart(context, payload) {
@@ -20682,13 +20712,16 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
         get: 'Cart/getCartbyuser',
         update: 'Cart/update',
         delete: 'Cart/destroy',
-        finish: 'Transaksi/finish'
+        finish: 'Transaksi/finish',
+        export: 'Cart/download'
     }), {
         finishBuy: function finishBuy(idtransaksi) {
             try {
                 this.finish(idtransaksi);
                 this.get(this.$auth.user().id);
+                this.export(this.$auth.user().id);
             } catch (err) {
+                alert('Gagal Melakukan Pembelian');
                 console.log(err);
             }
         },
@@ -21839,7 +21872,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             };
 
             try {
-                this.addTransaksi(this.$auth.user().id);
+
                 this.addCart(payload);
                 document.getElementById("closemodal").click();
                 alert('Barang Masuk ke Cart shop');
@@ -21866,10 +21899,11 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                             return this.get();
 
                         case 2:
-                            _context.next = 4;
+                            this.addTransaksi(this.$auth.user().id);
+                            _context.next = 5;
                             return this.getTransaksi(this.$auth.user().id);
 
-                        case 4:
+                        case 5:
                         case 'end':
                             return _context.stop();
                     }
@@ -29281,11 +29315,20 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
     methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapActions */])({
         get: 'Transaksi/getTransaksis',
-        getCart: 'Cart/getCart'
+        getCart: 'Cart/getCart',
+        export: 'Transaksi/download'
     }), {
         getDetail: function getDetail(idtransaksi) {
             try {
                 this.getCart(idtransaksi);
+                console.log('success!');
+            } catch (err) {
+                console.log(rr);
+            }
+        },
+        exportpdf: function exportpdf() {
+            try {
+                this.export();
                 console.log('success!');
             } catch (err) {
                 console.log(rr);
@@ -29391,7 +29434,25 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "col-md-9 order-first mt-2" }, [
-            _vm._m(1),
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-md-12 order-first mt-2" }, [
+                _vm._m(1),
+                _vm._v(" "),
+                _c("div", { staticClass: "pull-left" }, [
+                  _c("a", { attrs: { href: "#" } }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-success btn-sm",
+                        attrs: { type: "button" },
+                        on: { click: _vm.exportpdf }
+                      },
+                      [_vm._v("Download Report")]
+                    )
+                  ])
+                ])
+              ])
+            ]),
             _vm._v(" "),
             _c("div", { staticClass: "row" }, [
               _c("div", { staticClass: "col-md-12 order-first mt-2" }, [
@@ -29557,33 +29618,16 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-12 order-first mt-2" }, [
-        _c("div", { staticClass: "pull-right" }, [
-          _c("input", {
-            staticClass: "form-control mr-sm-2 ",
-            attrs: {
-              type: "text",
-              id: "myInput",
-              placeholder: "Search by Nama Barang",
-              "aria-label": "Search"
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "pull-left" }, [
-          _c("a", { attrs: { href: "#" } }, [
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-success btn-sm",
-                attrs: { type: "button" }
-              },
-              [_vm._v("Download Report")]
-            )
-          ])
-        ])
-      ])
+    return _c("div", { staticClass: "pull-right" }, [
+      _c("input", {
+        staticClass: "form-control mr-sm-2 ",
+        attrs: {
+          type: "text",
+          id: "myInput",
+          placeholder: "Search by Nama Barang",
+          "aria-label": "Search"
+        }
+      })
     ])
   },
   function() {

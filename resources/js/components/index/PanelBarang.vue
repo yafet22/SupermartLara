@@ -344,7 +344,7 @@ export default {
             }
 
             try{
-                this.addTransaksi(this.$auth.user().id)
+                
                 this.addCart(payload)
                 document.getElementById("closemodal").click();
                 alert('Barang Masuk ke Cart shop')
@@ -367,6 +367,7 @@ export default {
     },   
     async created(){
         await this.get(),
+        this.addTransaksi(this.$auth.user().id)
         await this.getTransaksi(this.$auth.user().id)
     }
 }

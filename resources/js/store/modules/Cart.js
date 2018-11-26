@@ -66,6 +66,21 @@ const actions =  {
         })
     },
 
+    download(context,id){
+        return new Promise((resolve, reject) =>{
+            
+            const successCallback = (res) => {
+                resolve()
+            }
+
+            const errorCallback = (err) => {
+                reject(err)
+            }
+
+            Http.get('/invoice/'+id,successCallback,errorCallback)
+        })
+    },
+
     addCart(context, payload){
         return new Promise((resolve,reject) => {
 

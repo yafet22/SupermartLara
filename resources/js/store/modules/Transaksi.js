@@ -54,6 +54,21 @@ const actions =  {
         })
     },
 
+    download(){
+        return new Promise((resolve, reject) =>{
+            
+            const successCallback = (res) => {
+                resolve()
+            }
+
+            const errorCallback = (err) => {
+                reject(err)
+            }
+
+            Http.get('/transaksipdf',successCallback,errorCallback)
+        })
+    },
+
     addTransaksi(context, id){
         return new Promise((resolve,reject) => {
             const successCallback = (res) => {

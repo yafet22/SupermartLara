@@ -28,8 +28,10 @@ Route::patch('nonaktivasi/{id}','UserController@nonaktivasi');
 Route::resource('topups','TopupController');
 
 Route::resource('transaksis','TransaksiController');
+Route::get('transaksipdf','TransaksiController@generatepdf');
 
 Route::resource('cartshops','CartshopController');
+Route::get('/invoice/{id}','CartshopController@generatepdf');
 
 Route::post('add/{id}/{idbarang}','CartshopController@add');
 Route::get('cart/{id}','CartshopController@showbytransaksi');

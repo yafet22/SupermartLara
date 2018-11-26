@@ -31,7 +31,7 @@
                                     <input class="form-control mr-sm-2 " type="text" id="myInput" placeholder="Search by Nama Barang" aria-label="Search">
                                 </div>
                                 <div class="pull-left">
-                                    <a href="#"><button type="button" class="btn btn-success btn-sm">Download Report</button></a>
+                                    <a href="#"><button type="button" @click="exportpdf" class="btn btn-success btn-sm">Download Report</button></a>
                                 </div>
                             </div>
                         </div>
@@ -128,11 +128,22 @@ export default {
     methods : {
         ...mapActions({
             get : 'Transaksi/getTransaksis',
-            getCart : 'Cart/getCart'
+            getCart : 'Cart/getCart',
+            export : 'Transaksi/download'
         }),
         getDetail(idtransaksi){
             try{
                 this.getCart(idtransaksi)
+                console.log('success!')
+            }
+            catch(err)
+            {
+                console.log(rr)
+            }
+        },
+        exportpdf(){
+            try{
+                this.export()
                 console.log('success!')
             }
             catch(err)
