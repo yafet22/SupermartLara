@@ -72,18 +72,17 @@ const actions =  {
 
     update(context, payload){
         return new Promise((resolve, reject) => {
-            const data = {
-                namabarang : payload.namabarang,
-                kategori : payload.kategori,
-                harga : payload.harga,
-                stock :payload.stock,
-                deskripsi : payload.deskripsi,
-                image_name :payload.image_name
-            }
+
+            let data = new FormData()
+            data.append("namabarang",payload.namabarang)
+            data.append("kategori",payload.kategori)
+            data.append("harga",payload.harga)
+            data.append("stock",payload.stock)
+            data.append("deskripsi",payload.deskripsi)
+            data.append("image_name",payload.image_name)
 
             const successCallback = res => {
                 if(res.status === 200){
-                    context.dispatch('getBarang')
                     resolve()
                 }
             }
@@ -92,7 +91,7 @@ const actions =  {
                 reject(err)
             }
 
-            Http.patch('/barangs/'+payload.idbarang, data, successCallback, errorCallback)
+            Http.post('/edit/'+payload.idbarang, data, successCallback, errorCallback)
         })
     },
 

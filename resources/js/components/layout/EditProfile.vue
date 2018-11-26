@@ -16,7 +16,7 @@
                                 <div class="container">
                                     <div class="picture-container">
                                         <div class="picture">
-                                            <img  width=auto height=200 src="image/profile/default-pp.jpg" class="picture-src" id="wizardPicturePreview" title="">
+                                            <img  width=auto height=200 v-bind:src="'images/'+user.image_name" class="picture-src" id="wizardPicturePreview" title="">
                                             <!-- belom jalan  -->
 
                                             <!-- belom jalan -->
@@ -28,18 +28,18 @@
                             </div>
                             <div class="form-group">
                                 <label for="nama">Nama:</label>
-                                <input type="name" class="form-control" id="nama" placeholder="Enter name" name="nama" v-model="username" required>
+                                <input type="name" class="form-control" id="nama" placeholder="Enter name" name="nama" v-model="user.username" required>
                             </div>
                             <div class="form-group">
                                 <label for="phone">Phone:</label>
-                                <input type="phone" class="form-control" id="phone" placeholder="Enter phone number" name="phone" v-model="telp" required>
+                                <input type="phone" class="form-control" id="phone" placeholder="Enter phone number" name="phone" v-model="user.telp" required>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <button type="button" class="btn btn-primary" style="display: block; margin: 0 auto;">Cancel</button>
                                 </div>
                                 <div class="col-md-6">
-                                    <button type="submit" class="btn btn-success" value="Upload" id="submit" name="tambah" style="display: block; margin: 0 auto;" @click="register">Register</button>
+                                    <button type="submit" class="btn btn-success" value="Upload" id="submit" name="tambah" style="display: block; margin: 0 auto;" @click="edit">Confirm</button>
                                 </div>
                             </div>
                          <!-- </form> -->
@@ -54,16 +54,20 @@
 </template>
 
 <script>
-import Auth from '../../auth'
-
+import {mapActions, mapState} from 'vuex'
 export default {
-data(){
-    return{
-        username:'',
-        telp:'',
-        image_name:''
-    }
-},
+    data(){
+        return{
+            username:'',
+            telp:'',
+            image_name:''
+        }
+    },
+    computed:{
+        ...mapState({
+            user : state => state.User.data
+        }),
+    },
     mounted() {
         $(document).ready(function(){
         // Prepare the preview for profile picture
@@ -84,9 +88,21 @@ data(){
         $('.picture-src').croppie();
     },
     methods : {
-        async register(){
+        ...mapActions({
+            get : 'User/getUser',
+            update : 'User/update',
+        }),
+
+        edit(){
             try{
-     
+                var payload = {
+                    id : this.$auth.user().id,
+                    username : this.user.username,
+                    telp : this.user.telp,
+                    image_name : this.user.image_name,
+                }
+                this.update(payload)
+                alert("Berhasil Update Profile")
                 
             }catch(err){
                 alert('Gagal Update')
@@ -95,9 +111,12 @@ data(){
         },
         
         handleFileUpload(e){
-                this.image_name = e.target.files[0];
-                console.log(this.image_name)
+                this.user.image_name = e.target.files[0];
+                console.log(this.username.image_name)
         },
+    },
+    async created(){
+        await this.get(this.$auth.user().id)
     }
 }
 </script>

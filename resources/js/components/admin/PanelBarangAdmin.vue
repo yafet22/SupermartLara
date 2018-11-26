@@ -265,7 +265,7 @@
 
 
         <div id="wrapper">
-            <div v-for="barang of barang" v-bind:key="barang['idbarang']" class="modal fade" data-backdrop="false" v-bind:id="barang.idbarang" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div v-for="barang of barang" v-bind:key="barang['idbarang']" class="modal fade" v-bind:id="barang.idbarang" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -274,8 +274,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="wrapper"><img v-bind:src="'/images/' + barang.image_name" alt="foto-bahan" class="img-info mx-auto d-block"/></div>
-                        <div class="info-wrapper"><ul><li><b>Harga</b> : {{ barang.harga }}</li><li><b>Stok</b>  : {{ barang.stok }}</li><li><b>Deskripsi</b>  : {{ barang.deskripsi }}</li> </ul></div>
-                        <p class="text-center">Lakukan <router-link style="color:white;" to="/login"><a href="#">Login</a></router-link> untuk dapat membeli barang</p>
+                        <div class="info-wrapper"><ul><li><b>Harga</b> : {{ barang.harga }}</li><li><b>Stok</b>  : {{ barang.stock }}</li><li><b>Deskripsi</b>  : {{ barang.deskripsi }}</li> </ul></div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-warning" @click="bindData(barang.idbarang)" data-toggle="modal" data-target="#editbarang">Edit barang</button>
@@ -401,10 +400,8 @@
                                         <option v-else value="PerawatanPria">Perawatan Pria</option>
                                         <option v-if="editkategori=='Televisi'" value="Televisi" selected>Televisi</option>
                                         <option v-else value="Televisi">Televisi</option>
-                                        <option v-if="editkategori=='AksesorisKomputer'" value="AksesorisKomputer" selected>AksesorisKomputer</option>
-                                        <option v-else value="AksesorisKomputer">AksesorisKomputer</option>
-                                        <option v-if="editkategori=='AksesorisHP'" value="AksesorisHP" selected>Aksesoris HP</option>
-                                        <option v-else value="AksesorisHP">Aksesoris HP</option>
+                                        <option v-if="editkategori=='AksesorisKomputer'" value="AksesorisKomputer" selected>Aksesoris Komputer</option>
+                                        <option v-else value="AksesorisKomputer">Aksesoris Komputer</option>
                                         <option v-if="editkategori=='AksesorisHP'" value="AksesorisHP" selected>Aksesoris HP</option>
                                         <option v-else value="AksesorisHP">Aksesoris HP</option>
                                         <option v-if="editkategori=='PeralatanKebersihan'" value="PeralatanKebersihan" selected>Peralatan Kebersihan</option>
@@ -437,7 +434,7 @@
                                     <div class="input-group">
                                         <span class="input-group-btn">
                                             <span class="btn btn-default btn-file2">
-                                                Browse… <input type="file" ref="file" id="file2" class="custom-file-input"  v-on:change="handleFileUpload">
+                                                Browse… <input type="file" ref="file2" id="file2" class="custom-file-input"  v-on:change="handleFileUploadEdit">
                                             </span>
                                         </span>
                                         <input type="text"  class="form-control" readonly>
@@ -606,11 +603,12 @@ export default {
                     deskripsi : this.editdeskripsi,
                     image_name :this.editimage_name
                 }
+
                 this.updateBarang(payload);
-                document.getElementById("closeedit").click();
-                document.getElementById("closeinfo").click();
-                this.setInitEdit()
                 this.get()
+                document.getElementById("closeedit").click();
+                document.getElementById("close").click();
+                this.setInitEdit()
                 console.log('success!')
             }
             catch(err)
@@ -625,6 +623,7 @@ export default {
 
         handleFileUploadEdit(e){
                 this.editimage_name = e.target.files[0];
+                console.log(this.editimage_name)
         },
 
         setInit(){

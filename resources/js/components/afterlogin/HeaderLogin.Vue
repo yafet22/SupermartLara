@@ -24,8 +24,10 @@
                         <img id="shop-chart" src="img/homelogo.png" class="img-display mx-2" style="width:30px;height:30px;" alt="home-logo"><span style="margin-left: 45px;
                         font-size: 18px;">Home</span>
                     </router-link>
-                    <a class="dropdown-item" href="../../profile.php"><img src="img/user-logo.png" class="img-display mx-2" style="width:30px;height:30px;" alt="user-logo"><span style="margin-left: 45px;
-                    font-size: 18px;">Profile</span></a>
+                    <router-link class="dropdown-item" to="/profile" >
+                        <img src="img/user-logo.png" class="img-display mx-2" style="width:30px;height:30px;" alt="user-logo"><span style="margin-left: 45px;
+                        font-size: 18px;">Profile</span>
+                    </router-link>
                     <router-link class="dropdown-item" to="/topup" >
                         <img src="img/topup.png" class="img-display mx-2" style="width:30px;height:30px;" alt="user-logo"><span style="margin-left: 45px;
                         font-size: 18px;">Top-up</span>

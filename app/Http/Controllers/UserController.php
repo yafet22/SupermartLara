@@ -142,32 +142,25 @@ class UserController extends RestController
         try {
 
             $users = User::find($id);
-            if (Hash::check($request->get('oldpassword'), $users->password))
+       
+            if($request->hasfile('image_name'))
             {
-                // The passwords match...
-                if($request->hasfile('image_name'))
-                {
-                    $file = $request->file('image_name');
-                    $name=time().$file->getClientOriginalName();
-                    $file->move(public_path().'/images/', $name);
-                    $users->image_name=$name;
-                }
-
-                $users->username=$request->get('username');
-                $users->telp=$request->get('telp');
-                $users->password=bcrypt($request->get('password'));
-                $users->save();
-
-                $response = $this->generateItem($users);
-
-                return $this->sendResponse($response, 201);
+                $file = $request->file('image_name');
+                $name=time().$file->getClientOriginalName();
+                $file->move(public_path().'/images/', $name);
+                $users->image_name=$name;
             }
-            else{
-                return response()->json('Wrong Password');
-            }
+
+            $users->username=$request->get('username');
+            $users->telp=$request->get('telp');
+            $users->save();
+
+            $response = $this->generateItem($users);
+
+            return $this->sendResponse($response, 201);
 
         }catch (ModelNotFoundException $e) {
-            return $this->sendNotFoundResponse('barang_not_found');
+            return $this->sendNotFoundResponse('user_not_found');
         }
         catch (\Exception $e) {
             return $this->sendIseResponse($e->getMessage());
@@ -179,34 +172,59 @@ class UserController extends RestController
         try {
 
             $users = User::find($id);
-            if (Hash::check($request->get('oldpassword'), $users->password))
-            {
+        
                 // The passwords match...
-                if($request->hasfile('image_name'))
-                {
-                    $file = $request->file('image_name');
-                    $name=time().$file->getClientOriginalName();
-                    $file->move(public_path().'/images/', $name);
-                    $users->image_name=$name;
-                }
-
-                $users->username=$request->get('username');
-                $users->telp=$request->get('telp');
-                $users->password=bcrypt($request->get('password'));
-                $users->save();
-
-                $response = $this->generateItem($users);
-
-                return $this->sendResponse($response, 201);
+            if($request->hasfile('image_name'))
+            {
+                $file = $request->file('image_name');
+                $name=time().$file->getClientOriginalName();
+                $file->move(public_path().'/images/', $name);
+                $users->image_name=$name;
             }
-            else{
-                return response()->json('Wrong Password');
-            }
+
+            $users->username=$request->get('username');
+            $users->telp=$request->get('telp');
+            $users->save();
+
+            $response = $this->generateItem($users);
+
+            return $this->sendResponse($response, 201);
+        
 
         }catch (ModelNotFoundException $e) {
             return $this->sendNotFoundResponse('barang_not_found');
         }
         catch (\Exception $e) {
+            return $this->sendIseResponse($e->getMessage());
+        }
+    }
+
+    public function aktivasi($id)
+    {
+        try {
+            $users=User::find($id);
+            $users->aktif ='Y';
+            $users->save();
+            $response = $this->generateItem($users);
+            return $this->sendResponse($response);
+        } catch (ModelNotFoundException $e) {
+            return $this->sendNotFoundResponse('user_not_found');
+        } catch (\Exception $e) {
+            return $this->sendIseResponse($e->getMessage());
+        }
+    }
+
+    public function nonaktivasi($id)
+    {
+        try {
+            $users=User::find($id);
+            $users->aktif ='T';
+            $users->save();
+            $response = $this->generateItem($users);
+            return $this->sendResponse($response);
+        } catch (ModelNotFoundException $e) {
+            return $this->sendNotFoundResponse('user_not_found');
+        } catch (\Exception $e) {
             return $this->sendIseResponse($e->getMessage());
         }
     }

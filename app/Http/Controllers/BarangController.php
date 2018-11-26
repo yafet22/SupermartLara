@@ -152,6 +152,39 @@ class BarangController extends RestController
 
     }
 
+    public function updateBarang(Request $request, $id)
+    {
+        try {
+
+            $barangs = Barang::find($id);
+
+            if($request->hasfile('image_name'))
+            {
+                $file = $request->file('image_name');
+                $name=time().$file->getClientOriginalName();
+                $file->move(public_path().'/images/', $name);
+                $barangs->image_name=$name;
+            }
+
+            $barangs->namabarang=$request->get('namabarang');
+            $barangs->kategori=$request->get('kategori');
+            $barangs->harga=$request->get('harga');
+            $barangs->stock=$request->get('stock');
+            $barangs->deskripsi=$request->get('deskripsi');
+            $barangs->save();
+
+            $response = $this->generateItem($barangs);
+
+            return $this->sendResponse($response, 201);
+        }catch (ModelNotFoundException $e) {
+            return $this->sendNotFoundResponse('barang_not_found');
+        }
+        catch (\Exception $e) {
+            return $this->sendIseResponse($e->getMessage());
+        }
+
+    }
+
     /**
      * Remove the specified resource from storage.
      *

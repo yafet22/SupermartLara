@@ -53,9 +53,13 @@
                                             <td v-html="user.username"></td>
                                             <td v-html="user.telp"></td>
                                             <td v-html="user.email"></td>
-                                            <td v-html="user.aktif"></td>
                                             <td>
-                                                <button type="button" class="btn btn-primary btn-sm btn-block">Edit</button>
+                                                <button v-if="user.aktif=='Y'" type="button" class="btn btn-success btn-sm btn-block" disabled>Aktif</button>   
+                                                <button v-else-if="user.aktif=='T'" type="button" class="btn btn-black btn-sm btn-block" disabled>Non-Aktif</button>   
+                                            </td>
+                                            <td>
+                                                <button v-if="user.aktif=='T'" type="button" @click="on(user.id)" class="btn btn-primary btn-sm btn-block">Aktifkan</button>
+                                                <button v-else-if="user.aktif=='Y'" type="button" @click="off(user.id)" class="btn btn-warning btn-sm btn-block">Non-Aktifkan</button>  
                                                 <button type="button" class="btn btn-danger btn-sm btn-block" @click="destroy(user.id)" >Hapus</button>
                                             </td>
                                         </tr>
@@ -91,7 +95,9 @@ export default {
     methods : {
         ...mapActions({
             get : 'User/getAllUser',
-            deleteUser : 'User/destroy'
+            deleteUser : 'User/destroy',
+            aktivasi : 'User/aktivasi',
+            nonaktivasi : 'User/nonaktivasi'
         }),
 
         destroy(id){
@@ -101,7 +107,28 @@ export default {
             } catch (err) {
                 console.log(err)
             }
-        }
+        },
+
+        on(id){
+            try {
+                console.log(id)
+                this.aktivasi(id)
+                this.get()
+                console.log('Success Delete')
+            } catch (err) {
+                console.log(err)
+            }
+        },
+
+        off(id){
+            try {
+                this.nonaktivasi(id)
+                this.get()
+                console.log('Success Delete')
+            } catch (err) {
+                console.log(err)
+            }
+        },
     },   
     async created(){
         await this.get()

@@ -18,9 +18,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::resource('barangs','BarangController');
+Route::post('edit/{id}','BarangController@updateBarang');
 
 Route::resource('users','UserController');
 Route::post('profile/{id}','UserController@updateProfile');
+Route::patch('aktivasi/{id}','UserController@aktivasi');
+Route::patch('nonaktivasi/{id}','UserController@nonaktivasi');
 
 Route::resource('topups','TopupController');
 

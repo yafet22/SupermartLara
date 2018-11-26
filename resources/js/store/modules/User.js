@@ -1,13 +1,18 @@
 import Http from '../../http'
 
 const state = {
-    user:[]
+    user:[],
+    data:{}
 };
 
 const mutations = {
     setSource(state, source){
         state.user = source
     },
+
+    setUser(state, source){
+        state.data = source
+    }
 };
 
 const actions =  {
@@ -30,15 +35,14 @@ const actions =  {
 
     update(context, payload){
         return new Promise((resolve, reject) => {
-            const data = {
-                username : payload.namabarang,
-                telp : payload.kategori,
-                image_name :payload.image_name
-            }
+
+            let data = new FormData()
+            data.append("username",payload.username)
+            data.append("telp",payload.telp)
+            data.append("image_name",payload.image_name)
 
             const successCallback = res => {
                 if(res.status === 200){
-                    context.dispatch('getBarang')
                     resolve()
                 }
             }
@@ -47,7 +51,60 @@ const actions =  {
                 reject(err)
             }
 
-            Http.patch('/barangs/'+payload.idbarang, data, successCallback, errorCallback)
+            Http.post('/profile/'+payload.id, data, successCallback, errorCallback)
+        })
+    },
+
+    aktivasi(context,id){
+        return new Promise((resolve, reject) => {
+
+            const successCallback = res => {
+                if(res.status === 200){
+                    context.dispatch('getAllUser')
+                    resolve()
+                }
+            }
+
+            const errorCallback = err => {
+                reject(err)
+            }
+
+            Http.patch('/aktivasi/'+id, successCallback, errorCallback)
+        })
+    },
+
+    nonaktivasi(context,id){
+        return new Promise((resolve, reject) => {
+
+            const successCallback = res => {
+                if(res.status === 200){
+                    context.dispatch('getAllUser')
+                    resolve()
+                }
+            }
+
+            const errorCallback = err => {
+                reject(err)
+            }
+
+            Http.patch('/nonaktivasi/'+id, successCallback, errorCallback)
+        })
+    },
+
+    getUser(context, id){
+        return new Promise((resolve, reject) =>{
+            
+            const successCallback = (res) => {
+                console.log(res.data.data)
+                context.commit('setUser',res.data.data)
+                resolve()
+            }
+
+            const errorCallback = (err) => {
+                reject(err)
+            }
+
+            Http.get('/users/'+id,successCallback,errorCallback)
         })
     },
 
