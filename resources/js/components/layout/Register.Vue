@@ -48,7 +48,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <button type="button" class="btn btn-primary" style="display: block; margin: 0 auto;">Cancel</button>
+                                   <router-link to="/login"><button type="button" class="btn btn-primary" style="display: block; margin: 0 auto;">Cancel</button></router-link>
                                 </div>
                                 <div class="col-md-6">
                                     <button type="submit" class="btn btn-success" value="Upload" id="submit" name="tambah" style="display: block; margin: 0 auto;" @click="register">Register</button>
@@ -111,6 +111,7 @@ data(){
                 await Auth.register(payload)
                 console.log('Berhasil Daftar')
                 alert('Anda Berhasil Melakukan Registrasi, Silahkan Registrasi Email Anda')
+                this.$router.push({ name : 'login'})
                 this.setInit()
             }catch(err){
                 alert('Registrasi Anda Gagal')

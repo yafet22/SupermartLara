@@ -19475,23 +19475,24 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                             case 10:
                                 console.log('Berhasil Daftar');
                                 alert('Anda Berhasil Melakukan Registrasi, Silahkan Registrasi Email Anda');
+                                this.$router.push({ name: 'login' });
                                 this.setInit();
-                                _context.next = 19;
+                                _context.next = 20;
                                 break;
 
-                            case 15:
-                                _context.prev = 15;
+                            case 16:
+                                _context.prev = 16;
                                 _context.t0 = _context['catch'](0);
 
                                 alert('Registrasi Anda Gagal');
                                 console.log(_context.t0);
 
-                            case 19:
+                            case 20:
                             case 'end':
                                 return _context.stop();
                         }
                     }
-                }, _callee, this, [[0, 15]]);
+                }, _callee, this, [[0, 16]]);
             }));
 
             function register() {
@@ -19723,7 +19724,24 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "row" }, [
-              _vm._m(1),
+              _c(
+                "div",
+                { staticClass: "col-md-6" },
+                [
+                  _c("router-link", { attrs: { to: "/login" } }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        staticStyle: { display: "block", margin: "0 auto" },
+                        attrs: { type: "button" }
+                      },
+                      [_vm._v("Cancel")]
+                    )
+                  ])
+                ],
+                1
+              ),
               _vm._v(" "),
               _c("div", { staticClass: "col-md-6" }, [
                 _c(
@@ -19758,22 +19776,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "container title_hightlight" }, [
       _c("h2", { staticClass: "font-weight-bold" }, [_vm._v("REGISTRATION")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-6" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-primary",
-          staticStyle: { display: "block", margin: "0 auto" },
-          attrs: { type: "button" }
-        },
-        [_vm._v("Cancel")]
-      )
     ])
   }
 ]
@@ -21880,6 +21882,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                 this.get();
             } catch (err) {
                 console.log(err);
+                alert('Terjadi Kesalahan');
             }
         },
         handleFileUpload: function handleFileUpload() {

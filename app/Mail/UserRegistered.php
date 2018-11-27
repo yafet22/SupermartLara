@@ -28,6 +28,6 @@ class UserRegistered extends Mailable
      */
     public function build()
     {
-        return $this->view('mails.email');
+        return $this->from('supermart.atma16@gmail.com','Supermart')->subject('Email Verification')->view('mails.email');
     }
 }
