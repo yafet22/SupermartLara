@@ -20699,7 +20699,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             id: 0,
             hover: false,
             hover2: false,
-            hover3: false
+            hover3: false,
+            total: 0
         };
     },
 
@@ -20718,10 +20719,19 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
         export: 'Cart/download'
     }), {
         finishBuy: function finishBuy(idtransaksi) {
+            var _this = this;
+
             try {
-                this.finish(idtransaksi);
-                this.get(this.$auth.user().id);
-                this.export(this.$auth.user().id);
+                this.carts.forEach(function (element) {
+                    _this.total = _this.total + element.totalharga;
+                });
+                if (this.total <= this.$auth.user().saldo) {
+                    this.finish(idtransaksi);
+                    this.get(this.$auth.user().id);
+                    this.export(this.$auth.user().id);
+                } else {
+                    alert('Saldo anda tidak cukup');
+                }
             } catch (err) {
                 alert('Gagal Melakukan Pembelian');
                 console.log(err);
@@ -20748,15 +20758,20 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                 console.log(err);
             }
         },
-        kurangCart: function kurangCart(idcart) {
+        kurangCart: function kurangCart(idcart, jumlah) {
             var payload = {
                 id: idcart,
                 jumlah: -1
             };
 
             try {
-                this.update(payload);
-                this.get(this.$auth.user().id);
+                if (jumlah > 1) {
+                    this.update(payload);
+                    this.get(this.$auth.user().id);
+                } else {
+                    alert('Minimal Barang 1');
+                    console.log('Minimal Barang 1');
+                }
             } catch (err) {
                 console.log(err);
             }
@@ -20942,7 +20957,7 @@ var render = function() {
                                 on: {
                                   mouseleave: _vm.mouseLeave3,
                                   click: function($event) {
-                                    _vm.kurangCart(cart.id)
+                                    _vm.kurangCart(cart.id, cart.jumlah)
                                   }
                                 }
                               })

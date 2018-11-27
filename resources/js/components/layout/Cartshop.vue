@@ -51,7 +51,7 @@
                                     <i v-else @mouseover="mouseOver2" class="fa fa-plus-square fa-lg" aria-hidden="true"></i>
                                 </td>
                                 <td>
-                                    <i v-if="hover3" @mouseleave="mouseLeave3" @click="kurangCart(cart.id)" class="fa fa-minus-square-o fa-lg" aria-hidden="true"></i>
+                                    <i v-if="hover3" @mouseleave="mouseLeave3" @click="kurangCart(cart.id,cart.jumlah)" class="fa fa-minus-square-o fa-lg" aria-hidden="true"></i>
                                     <i v-else @mouseover="mouseOver3" class="fa fa-minus-square fa-lg" aria-hidden="true"></i>
                                 </td>
                             </tr>
@@ -88,7 +88,8 @@ export default {
             id:0,
             hover:false,
             hover2:false,
-            hover3:false
+            hover3:false,
+            total:0,
         }
     },
     computed:{
@@ -110,9 +111,17 @@ export default {
         finishBuy(idtransaksi)
         {
             try{
-                this.finish(idtransaksi)
-                this.get(this.$auth.user().id)
-                this.export(this.$auth.user().id)
+                this.carts.forEach(element => {
+                    this.total = this.total + element.totalharga;
+                });
+                if(this.total<=this.$auth.user().saldo){
+                    this.finish(idtransaksi)
+                    this.get(this.$auth.user().id)
+                    this.export(this.$auth.user().id)
+                }
+                else{
+                    alert('Saldo anda tidak cukup')
+                }
             }
             catch(err){
                 alert('Gagal Melakukan Pembelian')
@@ -144,7 +153,7 @@ export default {
                 console.log(err)
             }
         },
-        kurangCart(idcart)
+        kurangCart(idcart,jumlah)
         {
             const payload = {
                 id : idcart,
@@ -152,8 +161,15 @@ export default {
             }
 
             try{
-                this.update(payload)
-                this.get(this.$auth.user().id)
+                if(jumlah>1){
+                    this.update(payload)
+                    this.get(this.$auth.user().id)
+                }
+                else
+                {
+                    alert('Minimal Barang 1')
+                    console.log('Minimal Barang 1')
+                }
             }
             catch(err){
                 console.log(err)
